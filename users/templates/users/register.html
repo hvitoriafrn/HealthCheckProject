@@ -1,12 +1,18 @@
 <html>
     <body>
     <!-- Creating a draft of the registration page -->
-        <h2>Register your account</h3>
-            Welcome to the team!
-            <p>Already have an account? 
-                <!-- linking to the login page-->
+    <style>
+        h2 {text-align: center;}
+        p {text-align: center;}
+        div {text-align: center;}
+    </style>
+        <h2>Register your account</h2>
+            <p>Welcome to the team! <br>
+            Already have an account? 
+                <!-- linking to the login page -->
                 <a href="{% url 'login' %}">Log in</a> 
             </p>
+            <div>
         <form>
             <!-- Input fields -->
             <label for="fname">First name</label><br>
@@ -31,5 +37,6 @@
             <br>
             <input type="submit" value="Register"><br>
         </form>
+    </div>
     </body>
 </html>
