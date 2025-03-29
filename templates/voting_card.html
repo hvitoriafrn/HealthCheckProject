@@ -1,0 +1,55 @@
+{% load static %}
+
+<!-- HUGE work in progress here. For now I've got a rough draft for the voting card
+ Logic implementation TBC 
+ the overall structure will be changed soon as well so that it complies with Django standards and utalizes the templates functionality 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+	<title></title>
+</head>
+<body>
+	<div class="voting-card-body">
+		<div class="voting-card-header">
+			<img src="" alt="🌄"><h2>Qx: Questions content here</h2>
+		</div>
+		<div class="voting-card-progress-bar">
+			<div class="voting-card-progress-bar 10%"></div>
+			<div class="voting-card-progress-bar 20%"></div>
+			<div class="voting-card-progress-bar 30%"></div>
+			<div class="voting-card-progress-bar 40%"></div>
+			<div class="voting-card-progress-bar 50%"></div>
+			<div class="voting-card-progress-bar 60%"></div>
+			<div class="voting-card-progress-bar 70%"></div>
+			<div class="voting-card-progress-bar 80%"></div>
+			<div class="voting-card-progress-bar 90%"></div>
+			<div class="voting-card-progress-bar 95%"></div>
+			<div class="voting-card-progress-bar 100%"></div>
+		</div>
+
+		<form class="voting-card-form">
+			<div class="traffic-light-container">
+				<div class="voting-card-traffic-light-green-hint">hint here</div>
+				<button class="voting-card-traffic-light-btn" value="green"></button>
+				<button class="voting-card-traffic-light-btn" value="amber"></button>
+				<button class="voting-card-traffic-light-btn" value="red"></button>
+				<div class="voting-card-traffic-light-red-hint">hint here</div>				
+			</div>
+			<p>Comments</p>
+			<textarea class="voting-card-comments">
+				
+			</textarea>
+			<p>any optional comments you'd like to share</p>
+			<hr>
+			<div class="voting-card-footer">
+				
+			</div>
+			<button>Exit</button> <button>Save Progress</button> <button>Next Question</button>
+		</form>
+	</div>
+</body>
+</html>
