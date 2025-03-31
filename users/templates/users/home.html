@@ -1,5 +1,171 @@
-{% extends "base.html" %}
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sky Squad Project Health Check Software</title>
+  
+  <!-- this will link to my css when i make it, for now ive put it all here
+   <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+  <style>
+    /* Basic styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif; /* Use Arial font */
+      background-color: #fff; /* Set background to white */
+    }
+    header {
+      padding: 10px 20px; /* Space inside the header */
+      background: #fff; /* White background for header */
+    }
 
-{% block content %}
-    <h1>welcome chicks</h1>
-{% endblock %}
+     /* Container for header content (logo and text) */
+    .header-content {
+      display: flex;
+      flex-direction: column; /* Stack items vertically */
+      align-items: flex-start;  /* Keeps items to the left */
+    }
+
+     /* Logo styling */
+    .logo {
+      width: 200px;   /* Makes the logo bigger */
+      height: auto;   /* Keeps the aspect ratio */
+      transition: transform 0.3s; /* For hover effect */
+    }
+    .logo:hover {
+      transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+    /* Styling for text under the logo */
+    .header-text h2 {
+      font-size: 1.5rem; /* Smaller font size since we're using h2 */
+      margin: 10px 0 5px 0; /* Top, right, bottom, left margins */
+      margin-left: 60px; /* Indent text to align with design */
+      
+    }
+    .header-text p { 
+      margin: 0; /* Remove default paragraph margin */
+      font-size: 1rem; /* Set font size for paragraphs */
+      line-height: 1.4; /* Set line spacing */
+      margin-left: 60px; /* Indent to align with header text */
+    }
+    .hero {
+      text-align: center; /* Center the content inside hero */
+      padding: 60px 20px; /* Space around hero content */
+      background-color: #fff; /* White background for hero */
+    }
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem; /* Space below heading */
+      
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px; /* Maximum width for readability */
+      margin: 0 auto 1.5rem auto; /* Center and space out paragraph */
+      line-height: 1.5;
+    }
+    .btn-demo {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #2c71fd; /* Blue button */
+      color: #fff; /* White text */
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: opacity 0.3s; /* Smooth hover effect */
+    }
+    .btn-demo:hover {
+      opacity: 0.8; /* Slight fade on hover */
+    }
+    footer {
+      text-align: center; /* Center text in footer */
+      padding: 10px;
+      background: #fff; /* White background */
+      border-top: 1px solid #ccc; /* Light top border */
+      margin-top: 40px; /* Space above the footer */
+    }
+
+    /* Footer container holds logo and links side by side */
+    .footer-container {
+  display: flex;
+  justify-content: space-between; /* Logo left, links right */
+  align-items: center;
+  padding: 10px 20px;  /* Adds space around the content */
+}
+
+/* Footer logo sizing */
+.footer-logo .logo {
+  width: 100px;  /* To adjust size */
+  height: auto;
+}
+
+/* Footer links styling */
+.footer-links {
+  text-align: right;
+  padding-right: 20px;  /* Extra space from the right edge */
+}
+
+.footer-links a {
+  margin-left: 20px;  /* Adds space between each link */
+  text-decoration: none;
+  color: #000;
+}
+
+.footer-links a:first-child {
+  margin-left: 0;  /* No left margin for the first link */
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-content">
+      <!-- Sky Logo -->
+      <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+      <!-- Text underneath the logo -->
+      <div class="header-text">
+        <p>Sky Squad Project Health Check Software</p> <br>
+        <h2>
+            Keep track of your team's attitude towards <br>
+            current affairs of their projects. <br><br></h2>
+        <p>Review the health status of your projects and see <br>
+          which areas need extra attention.
+    </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="hero">
+      <!-- Single button that takes the user to the login page -->
+      <button class="btn-demo" onclick="window.location.href='/users/login/'">
+        Log in
+      </button>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+        <!-- Logo on the left -->
+        <div class="footer-logo">
+          <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+        </div>
+        <!-- Footer links on the right -->
+    <div class="footer-links">
+        <a href="/help/">Help</a>
+        <a href="/accessibility/">Accessibility</a>
+        <a href="/privacy/">Privacy & terms of use</a>
+        <a href="/contact/">Contact us</a>
+        <a href="/legal/">Legal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
