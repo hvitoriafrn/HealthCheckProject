@@ -78,6 +78,13 @@
     .btn-demo:hover {
       opacity: 0.8; /* Slight fade on hover */
     }
+
+    .hero-buttons {
+  display: flex;
+  justify-content: center; /* Centers buttons */
+  gap: 10px; /* Adds space between buttons */
+}
+
     footer {
       text-align: center; /* Center text in footer */
       padding: 10px;
@@ -142,11 +149,16 @@
   <!-- Main Content -->
   <main>
     <section class="hero">
-      <!-- Single button that takes the user to the login page -->
-      <button class="btn-demo" onclick="window.location.href='/users/login/'">
-        Log in
-      </button>
-    </section>
+        <div class="hero-buttons">
+          <button class="btn-demo" onclick="window.location.href='/users/login/'">
+            Log in
+          </button>
+          <button class="btn-demo" onclick="window.location.href='/users/register/'">
+            Register
+          </button>
+        </div>
+      </section>
+      
   </main>
 
   <!-- Footer Section -->
