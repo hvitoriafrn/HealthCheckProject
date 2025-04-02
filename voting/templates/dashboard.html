@@ -1,0 +1,21 @@
+<h2>Your Voting Sessions</h2>
+
+<h3>Pending Sessions</h3>
+<ul>
+    {% for session in pending_sessions %}
+        <li>
+            <a href="{% url 'voting_session' session.id 0 %}">{{ session.title }}</a>
+        </li>
+    {% empty %}
+        <p>No pending sessions.</p>
+    {% endfor %}
+</ul>
+
+<h3>Completed Sessions</h3>
+<ul>
+    {% for session in completed_sessions %}
+        <li>{{ session.title }} (submitted)</li>
+    {% empty %}
+        <p>No completed sessions yet.</p>
+    {% endfor %}
+</ul>

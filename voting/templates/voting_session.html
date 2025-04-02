@@ -1,0 +1,29 @@
+<h2>{{ session.title }}</h2>
+<h3>Question {{ question_index|add:1 }} of {{ total_questions }}</h3>
+<p>{{ question.text }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <label>
+        <input type="radio" name="choice" value="green" {% if vote and vote.choice == "green" %}checked{% endif %}>
+        😀 Happy (Green)
+    </label><br>
+
+    <label>
+        <input type="radio" name="choice" value="amber" {% if vote and vote.choice == "amber" %}checked{% endif %}>
+        😐 Unsure (Amber)
+    </label><br>
+
+    <label>
+        <input type="radio" name="choice" value="red" {% if vote and vote.choice == "red" %}checked{% endif %}>
+        😡 Unhappy (Red)
+    </label><br>
+
+    <textarea name="comment" placeholder="Optional comment">{{ vote.comment }}</textarea><br>
+
+    <button type="submit" name="previous" {% if question_index == 0 %}disabled{% endif %}>Previous</button>
+    <button type="submit" name="next" {% if question_index|add:1 == total_questions %}disabled{% endif %}>Next</button>
+</form>
+
+<a href="{% url 'summary_view' session.id %}">Review and Submit</a>

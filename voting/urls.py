@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.vote_home, name='vote_home'),  # Voting home page
-    path('submit/', views.submit_vote, name='submit_vote'),  # Vote submission page
-    path('results/', views.view_results, name='view_results'),  # View results page
+    path('', views.dashboard, name='dashboard'),
+    path('session/<int:session_id>/', views.voting_session, name='voting_session'),
+    path('session/<int:session_id>/question/<int:question_index>/', views.voting_session, name='voting_session'),
+    path('session/<int:session_id>/summary/', views.summary_view, name='summary_view'),
 ]

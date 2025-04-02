@@ -1,0 +1,16 @@
+<h2>Review Your Answers</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <ul>
+        {% for question in questions %}
+            <li>
+                <strong>{{ question.text }}</strong><br>
+                <span>Answer: {{ votes|get_item:question.id|default:"Not answered" }}</span><br>
+                <a href="{% url 'voting_session' session.id forloop.counter0 %}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit">Submit Final Responses</button>
+</form>
