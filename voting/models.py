@@ -1,45 +1,36 @@
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+
+VOTE_CHOICES = (
+    ('green', 'Happy'),
+    ('amber', 'Not Sure'),
+    ('red', 'Unhappy'),
+)
 
 class VotingSession(models.Model):
-    """A voting session for tracking satisfaction at a given time."""
-    title = models.CharField(max_length=255)  # Name of the session
-    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp
-    users = models.ManyToManyField(User, related_name="voting_sessions")  # Assigned users
-    submitted_by = models.ManyToManyField(User, related_name="submitted_sessions", blank=True)  # Users who submitted
-
-    def is_completed_by_user(self, user):
-        """Check if a user has submitted their votes."""
-        return self.submitted_by.filter(id=user.id).exists()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="voting_sessions")
+    created_at = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return f"Session {self.id} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"
 
-class Question(models.Model):
-    """A standard question used in voting sessions."""
-    text = models.TextField()
+class QuestionTemplate(models.Model):
+    number = models.PositiveIntegerField()
+    text = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.text
+        return f"Q{self.number}: {self.text}"
 
 class Vote(models.Model):
-    """Stores the user's response to a question in a session."""
-    VOTE_CHOICES = [
-        ('green', 'Happy'),
-        ('amber', 'Unsure'),
-        ('red', 'Unhappy'),
-    ]
-
-    #relationship with other tables defined here 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    session = models.ForeignKey(VotingSession, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-    choice = models.CharField(max_length=10, choices=VOTE_CHOICES) #TBC
+    voting_session = models.ForeignKey(VotingSession, on_delete=models.CASCADE, related_name="votes")
+    question_template = models.ForeignKey(QuestionTemplate, on_delete=models.CASCADE)
+    vote = models.CharField(max_length=10, choices=VOTE_CHOICES)
     comment = models.TextField(blank=True, null=True)
+    answered_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'session', 'question')  # Prevent duplicate votes
+        unique_together = ('voting_session', 'question_template')
 
     def __str__(self):
-        return f"{self.user.username} - {self.session.title} - {self.question.text[:50]}"
+        return f"Session {self.voting_session.id} - Q{self.question_template.number}: {self.vote}"

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Voting Sessions</h2>
+<ul>
+    {% for session in sessions %}
+        <li>
+            Session on {{ session.created_at|date:"Y-m-d H:i" }} -
+            <a href="{% url 'voting_session' session.id 1 %}">
+                Start / Continue
+            </a>
+        </li>
+    {% empty %}
+        <li>No voting sessions available. Start a new session!</li>
+    {% endfor %}
+</ul>
+{% endblock %}

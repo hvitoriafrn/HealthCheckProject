@@ -1,99 +1,43 @@
-from django.shortcuts import render
-
-
-'''
-Stuff written by Vitoria. TBC 
-def vote_home(request):
-    return render(request, 'voting/home.html')
-
-def submit_vote(request):
-    return render(request, 'voting/submit.html')
-
-def view_results(request):
-    return render(request, 'voting/results.html')
-'''
-
-
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import VotingSession, Question, Vote
-from django.contrib import messages
+from .models import VotingSession, QuestionTemplate, Vote
+from .forms import VoteForm
 
 @login_required
 def dashboard(request):
-    """Show pending and completed voting sessions."""
-    pending_sessions = VotingSession.objects.filter(users=request.user).exclude(submitted_by=request.user)
-    completed_sessions = VotingSession.objects.filter(submitted_by=request.user)
-    
-    return render(request, 'voting/dashboard.html', {
-        'pending_sessions': pending_sessions,
-        'completed_sessions': completed_sessions
-    })
+    sessions = VotingSession.objects.filter(user=request.user)
+    return render(request, 'dashboard.html', {'sessions': sessions})
 
 @login_required
-def voting_session(request, session_id, question_index=0):
-    """Display a single question for voting."""
-    session = get_object_or_404(VotingSession, id=session_id, users=request.user)
-    questions = Question.objects.all()
+def voting_session_view(request, session_id, question_number):
+    session = get_object_or_404(VotingSession, id=session_id, user=request.user)
+    # Get the specific question by its number
+    question = get_object_or_404(QuestionTemplate, number=question_number)
     
-    # If the session is already submitted, prevent access
-    if session.is_completed_by_user(request.user):
-        messages.warning(request, "You have already submitted this session.")
-        return redirect('dashboard')
+    # Check if a vote already exists for this question in the session
+    vote_instance = Vote.objects.filter(voting_session=session, question_template=question).first()
 
-    if question_index >= len(questions) or question_index < 0:
-        return redirect('voting_session', session_id=session.id, question_index=0)
+    if request.method == 'POST':
+        form = VoteForm(request.POST, instance=vote_instance)
+        if form.is_valid():
+            vote_obj = form.save(commit=False)
+            vote_obj.voting_session = session
+            vote_obj.question_template = question
+            vote_obj.save()
+            # Decide on navigation based on the button clicked
+            if 'next' in request.POST:
+                return redirect('voting_session', session_id=session.id, question_number=question_number + 1)
+            elif 'prev' in request.POST:
+                return redirect('voting_session', session_id=session.id, question_number=question_number - 1)
+            elif 'save' in request.POST:
+                # Optionally update session state if needed
+                return redirect('dashboard')
+    else:
+        form = VoteForm(instance=vote_instance)
 
-    question = questions[question_index]
-
-    # Get existing vote, if any
-    vote = Vote.objects.filter(user=request.user, session=session, question=question).first()
-
-    if request.method == "POST":
-        choice = request.POST.get("choice")
-        comment = request.POST.get("comment", "")
-
-        if choice in ['green', 'amber', 'red']:
-            if vote:
-                vote.choice = choice
-                vote.comment = comment
-                vote.save()
-            else:
-                Vote.objects.create(user=request.user, session=session, question=question, choice=choice, comment=comment)
-        
-        # Next or Previous navigation
-        if "next" in request.POST and question_index + 1 < len(questions):
-            return redirect('voting_session', session_id=session.id, question_index=question_index + 1)
-        elif "previous" in request.POST and question_index > 0:
-            return redirect('voting_session', session_id=session.id, question_index=question_index - 1)
-
-    return render(request, 'voting/voting_session.html', {
+    context = {
         'session': session,
         'question': question,
-        'question_index': question_index,
-        'total_questions': len(questions),
-        'vote': vote
-    })
-
-@login_required
-def summary_view(request, session_id):
-    """Show all answered questions before final submission."""
-    session = get_object_or_404(VotingSession, id=session_id, users=request.user)
-    questions = Question.objects.all()
-    votes = Vote.objects.filter(user=request.user, session=session)
-
-    if session.is_completed_by_user(request.user):
-        messages.warning(request, "You have already submitted this session.")
-        return redirect('dashboard')
-
-    if request.method == "POST":
-        # Final submission
-        session.submitted_by.add(request.user)
-        messages.success(request, "Your responses have been submitted successfully.")
-        return redirect('dashboard')
-
-    return render(request, 'voting/summary.html', {
-        'session': session,
-        'questions': questions,
-        'votes': {v.question.id: v for v in votes}  # Dictionary for easy lookup
-    })
+        'form': form,
+    }
+    return render(request, 'voting_session.html', context)

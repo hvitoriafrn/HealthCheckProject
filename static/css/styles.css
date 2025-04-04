@@ -1,4 +1,5 @@
-/* the following lines are a quick draft for the voting card template*/
+
+/* the following lines are a quick draft for the voting card template
 .voting-card-body{
 	width: 60vw;
 	min-height: 20vw;
@@ -25,15 +26,43 @@
 	padding: 0;
 	margin: 0;
 }
-/*for positioning the actual amber/red/green buttons*/
+for positioning the actual amber/red/green buttons
 .traffic-light-container *{
 	display: inline-block;
 }
 
-/*makes amber/red/green buttons round like traffic lights*/
+makes amber/red/green buttons round like traffic lights
 .voting-card-traffic-light-btn{
 	width: 137px;
 	height: 137px;
 	border-radius: 137px;
 	border: none;
+}*/
+
+.radio-input {
+    display: none;
+}
+
+.traffic-light label {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Default colors */
+label[for="id_vote_0"] { background-color: green; }
+label[for="id_vote_1"] { background-color: orange; }
+label[for="id_vote_2"] { background-color: red; }
+
+/* Highlight selected radio button */
+.radio-input:checked + label {
+    border: 4px solid #000;
 }

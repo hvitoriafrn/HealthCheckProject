@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('users.urls')),  # Default route -> users app
     path('voting/', include('voting.urls')),  # Voting pages
     path('results/', include('results.urls')),  # Results pages
+    path('accounts/', include('django.contrib.auth.urls')), #might not need this, but I'm testing something out. ~Pawel
 ]

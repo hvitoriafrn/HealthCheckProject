@@ -1,34 +1,22 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Django App{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'voting/css/styles.css' %}">
+    <title>Employee Satisfaction Voting</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- TBC, might delete later. It is pure chaos at the moment-->
 </head>
 <body>
-
     <header>
-        <h1>Welcome to the Sky Health Check project</h1>
+        <h1>Voting App</h1>
         <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'logout' %}">Logout</a>
         </nav>
     </header>
-
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </main>
-
-    <footer>
-        <p>&copy; Sky Health Check 2025 </p>
-    </footer>
-
-    <script src="{% static 'js/script.js' %}"></script>
-
 </body>
 </html>

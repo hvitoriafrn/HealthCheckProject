@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Voting Session from {{ session.created_at|date:"Y-m-d H:i" }}</h2>
+<div class="question-card">
+    <h3>Q{{ question.number }}: {{ question.text }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="navigation-buttons" class="traffic-light">
+            {% if question.number > 1 %}
+            <button type="submit" name="prev">Previous</button>
+            {% endif %}
+            <button type="submit" name="next">Next</button>
+            <button type="submit" name="save">Save &amp; Exit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
