@@ -8,17 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
-    <header>
-        <h1>Welcome to the Sky Health Check project</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- I removed the basic nav with links to home, login and register as I don't think they're needed in the 'base.html' file-->
 
     <main>
         {% block content %}{% endblock %}
