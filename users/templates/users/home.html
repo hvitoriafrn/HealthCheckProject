@@ -65,6 +65,7 @@
       margin: 0 auto 1.5rem auto; /* Center and space out paragraph */
       line-height: 1.5;
     }
+
     .btn-demo {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
@@ -78,6 +79,20 @@
     .btn-demo:hover {
       opacity: 0.8; /* Slight fade on hover */
     }
+
+  .btn-outline {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: transparent;        /* no fill */
+    border: 2px solid #ccc;       /* light grey border */
+    color: #333;                  /* dark text */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-outline:hover {
+  background: #f0f0f0;            /* subtle grey on hover */
+}
 
     .hero-buttons {
   display: flex;
@@ -153,7 +168,7 @@
           <button class="btn-demo" onclick="window.location.href='/users/login/'">
             Log in
           </button>
-          <button class="btn-demo" onclick="window.location.href='/users/register/'">
+          <button class="btn-outline" onclick="window.location.href='/users/register/'">
             Register
           </button>
         </div>
