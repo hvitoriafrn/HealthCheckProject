@@ -1,20 +1,198 @@
-<htmL>
+<html>
     <style>
-        h3 {text-align: center;}
-        p {text-align: center;}
-        div {text-align: center;}
-    </style>
+
+    .container {
+        margin-top: 150px ;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 1px 3px 10px 0px #888888;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 420px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    /* body */
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+
+    /* styling the link */
+    a {
+        color: rgb(31, 147, 255);
+        font-size: small;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* styling for the register button at the bottom of the form */
+    button {
+        padding: 10px;
+        font-size: 14px;
+        background-color: #1586ff;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        height: 40px;
+    }
+
+    /* for te 'welcome to the team' text */
+    .subtextBlack{
+        text-align: center;
+        margin-bottom: 4px;
+
+    }
+
+    /* styling the subtext */
+    .subtext {
+        color: gray;
+        font-size: small;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    /* style for the label text */
+    label {
+        font-size: 13px;
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 1px;
+        color: #888888;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 70%;
+        margin-right: auto;
+        margin-left:auto;
+        margin-top: 5px;
+}
+
+/* for input fields and the dropdown */
+    input {
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        height: 40px;
+        margin-bottom: 2px;
+        margin-top: 2px;
+        background-color: #f2f2f2;
+    }
+
+    .forgotP{
+        text-align: right;
+        font-size: x-small;
+    }
+
+    .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: small;
+        width: 100%;
+        margin-top: 4px;
+}
+
+    .checkbox-label input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+        accent-color: #00aa22; /* Optional: style the checkbox color */
+        }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: x-small;
+        color: gray;
+    }
+
+    .error-message {
+        color:  rgb(255, 0, 0);
+        font-size: small;
+        text-align: left;
+    }
+    .alert-danger {
+        color: rgb(255, 0, 0);
+        padding: 5px;
+        margin-bottom: 2px;
+        border-radius: 2px;
+        font-size: x-small;
+        margin-top: -10px;
+        text-align: left;
+    }
+</style>
+
     <body>
         <!--base login page-->
-        <div>
-        <h3> Log into your account</h3>
-        <!-- input field where the user will enter their details to login  -->
-        <label for="email">Enter your email</label><br>
-        <input type="email" id="email" name="email" size="40"><br>
-        <label for="password">Enter your password </label><br>
-        <input type="password" id="password" name="password" size="40"><br>
-        <br>
-        <input type="submit" value="Login"><br>
+        <div class="container">
+            <h2> Log into your account</h2>
+            <div class="subtextBlack">Welcome back! </div>
+            <div class="subtext">Don't have an account?
+        <!-- linking to the login page -->
+            <a href="{% url 'register' %}" name="link">Register</a> </div>
+       
+        <!-- error message -->
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger mt-3"
+            role="alert">
+            {{ error }}
         </div>
+        {% endif %}
+
+         <!-- input field where the user will enter their details to login  -->
+
+            <!--loading the login form I created -->
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            
+            <!-- shows errors (non field ones) -->
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Email field (it's called username) -->
+            <label for="{{ form.username.id_for_label }}">Email</label>
+            {{ form.username }}
+            {% for error in form.username.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+
+            <!-- Password field -->
+            <label for="{{ form.password.id_for_label }}">Password</label>
+            {{ form.password }}
+            {% for error in form.password.errors %}
+                <div class="error-message">{{ error }}</div>
+            {% endfor %}
+
+            <div class="options">
+            <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe" name="rememberMe">Remember me </label>
+            <a href="{% url 'register' %}" class="forgotP">Forgot your password?</a>
+            </div>
+
+            
+            <!-- sign in button-->
+            <button name="button" type="submit"> Sign in </button>
+
+        </form>
+        </div>
+     </div>    
     </body>
-</htmL>
+</html>
