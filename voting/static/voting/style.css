@@ -1,0 +1,22 @@
+
+.main-layout-voting{
+    display: grid;
+    grid-template-columns: 30% 70%;
+
+}
+.navigation-menu{
+    background-color: beige;
+    display: block;
+    width: 100%;
+    height: 80vh;
+    text-align: center;
+}
+.navigation-menu  span{
+    margin-top: 39vh;
+    display: inline-block;
+}
+.dashboard-content{
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
