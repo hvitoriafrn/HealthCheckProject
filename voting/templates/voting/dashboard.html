@@ -9,10 +9,10 @@
         </nav>
         <section class="dashboard-content">
             <h1>Hello, {{request.user.username}}</h1>
-            <hr>
             {% if pending_sessions %}
+                <p>Here are voting sessions available to you:</p>
                 {% for session in pending_sessions %}
-                    <a><button><a href="{% url 'voting:session' session.id %}">{{session.title}} - ID:{{session.pk}}</a></button></a>
+                    <a href="{% url 'voting:session' session.id %}"><button class="dashboard-session-btn">ID: {{session.pk}} -- {{session.title}}</button></a>
                 {% endfor %}
             {% else %}
                 <h3>You do not have any sessions pending</h3>
