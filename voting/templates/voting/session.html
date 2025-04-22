@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Voting Dashboard{% endblock %}
 {% load static %}
-{% block style_sheet %} <link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}"> {% endblock %}
+{% block style_sheet %}<link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}">{% endblock %} 
 {% block content %}
     <section class="main-layout-voting">
         <nav class="navigation-menu">
@@ -10,13 +10,15 @@
         <section class="dashboard-content">
             <h1>Hello, {{request.user.username}}</h1>
                 <button class="dashboard-session-btn">ID: {{session.pk}} -- {{session.title}}</button>
+
+
                 <form method="POST" action="#">
                     {%csrf_token%}
                     {% for question in questions %}
-                        <div class="voting-card-body">
+                        <div class="voting-card-body" id="voting-card-body-{{ forloop.counter }}">
                             <header>
                                 <h3>🌄 Q{{forloop.counter}}: {{question.question_content}}</h3>
-                                <div class="progress-bar"></div>
+                                <progress class="progress-bar" value="{{ forloop.counter }}" max="{{questions_qty|add:1}}"></progress>
                             </header>
 
                             <section class="trafficlight-container">
@@ -27,19 +29,50 @@
                                 <div class="hint hint-red">{{question.question_hint_red}}</div>
                             </section>
 
-                            <textarea name="{{question.pk}}-comment" id="{{question.pk}}-comment">optional comments for question with id equal to {{question.pk}}</textarea><br>
-                            <button>NAV BUTTONS HERE IGNORE FOR NOW</button><button>NAV BUTTONS HERE IGNORE FOR NOW</button><button>NAV BUTTONS HERE IGNORE FOR NOW</button>
-                        </div>
-                        
-                        
+                            <section class="comment-container">
+                                <div class="comment-spacing"></div>
+                                <div class="comment-field-container">
+                                    <label for="{{question.pk}}-comment" class="comment-label-top comment-label">Comments</label>
+                                    <textarea name="{{question.pk}}-comment" 
+                                    id="{{question.pk}}-comment" 
+                                    class="comment-field" 
+                                    placeholder="If there's anything else you'd like to add"></textarea>
+                                    <label for="{{question.pk}}-comment" class="comment-label-bottom comment-label">Any optional comments you'd like to share </label>              
+                                </div>                                
+                                <div class="comment-spacing"></div>
+                            </section>
+
+                            <nav class="voting-card-nav">
+                                {% if forloop.counter == 1 %}
+                                    <div class="button-secondary" onclick="exit({% url 'voting:dashboard' %})">Exit</div>
+                                {% else %}
+                                    <div class="button-secondary" onclick="previousQuestion({{forloop.counter}})">Previos Question</div>
+                                {% endif %}
+                                <div class="button-secondary">Save Progress</div>
+                                <div class="button-primary" onclick="nextQuestion({{forloop.counter}})">Next Question</div>
+                            </nav>
+                            
+                        </div>             
                     {% endfor %}
+                    <div class="voting-card-body voting-card-summary" id="voting-card-body-2137" data-questions-qty="{{questions_qty}}">
+                        <header>
+                            <h3>🌄 Please double check all of your answers before submitting</h3>
+                            <progress class="progress-bar" value="{{questions_qty|add:1}}" max="{{questions_qty|add:1}}"></progress>
+                        </header>
+                        <section class="content-summary-container" id="content-summary-container">
+
+                        </section>
+                        <nav class="voting-card-nav">
+                            <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
+                            <div class="button-secondary">Save Progress</div>
+                            <input class="button-primary" type="submit" value="Submit answers">
+                        </nav>
+                    
+                    </div>
+
                     <input type="submit" value="save answers">
                 </form>
-                
-
-                    
-                    {{question.question_hint_green}}
         </section>
     </section>
-
+    <script>document.addEventListener("DOMContentLoaded", function () {navInit();});</script>
 {% endblock %}

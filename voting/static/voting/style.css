@@ -1,9 +1,11 @@
-
+/* simple layout for the voting app */
 .main-layout-voting{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% auto; /* 30% screen width for the nav bar, rest for the voting cards */
 
 }
+
+/* temporary placeholder for the nav menu*/
 .navigation-menu{
     background-color: beige;
     display: block;
@@ -11,15 +13,18 @@
     height: 80vh;
     text-align: center;
 }
+
 .navigation-menu span{
     margin-top: 39vh;
     display: inline-block;
 }
+
 .dashboard-content{
     display: block;
     width: 100%;
     padding: 10px;
 }
+
 .dashboard-session-btn{
     margin-top: 0.25em;
     border-radius: 5px; 			
@@ -33,22 +38,56 @@
     min-width: 228px;
     min-height: 40px;
 }
+
 .dashboard-session-btn:hover{
     background-color: #469ed5;
 }
+
 a, a:visited{
     text-decoration: none;
     color: #ffffff;
 }
 
+/* votting card css begins here */
 .voting-card-body{
     max-width: 60vw;
     margin-top: 1em;
     border-color: #797979;
     border-style: solid;
     border-width: 1px;
+    border-radius: 5px;
 }
-.trafficlight-container{
+
+/* everything related to the header of the voting card */
+.voting-card-body header h3{
+    margin-left: 1em;
+    font-size: 24px;
+    font-weight: bolder;
+    color: #8C8C8C;
+}
+
+.progress-bar{
+    -webkit-appearance: none;
+    appearance: none;
+ 
+    width: 100%;
+    height: 13px;
+    margin-top: -1em;
+    margin-bottom: 2em;
+}
+
+progress.progress-bar::-webkit-progress-bar{
+    background-color: #F2F2F2;
+    height: 13px;
+    
+}
+
+progress.progress-bar::-webkit-progress-value{
+    background-color: #169BD5;
+    height: 13px;
+}
+/* everything related to traffic lights and hints */
+.trafficlight-container, .comment-container{
     display: grid;
     grid-template-columns:auto auto auto auto auto;
     column-gap: 0.1em;
@@ -73,14 +112,13 @@ a, a:visited{
 .trafficlight-container input[type="radio"].red{
     background-color: #D9001B;
 }
-
-.trafficlight-container .hint{
+.trafficlight-container .hint, .comment-container .comment-spacing {
     position: relative;
     top: 20px;
     width: 130px;
     height: 130px;
     text-align: center;
-    overflow: auto;
+    overflow-y: visible;
     visibility: hidden;
 }
 .trafficlight-container input[type="radio"]:checked{
@@ -92,6 +130,102 @@ a, a:visited{
     visibility: visible;
 } 
 .trafficlight-container:has(input[type="radio"].green:hover) .hint-green{
-    visibility: visible;
-    
+    visibility: visible;    
 } 
+
+/* everything related to the comment section of the voting card */
+.comment-field-container{
+    column-span: 3;
+    line-height: 43px;
+}
+.comment-field{
+    width: 165%;
+    height: 48px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.comment-label{
+    display: block;
+    float: none;
+    padding: 0px;
+    height: 20px;
+    line-height: 20px;
+    color: #767676;
+}
+.comment-label-top{
+    margin-top: 1em;
+    font-size: 14px;
+}
+.comment-label-bottom{
+    position: relative;
+    left: 2em;
+    width: fit-content;
+    font-size: 11px;
+    margin-top: -1.5em;
+}
+
+/* everything related to navigation buttons at the bottom of the voting card */
+.voting-card-nav{
+    text-align: right;
+    border-top-color: #D7D7D7;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.voting-card-nav div, .voting-card-nav input{
+    display: inline-block;
+    text-align: center;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-right: 1em;
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+.voting-card-nav .button-secondary{
+    background-color: #FFFFFF;
+    color: #8C8C8C;
+    border-color: #797979;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.voting-card-nav .button-primary{
+    background-color: #169BD5;
+    color: #FFFFFF;
+    border: none;
+}
+
+/* everything related to voting card containing summary */
+#voting-card-body-2137 .content-summary-container{
+    height: 276px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+/* Not required by CW: simple responsive design makes the GUI of the voting cards less glitch-y and easier to read when viewd on a smaller screen */
+@media only screen and (max-width: 1145px){
+    .trafficlight-container input[type="radio"]{
+        width: 10vw;
+        height: 10vw;
+    }
+    .hint{
+        font-size: x-small;
+    }
+    .comment-spacing{
+        display: none;
+    }
+    .comment-field{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 900px){
+
+    .trafficlight-container, .comment-container{
+        grid-template-columns: auto;
+    }
+}
+/* CSS for voting cards ends here */

@@ -41,10 +41,12 @@ def session(request, session_id):
         # Mark session as submitted and go back to the dashborad 
         session.submitted_by.add(request.user)
         return redirect('/voting/') 
-    
+            
     # if the form was not submitted and we need to render questions 
     context = {
         'session': session,
-        'questions': questions
+        'questions': questions,
+        'questions_qty':len(questions),
     }
+
     return render(request, 'voting/session.html', context)
