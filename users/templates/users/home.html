@@ -1,19 +1,5 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <header>
-        <!--Removed the header from base.html and moved it here as I think it makes more sense to have it here-->
-        <!--If it were in 'base.html', I'd have those home, login and register links in my voting pages as well -->
-        <!-- Base should only have the head with all relevant metadata as well as the footer, other components should be added combined later on as needed -->
-        <!--I think he navigation below should be its seperate template-->
-        <!--To be decided later. Pawel Kr-->
-        <h1>Welcome to the Sky Health Check project</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+    <h1>Welcome to Home Page</h1>
 {% endblock %}
