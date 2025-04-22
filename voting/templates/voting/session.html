@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %} Voting Dashboard{% endblock %}
+{% load static %}
+{% block style_sheet %} <link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}"> {% endblock %}
+{% block content %}
+    <section class="main-layout-voting">
+        <nav class="navigation-menu">
+            <span>Navigtion bar will be here</span>
+        </nav>
+        <section class="dashboard-content">
+            <h1>Hello, {{request.user.username}}</h1>
+                <button class="dashboard-session-btn">ID: {{session.pk}} -- {{session.title}}</button>
+                <form method="POST" action="#">
+                    {%csrf_token%}
+                    {% for question in questions %}
+                        <div class="voting-card-body">
+                            <header>
+                                <h3>🌄 Q{{forloop.counter}}: {{question.question_content}}</h3>
+                                <div class="progress-bar"></div>
+                            </header>
+
+                            <section class="trafficlight-container">
+                                <div class="hint hint-green">{{question.question_hint_green}}</div>
+                                <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green">
+                                <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber">
+                                <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red">
+                                <div class="hint hint-red">{{question.question_hint_red}}</div>
+                            </section>
+
+                            <textarea name="{{question.pk}}-comment" id="{{question.pk}}-comment">optional comments for question with id equal to {{question.pk}}</textarea><br>
+                            <button>NAV BUTTONS HERE IGNORE FOR NOW</button><button>NAV BUTTONS HERE IGNORE FOR NOW</button><button>NAV BUTTONS HERE IGNORE FOR NOW</button>
+                        </div>
+                        
+                        
+                    {% endfor %}
+                    <input type="submit" value="save answers">
+                </form>
+                
+
+                    
+                    {{question.question_hint_green}}
+        </section>
+    </section>
+
+{% endblock %}
