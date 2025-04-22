@@ -1,36 +1,29 @@
 {% load static %}
+<!-- removed prior links for the home page -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Django App{% endblock %}</title>
+
+    <!-- included css stylesheet-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
+    <!-- Added navbar and footer to base file -->
+    
     <header>
-        <h1>Welcome to the Sky Health Check project</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-       
+        {% include 'navbar.html' %}
     </header>
-
     <main>
         {% block content %}{% endblock %}
     </main>
-
     <footer>
-        <p>&copy; Sky Health Check 2025 </p>
-      
+    
+    {% include 'footer.html' %}
+        
     </footer>
-
-    <script src="{% static 'js/script.js' %}"></script>
-
 </body>
 </html>

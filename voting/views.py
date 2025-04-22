@@ -10,3 +10,9 @@ def submit_vote(request):
 
 def view_results(request):
     return render(request, 'voting/results.html')
+
+def choose_session(request):
+    return render(request, 'voting/choose_session.html')  #renders the choose session page
+
+def vote_summary(request):
+    return render(request, 'voting/vote_summary.html')  #renders the vote summary page

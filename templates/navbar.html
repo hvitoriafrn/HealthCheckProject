@@ -1,59 +1,28 @@
-<!--Very rough initial draft of the navbar-->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Side Navigation Bar</title>
-    <!-- inline css-->
-    <style>
-        body{
-            font-family:"Roboto", sans-serif;
-            
+{% load static %}
+<nav>
+    <ul>
+        <!-- Profile Settings -->
+        <li>
+            <a href="{% url 'profile' %}">
+                <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="icon">
+                Profile Settings
+            </a>
+        </li>
 
-        }
-        nav ul{
-            list-style-type: none; /* Removes bullets */
-            padding:0;
-        }
-        nav ul li{
-            margin: 50px 0; /*Adds space between list items */
-            border: 2px solid #000; /*Adds a black border around each list item */
-            border-radius: 5px;
-            text-align:center;
-            
-            padding:10px; 
-            width: 200px;
-        }
-         nav ul li:hover{
-         background-color:#f0f0f0; /*light grey hover effect*/
-        }
+        <!-- Voting Sessions -->
+        <li>
+            <a href="{% url 'choose_session' %}">
+                <img src="{% static 'images/voting.png' %}" alt="Voting Icon" class="icon">
+                Voting Sessions
+            </a>
+        </li>
 
-        nav ul li:active{
-            background-color:#3498db; /*blue colour when nav option is clicked*/
-            color:#fff;
-        }
-
-
-        nav ul li a {
-            color: #000; /*text colour inside the links is black */
-            text-decoration: none; /*Removes underline from links */
-        }
-
-    
-        
-    
-    </style>
-</head>
-<body>
-    <nav>
-        <ul>
-            <!--html unicode icons as placeholders for images-->
-            <li><a href="{% url 'profile_settings' %}"> 👤 Profile Settings</a></li> 
-          
-            <li><a href="{% url 'voting_sessions' %}"> Voting Sessions</a></li>
-            <li><a href="{% url 'view_team_summary' %}">View Team Summary</a></li>
-        </ul>
-    </nav>
-</body>
-</html>
+        <!-- View Team Summary -->
+        <li>
+            <a href="{% url 'vote_summary' %}">
+                <img src="{% static 'images/summary.png' %}" alt="Summary Icon" class="icon">
+                View Team Summary
+            </a>
+        </li>
+    </ul>
+</nav>

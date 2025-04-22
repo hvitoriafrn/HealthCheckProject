@@ -1,0 +1,95 @@
+/* General styling */
+body {
+    font-family: "Roboto", sans-serif;
+
+}
+/* Navbar styles */
+nav {
+    margin-top: 150px; /* Adjust this value to move the navbar down */
+
+    
+}
+nav ul {
+    list-style-type: none; /* Removes bullets */
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 50px 0; /* Adds space between list items */
+    border: 2px solid #000; /* Adds a black border around each list item */
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    width: 200px; /* Reduced the width for better alignment*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+
+nav ul li:hover {
+    background-color: #f0f0f0; /* Light grey hover effect */
+}
+
+nav ul li:active {
+    background-color: #3498db; /* Blue color when nav option is clicked */
+    color: #fff;
+}
+
+nav ul li a {
+    color: #000; /* Text color inside the links is black */
+    text-decoration: none; /* Removes underline from links */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between icon and text */
+}
+
+nav ul li img.icon {
+    width: 30px; /* Adjust icon size */
+    height: 30px;
+}
+
+/* Maryam's Footer */
+footer {
+    position: fixed; /* Fixes the footer at the bottom of the viewport */
+    bottom: 0; /* Aligns the footer to the bottom */
+    left: 0; /* Aligns the footer to the left edge */
+    width: 100%; /* Makes the footer span the full width of the viewport */
+    text-align: center; /* Center-aligns the text */
+    padding: 10px; /* Adds padding inside the footer */
+    background: #fff; /* White background */
+    border-top: 1px solid #ccc; /* Light top border */
+}
+
+  /* Footer container holds logo and links side by side */
+  .footer-container {
+display: flex;
+justify-content: space-between; /* Logo left, links right */
+align-items: center;
+padding: 10px 20px;  /* Adds space around the content */
+}
+
+/* Footer logo sizing */
+.footer-logo .logo {
+width: 100px;  /* To adjust size */
+height: auto;
+}
+
+/* Footer links styling */
+.footer-links {
+text-align: right;
+padding-right: 20px;  /* Extra space from the right edge */
+}
+
+.footer-links a {
+margin-left: 20px;  /* Adds space between each link */
+text-decoration: none;
+color: #000;
+}
+
+.footer-links a:first-child {
+margin-left: 0;  /* No left margin for the first link */
+}
