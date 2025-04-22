@@ -1,7 +1,7 @@
 {% load static %}
 <nav>
     <ul>
-        <!-- Profile Settings -->
+        <!-- Profile Settings - Visible to All Users -->
         <li>
             <a href="{% url 'profile' %}">
                 <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="icon">
@@ -9,15 +9,17 @@
             </a>
         </li>
 
-        <!-- Voting Sessions -->
+        <!-- Voting Sessions - Only for Engineers and Team Leaders -->
+        {% if role == 'engineer' or role == 'team_leader' %}
         <li>
             <a href="{% url 'choose_session' %}">
                 <img src="{% static 'images/voting.png' %}" alt="Voting Icon" class="icon">
                 Voting Sessions
             </a>
         </li>
+        {% endif %}
 
-        <!-- View Team Summary -->
+        <!-- View Team Summary - Visible to All Users -->
         <li>
             <a href="{% url 'vote_summary' %}">
                 <img src="{% static 'images/summary.png' %}" alt="Summary Icon" class="icon">
