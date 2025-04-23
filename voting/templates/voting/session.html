@@ -44,12 +44,12 @@
 
                             <nav class="voting-card-nav">
                                 {% if forloop.counter == 1 %}
-                                    <div class="button-secondary" onclick="exit({% url 'voting:dashboard' %})">Exit</div>
+                                    <div class="button-secondary" onclick="exit( `{% url 'voting:dashboard' %}` )">Exit</div>
                                 {% else %}
-                                    <div class="button-secondary" onclick="previousQuestion({{forloop.counter}})">Previos Question</div>
+                                    <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previos Question</div>
                                 {% endif %}
-                                <div class="button-secondary">Save Progress</div>
-                                <div class="button-primary" onclick="nextQuestion({{forloop.counter}})">Next Question</div>
+                                <div class="button-secondary" onclick="saveProgress()">Save Progress</div>
+                                <div class="button-primary" onclick="nextQuestion(`{{forloop.counter}}`)">Next Question</div>
                             </nav>
                             
                         </div>             
@@ -64,13 +64,11 @@
                         </section>
                         <nav class="voting-card-nav">
                             <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
-                            <div class="button-secondary">Save Progress</div>
+                            <div class="button-secondary" onclick="saveProgress()">Save Progress</div>
                             <input class="button-primary" type="submit" value="Submit answers">
                         </nav>
                     
                     </div>
-
-                    <input type="submit" value="save answers">
                 </form>
         </section>
     </section>
