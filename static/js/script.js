@@ -5,10 +5,12 @@ function exit(url){
 var questionsQty = document.getElementById("voting-card-body-2137").dataset.questionsQty;
 
 function hideCard(ID){
+    ID = parseInt(ID)
     document.getElementById("voting-card-body-"+ID.toString()).setAttribute("style", "display:none");
 }
 
 function showCard(ID){
+    ID = parseInt(ID)
     document.getElementById("voting-card-body-"+ID.toString()).removeAttribute("style");
 }
 
@@ -22,6 +24,7 @@ function navInit(){
 }
 
 function nextQuestion(activeQuestion){
+    activeQuestion = parseInt(activeQuestion)
     hideCard(activeQuestion);
     if (activeQuestion < questionsQty){
         showCard(activeQuestion+1);
@@ -33,6 +36,7 @@ function nextQuestion(activeQuestion){
 }
 
 function previousQuestion(activeQuestion){
+    activeQuestion = parseInt(activeQuestion)
     hideCard(activeQuestion);
     if (activeQuestion!=2137){
         showCard(activeQuestion-1);
@@ -41,4 +45,8 @@ function previousQuestion(activeQuestion){
         showCard(questionsQty);
     }
 
+}
+
+function saveProgress(){
+    window.alert("Sorry! this feature has not been developed yet, work in progress");
 }

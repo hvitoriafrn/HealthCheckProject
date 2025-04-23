@@ -27,7 +27,8 @@
 
 .dashboard-session-btn{
     margin-top: 0.25em;
-    border-radius: 5px; 			
+    border-radius: 5px;
+    font-size: 13px; 			
     background-color: #169BD5;
     color: #ffffff;
     border: none;
@@ -39,9 +40,13 @@
     min-height: 40px;
 }
 
-.dashboard-session-btn:hover{
-    background-color: #469ed5;
+.dashboard-session-btn:hover, .voting-card-nav .button-primary:hover{
+    background-color: #58bceb;
 }
+.voting-card-nav .button-secondary:hover{
+    background-color: #F2F2F2;
+}
+    
 
 a, a:visited{
     text-decoration: none;
