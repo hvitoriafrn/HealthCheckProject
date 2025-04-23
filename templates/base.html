@@ -4,34 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} My Django App {% endblock %}</title>
+    <title>{% block title %}My Django App{% endblock %}</title>
+
+    <!--The following 3 lines are CDNs from Google for the Roboto Font that will be used in the project-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
-    <header>
-        <h1>Welcome to my Health Check app</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-
-                {% if user.is_authenticated %}
-                    <li><strong>Hello, {{ user.userFirstName }}!</strong></li>
-                    <li>
-                        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-link" style="background:none;border:none;padding:0;color:blue;cursor:pointer;">
-                                Logout
-                            </button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
+    <!-- I removed the basic nav with links to home, login and register as I don't think they're needed in the 'base.html' file-->
 
     <main>
         {% block content %}
