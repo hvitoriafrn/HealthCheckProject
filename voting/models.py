@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 
@@ -19,9 +20,9 @@ class Question(models.Model):
 class Session(models.Model):
     title = models.CharField(max_length=255, blank=True, default='') # (optional) user can give each session a title to make them easier to distinguish in the admin view
     created_at = models.DateTimeField(auto_now=True, editable=True)
-    users = models.ManyToManyField(User, related_name="voting_sessions") # which users were assigned the session [MIGHT DELETE THAT LATER]
+    users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="voting_sessions") # which users were assigned the session [MIGHT DELETE THAT LATER]
     questions_included = models.ManyToManyField(Question, related_name="voting_sessions")
-    submitted_by = models.ManyToManyField(User, related_name="submitted_sessions", blank=True) # will store users who submitted the session already
+    submitted_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="submitted_sessions", blank=True) # will store users who submitted the session already
 
     def __str__(self):
         return f"{self.title} - Session ID: {self.pk} - {self.created_at}"
@@ -35,7 +36,8 @@ class Session(models.Model):
 class Vote(models.Model):
     vote_options = ["green", "amber", "red"]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE) # which user voted
+    #I changed 'User' to settings.AUTH_USER_MODEL
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # which user voted
     session = models.ForeignKey(Session, on_delete=models.CASCADE) # in which session was that
     question = models.ForeignKey(Question, on_delete=models.CASCADE) # what was the question
     choice = models.CharField(max_length=5) # did the user answer the question

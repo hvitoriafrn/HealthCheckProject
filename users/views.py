@@ -37,7 +37,7 @@ def register(request):
             #save to the databse
             user = form.save()
             #log the user once registered! (this line will be removed because we don't want this to happen)
-            login(request,user)
+            #login(request,user)
             #save the session (keeps them logged in)
             user.save()
             #will redirect the user to their profile page 
@@ -67,7 +67,7 @@ def login_view(request):
         else:
             return render(request, 'users/login.html', {'form': form})
         
-    return render(request, 'users/login.html', {'form':AuthenticationForm})
+    return render(request, 'users/login.html', {'form':AuthenticationForm()})
 
 
 #function for logout (was previously using it wrong)

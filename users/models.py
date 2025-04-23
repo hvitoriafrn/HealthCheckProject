@@ -17,7 +17,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 #Custom user manager to handle the users that register and the super user (django admin)
 class CustomUserManager(BaseUserManager):
     #creates a regular user
-    def create_user (self, email, password, role, userFirstName, userLastName):
+    def create_user (self, email, password, userRole, userFirstName, userLastName):
         #error in case a user doesn't enter an email
         if not email:
             raise ValueError("Email is required")
@@ -25,7 +25,7 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         #necessary fields for a user instance, this is what every user needs
         user = self.model(email=email, 
-                          userRole=role,
+                          userRole=userRole,
                           userFirstName= userFirstName,
                           userLastName = userLastName,
                           is_staff=False,
@@ -46,7 +46,7 @@ class CustomUserManager(BaseUserManager):
         #returns the super user and also gives some values in case this is not filled out
         return self.create_user(email= email,
                                 password= password,
-                                role = extra_fields.get('userRole', 'admn'),
+                                userRole= extra_fields.get('userRole', 'admn'),
                                 userFirstName=extra_fields.get('userFirstName', 'Admn'),
                                 userLastName=extra_fields.get('userLastName', 'User'))
         

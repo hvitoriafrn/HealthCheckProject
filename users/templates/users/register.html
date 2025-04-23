@@ -257,7 +257,7 @@ a {
                     //checks if the password has at least 8 characters and if not, shows the error
                     if (value.length <8) {
                         showError(password1, 
-                            "Password must contain at least 8 characters long")
+                            "Password must be at least 8 characters long")
                     return;
                     }
 
@@ -265,8 +265,11 @@ a {
                     const specialCharCheck = /[!@#$%^&*(),.?":{}|<>]/.test(value);
                     if (!specialCharCheck) {
                         showError(password1, "Password must include at least one special character")
+                    } else {
+                        clearError(password1);
                     }
                 }
+                
                 //check thas password2 matches password1!
 
                 function validatePassword2(){
