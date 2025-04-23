@@ -1,12 +1,15 @@
+{% load static %} 
 <html>
+    <head>
     <style>
 
+    /* main container */
     .container {
-        margin-top: 150px ;
+        margin-top: 80px ;
         background-color: white;
         padding: 20px;
         box-shadow: 1px 3px 10px 0px #888888;
-        width: 400px;
+        width: 380px;
         margin-left: auto;
         margin-right: auto;
         min-height: 420px;
@@ -14,6 +17,7 @@
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
+        margin-bottom: 50px;
     }
 
     /* body */
@@ -22,7 +26,7 @@
         text-align: center;
     }
 
-    /* styling the link */
+    /* styling the links */
     a {
         color: rgb(31, 147, 255);
         font-size: small;
@@ -34,7 +38,7 @@
     button {
         padding: 10px;
         font-size: 14px;
-        background-color: #1586ff;
+        background-color: #2c71fd; /*changed the color to match home page*/
         color: white;
         border: none;
         border-radius: 3px;
@@ -68,15 +72,16 @@
         color: #888888;
     }
 
+    /*styling for the login form*/
     form {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 8px; 
         width: 70%;
         margin-right: auto;
         margin-left:auto;
         margin-top: 5px;
-}
+    }
 
 /* for input fields and the dropdown */
     input {
@@ -91,11 +96,13 @@
         background-color: #f2f2f2;
     }
 
+    /* styling for forgot password text */
     .forgotP{
         text-align: right;
         font-size: x-small;
     }
 
+    /* styling for the 'options' class, which encases the remember me and forgot password */
     .options {
         display: flex;
         justify-content: space-between;
@@ -103,28 +110,31 @@
         font-size: small;
         width: 100%;
         margin-top: 4px;
-}
+    }
 
+    /*  checkbox styling for remember me  */
     .checkbox-label input[type="checkbox"] {
         width: 14px;
         height: 14px;
         margin: 0;
-        accent-color: #00aa22; /* Optional: style the checkbox color */
-        }
-
+        accent-color: #00aa22; /* Optional: style the checkbox color (could be another color) */ 
+    }
+    /* for the label  */
     .checkbox-label {
         display: flex;
         align-items: center;
         gap: 5px;
         font-size: x-small;
-        color: gray;
+        color: gray;  /* remember me text color*/
     }
 
+    /* styling the color for the error messages */
     .error-message {
         color:  rgb(255, 0, 0);
         font-size: small;
         text-align: left;
     }
+    /* styling the 'alert danger' class*/
     .alert-danger {
         color: rgb(255, 0, 0);
         padding: 5px;
@@ -134,7 +144,34 @@
         margin-top: -10px;
         text-align: left;
     }
-</style>
+
+    /*the code below is Maryam's implementation of logo, copied it to match with the style of home page*/
+    /* Logo styling */
+    .logo {
+      margin-left: 50px; /* changed the margin to match prototype */
+      width: 150px;   /* changed it to match prototype size */
+      height: auto;   /* Keeps the aspect ratio */
+      transition: transform 0.3s; /* For hover effect */
+    }
+    /* taken from the home page code by Maryam */
+    .logo:hover {
+      transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+    header {
+      margin-right: 90%;
+      padding: 10px 20px; /* Space inside the header */
+      background: #fff; /* White background for header */
+
+    }
+    </style>
+</head>
+
+<!-- same code used for register, now implemented in the login page -->
+    <header>
+        <!-- Sky Logo -->
+        <img src="{% static 'images/skyLogo.png' %}" alt="Sky Logo" class="logo">
+    </header>
 
     <body>
         <!--base login page-->
@@ -181,6 +218,7 @@
                 <div class="error-message">{{ error }}</div>
             {% endfor %}
 
+            <!-- option div, encases where remember me and forgot password are -->
             <div class="options">
             <label class="checkbox-label">
             <input type="checkbox" id="rememberMe" name="rememberMe">Remember me </label>

@@ -1,4 +1,3 @@
-<!-- for some reason I couldn't fetch the html that was created by Maryam so I did it manually-->
 {% load static %} 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,8 +5,7 @@
   <meta charset="UTF-8">
   <title>Sky Squad Project Health Check Software</title>
   
-  <!-- this will link to my css when i make it, for now ive put it all here
-   <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+  <!-- for some reason my pull didn't correctly work, I copied Maryam's code manually -->
   <style>
     /* Basic styling */
     body {
@@ -46,8 +44,8 @@
     }
     .header-text p { 
       margin: 0; /* Remove default paragraph margin */
-      font-size: 1rem; /* Set font size for paragraphs */
-      line-height: 1.4; /* Set line spacing */
+      font-size: 1rem; /* Sets font size for paragraphs */
+      line-height: 1.4; /* Sets line spacing */
       margin-left: 60px; /* Indent to align with header text */
     }
     .hero {
@@ -62,10 +60,11 @@
     }
     .hero p {
       font-size: 1.1rem;
-      max-width: 600px; /* Maximum width for readability */
+      max-width: 600px; /* Maximum width to read it easily */
       margin: 0 auto 1.5rem auto; /* Center and space out paragraph */
       line-height: 1.5;
     }
+
     .btn-demo {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
@@ -75,11 +74,33 @@
       cursor: pointer;
       border-radius: 4px;
       transition: opacity 0.3s; /* Smooth hover effect */
-      text-decoration: none;  /* added this to hide de underline that the anchor has */
+      text-decoration: none; /* added this to remove the text underline because of the anchor*/
     }
     .btn-demo:hover {
       opacity: 0.8; /* Slight fade on hover */
     }
+
+  .btn-outline {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: transparent;        /* no fill */
+    border: 2px solid #ccc;       /* light grey border */
+    color: #333;                  /* dark text */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none; /* added this to remove the text underline because of the anchor*/
+}
+.btn-outline:hover {
+  background: #f0f0f0;            /* subtle grey on hover */
+}
+
+    .hero-buttons {
+  display: flex;
+  justify-content: center; /* Centers buttons */
+  gap: 10px; /* Adds space between buttons */
+}
+
     footer {
       text-align: center; /* Center text in footer */
       padding: 10px;
@@ -126,8 +147,10 @@
   <!-- Header Section -->
   <header>
     <div class="header-content">
+      
       <!-- Sky Logo -->
       <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="logo">
+
       <!-- Text underneath the logo -->
       <div class="header-text">
         <p>Sky Squad Project Health Check Software</p> <br>
@@ -144,11 +167,17 @@
   <!-- Main Content -->
   <main>
     <section class="hero">
-      <!-- Single button that takes the user to the login page -->
-     <a href="{% url 'login' %}" class="btn-demo"> <!--changed to use Django's url template -->
-        Log in
-      </button></a>
-    </section>
+        <div class="hero-buttons">
+          <!-- changed to anchor because the links weren't working -->
+          <a href="{% url 'login' %}" class="btn-demo">
+            Log in
+          </button></a>
+          <a href="{% url 'register' %}" class="btn-outline">
+            Register
+          </button></a> 
+        </div>
+      </section>
+      
   </main>
 
   <!-- Footer Section -->

@@ -1,121 +1,150 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %} 
 <html>
 <!-- styling for this page-->
+ <head>
 <style>
 
-/* General page styling */
-body {
-    margin-top: 10px;
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
-/* title (h2) styling */
-h2 {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+    /* General page styling */
+    body {
+        margin-top: 10px;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /* title (h2) styling */
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-/* registration container */
-.container {
-    background-color: white;
-    padding: 20px;
-    box-shadow: 1px 3px 10px 0px #888888;
-    width: 380px;
-    margin: 0 auto;
-}
+    /* registration container */
+    .container {
+        margin-top: 80px ;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 1px 3px 10px 0px #888888;
+        width: 380px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
 
-/* layour for the form*/
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 80%;
-    margin-right: auto;
-    margin-left:auto;
-    margin-top: 5px;
-}
+    /* layour for the form*/
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 80%;
+        margin-right: auto;
+        margin-left:auto;
+        margin-top: 5px;
+    }
 
-/* style for the label text */
-label {
-    font-size: 14px;
-    text-align: left;
-    color: #888888;
-}
+    /* style for the label text */
+    label {
+        font-size: 14px;
+        text-align: left;
+        color: #888888;
+    }
 
-/* for input fields and the dropdown */
-input,
-select {
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    height: 35px;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #f2f2f2;
-}
-/* styling the error for the input fields */
-input.touched.invalid,
-select.touched.invalid {
-    border: 2px solid #dc3545; /* setting the border to red */
-    background-color: #ffecec; /* inner box is light red */
-}
+    /* for input fields and the dropdown */
+    input,
+    select {
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        height: 35px;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #f2f2f2;
+    }
+    /* styling the error for the input fields */
+    input.touched.invalid,
+    select.touched.invalid {
+        border: 2px solid #dc3545; /* setting the border to red */
+        background-color: #ffecec; /* inner box is light red */
+    }
 
-/* style for the correctly filled fields */
-input.touched.valid,
-select.touched.valid {
-    border: 2px solid #198754; /* setting the border to green */
-    background-color: #eaffea; /* inner box is light green */
-}
+    /* style for the correctly filled fields */
+    input.touched.valid,
+    select.touched.valid {
+        border: 2px solid #198754; /* setting the border to green */
+        background-color: #eaffea; /* inner box is light green */
+    }
 
-/* error message styling, small and red!*/
-.error-message {
-    color:  rgb(255, 0, 0);
-    font-size: x-small;
-    display: none;
-}
+    /* error message styling, small and red!*/
+    .error-message {
+        color:  rgb(255, 0, 0);
+        font-size: x-small;
+        display: none;
+    }
 
-/* styling for the register button at the bottom of the form */
-button {
-    padding: 10px;
-    font-size: 14px;
-    background-color: #038be0;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
+    /* styling for the register button at the bottom of the form */
+    button {
+        padding: 11px;
+        font-size: 14px;
+        background-color:  #2c71fd; /*changed the color to match home page*/
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 8px;
+    }
 
-}
+    /* for te 'welcome to the team' text */
+    .subtextBlack{
+        text-align: center;
+    }
 
-/* for te 'welcome to the team' text */
-.subtextBlack{
-    text-align: center;
-}
+    /* styling the subtext */
+    .subtext {
+        color: gray;
+        font-size: small;
+        text-align: center;
+    }
 
-/* styling the subtext */
-.subtext {
-    color: gray;
-    font-size: small;
-    text-align: center;
-}
+    /* styling terms and conditions underneath the register button */
+    .terms {
+        color: gray;
+        font-size: x-small;
+        text-align: center;
+    }
 
-/* styling terms and conditions underneath the register button */
-.terms {
-    color: gray;
-    font-size: x-small;
-    text-align: center;
-}
+    /* styling the link */
+    a {
+        color: rgb(0, 132, 255);
+        text-decoration: none;
+        font-weight: bold;
+    }
+    /*the code below is Maryam's implementation of logo, copied it to match with the style of home page*/
+  /* Logo styling */
+    .logo {
+      margin-left: 50px; /* changed the margin to match prototype */
+      width: 150px;   /* changed it to match prototype size */
+      height: auto;   /* Keeps the aspect ratio */
+      transition: transform 0.3s; /* For hover effect */
+    }
+    /* taken from the home page code by Maryam */
+    .logo:hover {
+      transform: scale(1.05); /* Slight zoom on hover */
+    }
 
-/* styling the link */
-a {
-    color: rgb(0, 132, 255);
-    text-decoration: none;
-    font-weight: bold;
-}
+    header {
+      margin-right: 90%;
+      padding: 10px 20px; /* Space inside the header */
+      background: #fff; /* White background for header */
+
+    }
+
  </style>
-        <!-- Start of the registration page -->
+ </head>
+ <header>
+    <!-- Sky Logo -->
+    <img src="{% static 'images/skyLogo.png' %}" alt="Sky Logo" class="logo">
+</header>
+    <!-- Start of the registration page -->
+
     <body>
         <div class="container"> 
             <h2 class="card-title">Register your account</h2>
@@ -186,8 +215,11 @@ a {
                 </div> -->
                 
                 <!-- button for register -->
-                <button name="button" type="submit">Register</button>
-
+                 
+                
+                <button name="button" type="submit">
+                    Register</button>
+            
                 <!-- text underneath the register button (terms and conditions)-->
                 <div class="terms"> By clicking the 'Register' button, 
                     you are creating an account, and you agree to the Terms of Use</div>
