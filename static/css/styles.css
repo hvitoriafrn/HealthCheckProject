@@ -3,6 +3,16 @@ body {
     font-family: "Roboto", sans-serif;
 
 }
+
+.sky-logo {
+    width: 120px;
+    margin: 20px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
 /* Navbar styles */
 nav {
     margin-top: 150px; /* Adjust this value to move the navbar down */
@@ -16,12 +26,12 @@ nav ul {
 }
 
 nav ul li {
-    margin: 50px 0; /* Adds space between list items */
+    margin: 10px 0; /* Adds space between list items */
     border: 2px solid #000; /* Adds a black border around each list item */
     border-radius: 5px;
     text-align: center;
-    padding: 5px;
-    width: 200px; /* Reduced the width for better alignment*/
+    padding: 30px;
+    width: 100px; /* Reduced the width for better alignment*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,8 +58,8 @@ nav ul li a {
 }
 
 nav ul li img.icon {
-    width: 30px; /* Adjust icon size */
-    height: 30px;
+    width: 60px; /* Adjust icon size */
+    height: 60px;
 }
 
 /* Maryam's Footer */
