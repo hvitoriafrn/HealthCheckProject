@@ -15,17 +15,17 @@
                 <form method="POST" action="#">
                     {%csrf_token%}
                     {% for question in questions %}
-                        <div class="voting-card-body" id="voting-card-body-{{ forloop.counter }}">
+                        <div class="voting-card-body" id="voting-card-body-{{ forloop.counter }}" data-pk="{{question.pk}}">
                             <header>
-                                <h3>🌄 Q{{forloop.counter}}: {{question.question_content}}</h3>
+                                <h3 id="header-question-content-{{question.pk}}">Q{{forloop.counter}}: {{question.question_content}}</h3>
                                 <progress class="progress-bar" value="{{ forloop.counter }}" max="{{questions_qty|add:1}}"></progress>
                             </header>
 
                             <section class="trafficlight-container">
                                 <div class="hint hint-green">{{question.question_hint_green}}</div>
-                                <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green">
-                                <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber">
-                                <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red">
+                                <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green" required>
+                                <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber" required>
+                                <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red" required>
                                 <div class="hint hint-red">{{question.question_hint_red}}</div>
                             </section>
 
@@ -56,11 +56,11 @@
                     {% endfor %}
                     <div class="voting-card-body voting-card-summary" id="voting-card-body-2137" data-questions-qty="{{questions_qty}}">
                         <header>
-                            <h3>🌄 Please double check all of your answers before submitting</h3>
+                            <h3>Please double check all of your answers before submitting</h3>
                             <progress class="progress-bar" value="{{questions_qty|add:1}}" max="{{questions_qty|add:1}}"></progress>
                         </header>
                         <section class="content-summary-container" id="content-summary-container">
-
+                                              
                         </section>
                         <nav class="voting-card-nav">
                             <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
