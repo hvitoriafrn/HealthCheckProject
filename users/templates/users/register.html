@@ -1,0 +1,432 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %} 
+<html>
+<!-- styling for this page-->
+ <head>
+<style>
+
+    /* General page styling */
+    body {
+        margin-top: 10px;
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /* title (h2) styling */
+    h2 {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    /* registration container */
+    .container {
+        margin-top: 80px ;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 1px 3px 10px 0px #888888;
+        width: 380px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+
+    /* layour for the form*/
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 80%;
+        margin-right: auto;
+        margin-left:auto;
+        margin-top: 5px;
+    }
+
+    /* style for the label text */
+    label {
+        font-size: 14px;
+        text-align: left;
+        color: #888888;
+    }
+
+    /* for input fields and the dropdown */
+    input,
+    select {
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        height: 35px;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: #f2f2f2;
+    }
+    /* styling the error for the input fields */
+    input.touched.invalid,
+    select.touched.invalid {
+        border: 2px solid #dc3545; /* setting the border to red */
+        background-color: #ffecec; /* inner box is light red */
+    }
+
+    /* style for the correctly filled fields */
+    input.touched.valid,
+    select.touched.valid {
+        border: 2px solid #198754; /* setting the border to green */
+        background-color: #eaffea; /* inner box is light green */
+    }
+
+    /* error message styling, small and red!*/
+    .error-message {
+        color:  rgb(255, 0, 0);
+        font-size: x-small;
+        display: none;
+    }
+
+    /* styling for the register button at the bottom of the form */
+    button {
+        padding: 11px;
+        font-size: 14px;
+        background-color:  #2c71fd; /*changed the color to match home page*/
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 8px;
+    }
+
+    /* for te 'welcome to the team' text */
+    .subtextBlack{
+        text-align: center;
+    }
+
+    /* styling the subtext */
+    .subtext {
+        color: gray;
+        font-size: small;
+        text-align: center;
+    }
+
+    /* styling terms and conditions underneath the register button */
+    .terms {
+        color: gray;
+        font-size: x-small;
+        text-align: center;
+    }
+
+    /* styling the link */
+    a {
+        color: rgb(0, 132, 255);
+        text-decoration: none;
+        font-weight: bold;
+    }
+    /*the code below is Maryam's implementation of logo, copied it to match with the style of home page*/
+  /* Logo styling */
+    .logo {
+      margin-left: 50px; /* changed the margin to match prototype */
+      width: 150px;   /* changed it to match prototype size */
+      height: auto;   /* Keeps the aspect ratio */
+      transition: transform 0.3s; /* For hover effect */
+    }
+    /* taken from the home page code by Maryam */
+    .logo:hover {
+      transform: scale(1.05); /* Slight zoom on hover */
+    }
+
+    header {
+      margin-right: 90%;
+      padding: 10px 20px; /* Space inside the header */
+      background: #fff; /* White background for header */
+
+    }
+
+ </style>
+ </head>
+ <header>
+    <!-- Sky Logo -->
+    <img src="{% static 'images/skyLogo.png' %}" alt="Sky Logo" class="logo">
+</header>
+    <!-- Start of the registration page -->
+
+    <body>
+        <div class="container"> 
+            <h2 class="card-title">Register your account</h2>
+            <div class="subtextBlack">Welcome to the team!</div> 
+            <div class="subtext">Already have an account? 
+            <!-- linking to the login page -->
+        <a href="{% url 'login' %}" name="link">Log in</a> </div>
+    
+        <!-- here is where the form starts -->
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            
+        
+                <form method="POST">
+                    {% csrf_token %}
+                <div>
+                    <!-- label for 'First name' form-->
+                    <label for="{{ form.userFirstName.id_for_label }}">First name</label>
+                    {{ form.userFirstName }}
+                    <div class="error-message">Please enter your first name</div>
+                </div>
+
+                <!-- label for 'Surname' form-->
+                <div>
+                    <label for="{{ form.userLastName.id_for_label }}">Surname</label>
+                    {{ form.userLastName }}
+                    <div class="error-message">Please enter your surname</div>
+                </div>
+
+                <!-- label for Email address form-->
+                <div>        
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    <div class="error-message">Please enter a valid email</div>
+                </div>
+
+
+                <div>
+                    <!-- label for Role-->
+                    <label for="{{ form.userRole.id_for_label }}">Role</label>
+                    {{ form.userRole }}
+                </div>
+
+
+                <!-- label for password-->
+                <div>
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+                <!-- <div class="error-message">Password must contain at least 8 characters 
+                    and 1 special character</div>
+                </div> -->
+
+                <!-- label for confirm your password -->
+                <div>
+                <label for="{{ form.password2.id_for_label }}">Confirm password</label>
+                    {{ form.password2 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+
+                <!-- <div class="error-message">Password must match</div>
+                </div> -->
+                
+                <!-- button for register -->
+                 
+                
+                <button name="button" type="submit">
+                    Register</button>
+            
+                <!-- text underneath the register button (terms and conditions)-->
+                <div class="terms"> By clicking the 'Register' button, 
+                    you are creating an account, and you agree to the Terms of Use</div>
+            </form>
+        </div>
+
+    <!-- to display a general error message -->
+        {% if error %}
+        <div class="alert-danger mt3" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+    
+    </div>
+        <!-- javascript to handle the input showing in red when the page loads-->
+        <script>
+            //waits until the document the document has been fully loaded
+            document.addEventListener("DOMContentLoaded", function () {
+
+                const form = document.querySelector("form");
+                //selects all the inputs and the "select" (for role) on the page
+                const fields = document.querySelectorAll("input, select");
+                
+                //get password 1 and 2 
+                const password1 = document.getElementById("id_password1");
+                const password2 = document.getElementById("id_password2");
+
+                //
+                const pw1Error = password1.parentElement.querySelector(".error-message");
+                const pw2Error = password2.parentElement.querySelector(".error-message");
+
+
+                function showError(input, message) {
+                    const errorDiv= input.parentElement.querySelector(".error-message");
+                    input.classList.add("invalid");
+                    input.classList.remove("valid");
+
+                    if (errorDiv) {
+                        errorDiv.style.display = "block";
+                        errorDiv.textContent = message;
+                    }
+                }
+
+                //clears the error message
+                function clearError(input) {
+                    const errorDiv = input.parentElement.querySelector(".error-message");
+                    input.classList.remove("invalid");
+                    input.classList.add("valid");
+                    if (errorDiv) {
+                        errorDiv.style.display = "none";
+                    }
+                }
+
+
+                // //after submission, if it came back with errors, clearly shows it
+                // if (document.querySelector(".error-message")) {
+                //     fields.forEach(field => {
+                //         field.classList.add("touched");
+                //     });
+                // }
+
+                //checks password 1 and that it is strong enough (length)
+                function validatePassword1() {
+                    const value = password1.value;
+                    password1.classList.add("touched");
+
+                    //checks if the password has at least 8 characters and if not, shows the error
+                    if (value.length <8) {
+                        showError(password1, 
+                            "Password must be at least 8 characters long")
+                    return;
+                    }
+
+                    //added this to also check for special characters and show the error accordingly
+                    const specialCharCheck = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+                    if (!specialCharCheck) {
+                        showError(password1, "Password must include at least one special character")
+                    } else {
+                        clearError(password1);
+                    }
+                }
+                
+                //check thas password2 matches password1!
+
+                function validatePassword2(){
+                    const value1 =password1.value;
+                    const value2 =password2.value;
+
+                    password2.classList.add("touched");
+
+                    if (value1 && value2 && value1 !==value2) {
+                        showError(password2, "Passwords do not match")
+                    } else if (value2.length > 0) {
+                        clearError(password2);
+                    }
+                }
+                
+                //do the validation in real time for better user experience 
+                password1.addEventListener("input", () => {
+                    //call the functions
+                    validatePassword1();
+                    validatePassword2();
+                });
+
+                password2.addEventListener("input", validatePassword2);
+
+                //loops through all the input fields
+                fields.forEach(field => {
+                    //adds 'blur' event listener, to trigger when the user clicks anywhere that isnt a field
+                    field.addEventListener("blur", function () {
+                        //gets the parent element (<div>)
+                        const errorDiv = field.parentElement.querySelector(".error-message");
+                        
+                        // Skip password fields; handled by custom validation
+                        if (field.id === "id_password1" || field.id === "id_password2") return;
+                        // Mark as touched, makes it so it's easier to style, so if it's touched but nothing on it
+                        // then the red border and error message show up
+                        field.classList.add("touched");
+            
+                        // Use HTML5 validation for the required fields and email format
+                        if (!field.checkValidity()) {
+                            //checks if it's valid or not and if it isn't valid, removed the 'valid' (for styling too!)
+                            field.classList.remove("valid");
+                            field.classList.add("invalid");
+
+                            //displays error message
+                            if (errorDiv) {
+                                errorDiv.style.display = "block";
+                            }
+                        } else {
+                            //if it's valid, it removes the 'invalid' (so it styles it as 'valid')
+                            field.classList.remove("invalid");
+                            field.classList.add("valid"); 
+
+                            //and if it's valid, it hides the error message
+                            if (errorDiv) {
+                                errorDiv.style.display = "none";
+                            }
+                        }
+                    });
+                });
+
+                // when submitting make everything show error if invalid
+                form.addEventListener("submit", function (e) {
+                    fields.forEach(field => {
+                        field.classList.add("touched");
+
+                        if (!field.checkValidity()) {
+                            showError(field, field.parentElement.querySelector(".error-message")?.textContent || "This field is required");
+                        }
+                    });
+
+                    validatePassword1();
+                    validatePassword2();
+                });
+
+            });
+        </script> 
+
+        <!-- creating a function to check if the passwords are matching or not 
+         while the user is inputting their password-->
+        <script>
+        //waits until the page is loaded
+         document.addEventListener("DOMContentLoaded", function() {
+            //gets the password fields
+            const passw1 = document.getElementById("id_password1");
+            const passw2 = document.getElementById("id_password2");
+            
+            //finds the error for password2
+            const mistmatch= passw2.parentElement.querySelector(".error-message");
+            
+            //function to check if the passwords match
+            function checkPasswords() {
+                passw2.classList.add("touched"); //marks it as touched (styling)
+
+                //if fields are empty, ignore and hide the styles and error
+                if (!passw1.value || !passw2.value) {
+                    mistmatch.style.display="none";
+                    passw2.classList.remove("invalid","valid");
+                    return;
+                }
+                
+                //checks if the passwords do not match 
+                if (passw1.value !== passw2.value) {
+                    passw2.classList.add("touched"); //marks as touched for styling
+                    //if they don't match, it removes 'valid' and adds invalid (styling will show in red)
+                    if (passw1.value !== passw2.value) {
+                        passw2.classList.remove("valid");
+                        passw2.classList.add("invalid");
+                        mistmatch.style.display = "block"; //shows the error message
+                        mistmatch.textContent = "Passwords do not match"; //displays the message
+                    } else {
+                        //if they match, it removes the 'invalid' and marks it as valid (therefore making it green)
+                        passw2.classList.remove("invalid");
+                        passw2.classList.add("valid");
+                        mistmatch.style.display = "none";
+                    }
+                }
+            }
+            
+            //checks again everytime there's a change in any of the fields
+            passw1.addEventListener("input", checkPasswords);
+            passw2.addEventListener("input", checkPasswords);
+        
+        });
+                      
+        
+        </script>           
+        </body>
+        {% endblock %}
