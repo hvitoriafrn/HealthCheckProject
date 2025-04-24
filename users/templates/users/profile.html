@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineer Portal</title>
+    <link rel="stylesheet" href="{% static 'css/profileStyles.css' %}">
+</head>
+<body>
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="logo-container">
+            <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="sky-logo">
+        </div>
+        <button class="nav-button active-nav">Profile Settings</button>
+        <button class="nav-button">Voting Sessions</button>
+        <button class="nav-button">View Team Summary</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <button class="logout-btn" onclick="window.location.href='{% url 'login' %}'">Sign Out</button>
+        
+        <!-- Profile Settings -->
+        <div class="profile-section">
+            <h1>Your Dashboard</h1>
+            <h2>Manage your profile settings here</h2>
+            
+            <!-- Name and Surname Fields -->
+            <div class="field-group row">
+                <div class="field-item">
+                    <label>Name</label>
+                    <input type="text" id="name" placeholder="{{ user.userFirstName }}" readonly>
+                    <button class="edit-btn" onclick="toggleEdit('name')">Edit</button>
+                </div>
+                <div class="field-item">
+                    <label>Surname</label>
+                    <input type="text" id="surname" placeholder="{{ user.userLastName }}" readonly>
+                    <button class="edit-btn" onclick="toggleEdit('surname')">Edit</button>
+                </div>
+            </div>
+
+            <!-- Email and Password Fields -->
+            <div class="field-group row">
+                <div class="field-item">
+                    <label>Email address</label>
+                    <input type="email" id="email" placeholder="{{ user.email }}" readonly>
+                    <button class="edit-btn" onclick="toggleEdit('email')">Edit</button>
+                </div>
+                <div class="field-item">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="********" readonly>
+                    <button class="edit-btn" onclick="toggleEdit('password')">Edit</button>
+                </div>
+            </div>
+
+            <!-- Team Selection -->
+            <div class="field-group">
+                <label>Select your team</label>
+                <select>
+                    <option>Team Alfa</option>
+                    <option>Team Beta</option>
+                    <option>Team Gamma</option>
+                </select>
+                <button class="edit-btn">Update Your Team</button>
+            </div>
+        </div>
+    </div>
+
+<!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+        <!-- Logo on the left -->
+        <div class="footer-logo">
+          <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+        </div>
+        <!-- Footer links on the right -->
+        <div class="footer-links">
+            <a href="/help/">Help</a>
+            <a href="/accessibility/">Accessibility</a>
+            <a href="/privacy/">Privacy & terms of use</a>
+            <a href="/contact/">Contact us</a>
+            <a href="/legal/">Legal</a>
+        </div>
+    </div>
+  </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

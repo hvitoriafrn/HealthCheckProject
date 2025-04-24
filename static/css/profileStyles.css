@@ -1,0 +1,189 @@
+/* Left Panel */
+.left-panel {
+    width: 200px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    border-right: 1px solid #ddd;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-container .sky-logo {
+    height: 50px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.nav-button.active-nav {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.nav-button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Main Content */
+.main-content {
+    margin: 20px; /* Add margin to the main content */
+    margin-left: 240px; /* Adjust for the left panel width */
+    padding: 20px;
+    position: relative;
+}
+
+/* Logout Button */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+}
+
+/* Profile Section */
+.profile-section {
+    margin-top: 20px;
+}
+
+.profile-section h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.profile-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.field-group {
+    margin-bottom: 30px; /* Add margin between input fields */
+}
+
+.field-group.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.field-item {
+    flex: 1;
+    margin-bottom: 20px; /* Add spacing between fields */
+}
+
+.field-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column; /* Stack input and button vertically */
+    gap: 10px; /* Space between input and button */
+    position: relative;
+}
+
+.input-container input,
+.field-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Add margin to each input box */
+}
+
+.field-item input,
+.field-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Add margin below input fields */
+}
+
+.edit-btn {
+    align-self: flex-end; /* Align the button to the right */
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #ff4d4d;
+}
+
+.cancel-btn:hover {
+    background-color: #e60000;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px; /* Add space above the footer */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.footer-logo .logo {
+    width: 100px;
+    height: auto;
+}
+
+.footer-links {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.footer-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+.footer-links a:first-child {
+    margin-left: 0;
+}
