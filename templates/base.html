@@ -1,29 +1,31 @@
 {% load static %}
-<!-- removed prior links for the home page -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Django App{% endblock %}</title>
-
-    <!-- included css stylesheet-->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <!-- Added navbar and footer to base file -->
-    
-    <header>
-        {% include 'navbar.html' %}
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-    
-    {% include 'footer.html' %}
+    <div class="page-container">
+        <!-- added this line because the navbar kept displaying on the register page-->
+        {% if user.is_authenticated and request.path != '/register/' %}
+        <header>
+            {% include 'navbar.html' %}
+        </header>
+        {% endif %}
         
-    </footer>
+        <main>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
+    </div>
 </body>
 </html>

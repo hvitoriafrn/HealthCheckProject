@@ -1,105 +1,164 @@
-/* General styling */
+/*stylesheet for nav + footer */
 body {
     font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
 
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* For absolute positioning of sign-out */
+}
+
+main {
+    flex: 1;
+    margin-left: 250px; /* Match navbar width */
+    padding: 20px;
+}
+
+.content {
+    min-height: calc(100vh - 150px); /* Adjusts based on footer height */
+    padding: 20px;
+}
+
+/* Navbar styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ccc; /* Border only on the right side */
+    position: relative;
+   
 }
 
 .sky-logo {
     width: 120px;
-    margin: 20px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
+    margin: 10px;
+    margin-right: auto; /* Push the logo to the left */
+    margin-left: 60px; /* Added some left margin for spacing */
 }
 
-/* Navbar styles */
 nav {
-    margin-top: 150px; /* Adjust this value to move the navbar down */
-
-    
+    margin-top: 50px;
+    margin-left: auto; /* Pushes the nav to the left */
+    margin-right: 50px; /* Added some right margin for spacing */
+    width: fit-content; /* Adjusts width to fit content */
 }
+
+
 nav ul {
-    list-style-type: none; /* Removes bullets */
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
 nav ul li {
-    margin: 10px 0; /* Adds space between list items */
-    border: 2px solid #000; /* Adds a black border around each list item */
+    margin: 20px 0;
+    border: 2px solid #000;
     border-radius: 5px;
     text-align: center;
     padding: 30px;
-    width: 100px; /* Reduced the width for better alignment*/
+    width: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 10px;
 }
 
-
 nav ul li:hover {
-    background-color: #f0f0f0; /* Light grey hover effect */
+    background-color: #f0f0f0;
 }
 
 nav ul li:active {
-    background-color: #3498db; /* Blue color when nav option is clicked */
+    background-color: #3498db;
     color: #fff;
 }
 
+nav ul li.active-page {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #3498db;
+}
+
 nav ul li a {
-    color: #000; /* Text color inside the links is black */
-    text-decoration: none; /* Removes underline from links */
+    color: #000;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Space between icon and text */
+    gap: 10px;
 }
 
 nav ul li img.icon {
-    width: 60px; /* Adjust icon size */
+    width: 60px;
     height: 60px;
 }
 
-/* Maryam's Footer */
+/* Sign Out Button - positioned in top right corner */
+.sign-out {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.sign-out-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.sign-out-icon {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+/* Footer styles */
 footer {
-    position: fixed; /* Fixes the footer at the bottom of the viewport */
-    bottom: 0; /* Aligns the footer to the bottom */
-    left: 0; /* Aligns the footer to the left edge */
-    width: 100%; /* Makes the footer span the full width of the viewport */
-    text-align: center; /* Center-aligns the text */
-    padding: 10px; /* Adds padding inside the footer */
-    background: #fff; /* White background */
-    border-top: 1px solid #ccc; /* Light top border */
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    margin-top: auto; /* Push to bottom */
+    width: 100%;
 }
 
-  /* Footer container holds logo and links side by side */
-  .footer-container {
-display: flex;
-justify-content: space-between; /* Logo left, links right */
-align-items: center;
-padding: 10px 20px;  /* Adds space around the content */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    margin-left: 250px; /* Match navbar width */
 }
 
-/* Footer logo sizing */
 .footer-logo .logo {
-width: 100px;  /* To adjust size */
-height: auto;
+    width: 80px;
+    height: auto;
 }
 
-/* Footer links styling */
 .footer-links {
-text-align: right;
-padding-right: 20px;  /* Extra space from the right edge */
+    text-align: right;
 }
 
 .footer-links a {
-margin-left: 20px;  /* Adds space between each link */
-text-decoration: none;
-color: #000;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
 }
 
 .footer-links a:first-child {
-margin-left: 0;  /* No left margin for the first link */
+    margin-left: 0;
 }
+
+
