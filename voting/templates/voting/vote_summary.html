@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- hide the shared header so this page stands on its own -->
+{% block header %}{% endblock %}
+
+<!-- pull in this page’s CSS file -->
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'voting/style.css' %}">
+{% endblock %}
+
+<!-- text shown in the browser tab -->
+{% block title %}Your Dashboard{% endblock %}
+
+{% block content %}
+  <!-- main heading -->
+  <h1>Your Dashboard</h1>
+  <!-- short description -->
+  <p>View how teams in your department voted here</p>
+
+  <!-- ─── Controls: toggle switch + session dropdown ─── -->
+  <form method="get" class="controls-bar">
+    <!-- container around the switch and its label -->
+    <div class="toggle-container">
+      <!-- label for the switch -->
+      <div class="toggle-label">
+        Display trends<br>against the session before
+      </div>
+      <label class="switch">
+        <!-- checkbox that auto-submits when toggled -->
+        <input
+          type="checkbox"
+          name="show_trend"
+          {% if show_trend %}checked{% endif %}
+          onchange="this.form.submit()"
+        >
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- dropdown to pick which session to view -->
+    <select name="session" onchange="this.form.submit()">
+      {% for s in sessions %}
+        <option value="{{ s.pk }}" {% if s == current_session %}selected{% endif %}>
+          {{ s.title }} ({{ s.created_at|date:"j M Y" }})
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <!-- ─── Question titles row ─── -->
+  <div class="labels-row">
+    {% for q in questions %}
+      <div class="label-cell">{{ q.question_content }}</div>
+    {% endfor %}
+    <!-- empty cell above team names column -->
+    <div class="label-cell team-col-header"></div>
+  </div>
+
+  <!-- ─── Voting circles grid: one row per team ─── -->
+  <div class="summary-grid">
+    {% for row in rows %}
+      {% for cell in row.cells %}
+        <!-- one question’s circles (current + optional previous) -->
+        <div class="cell">
+          <span class="trend-circle {{ cell.cur.0 }}">
+            <!-- only show arrow symbol when trends are on -->
+            {% if show_trend %}{{ cell.cur.1 }}{% endif %}
+          </span>
+        </div>
+      {% endfor %}
+
+      <!-- team name at end of row -->
+      <div class="team-col">{{ row.team }}</div>
+    {% endfor %}
+  </div>
+
+  <!-- ─── Charts row: only display when trends are on ─── -->
+  {% if show_trend %}
+    <div class="charts">
+      <!-- pie chart spot -->
+      <div class="chart-wrapper">
+        <canvas id="pieChart"></canvas>
+      </div>
+      <!-- line chart spot -->
+      <div class="chart-wrapper">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+  <!-- load Chart.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- load the plugin that draws labels inside pie slices -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+  <script>
+    // ── PIE CHART SETUP ──
+    new Chart(
+      document.getElementById('pieChart'),
+      {
+        type: 'pie',
+        data: {
+          labels: {{ pie_labels|safe }},       <!-- slice names -->
+          datasets: [{
+            data:            {{ pie_data|safe }},  <!-- slice sizes -->
+            backgroundColor: ['#63A103','#F59A23','#D9001B']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },          <!-- hide legend -->
+            datalabels: {                        <!-- show % labels -->
+              color: '#fff',
+              font: { weight: 'bold', size: 14 },
+              formatter: (value, ctx) => {
+                const data = ctx.chart.data.datasets[0].data;
+                const sum  = data.reduce((a, b) => a + b, 0);
+                return Math.round((value * 100) / sum) + '%';
+              }
+            }
+          }
+        },
+        plugins: [ ChartDataLabels ]                <!-- activate plugin -->
+      }
+    );
+
+    // ── LINE CHART SETUP ──
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: {{ line_labels|safe }},         <!-- x-axis dates -->
+        datasets: [{
+          data:  {{ line_data|safe }},          <!-- percent-green over time -->
+          fill:   false,                        <!-- no fill under line -->
+          borderWidth: 2,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } }, <!-- hide legend -->
+        scales: {
+          y: { beginAtZero: true, max: 100 }     <!-- y-axis 0–100 -->
+        }
+      }
+    });
+  </script>
+{% endblock %}
+
+{% block footer %}{% endblock %}

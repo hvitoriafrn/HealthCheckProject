@@ -1,34 +1,50 @@
-{% load static %}
+{# /YOUR_PROJECT_ROOT/templates/base.html #}
+{% load static %}  {# Load Django’s “static” tag so we can refer to CSS/JS files #}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Django App{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <meta charset="UTF-8">                                         <!-- Character encoding -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">  <!-- Mobile‐friendly settings -->
+  <title>
+    {% block title %}Sky Health Check{% endblock %}               <!-- Page title, overrideable per page -->
+  </title>
+
+  <!-- global/site-wide styles -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">   <!-- main stylesheet -->
+
+  <!-- per-page extra styles -->
+  {% block extra_css %}{% endblock %}                             <!-- Hook to add more CSS on individual pages -->
 </head>
 <body>
 
-    <header>
-        <h1>Welcome to the Sky Health Check project</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+  {% block header %}                                              <!-- Default header/navigation bar -->
+  <header>
+    <h1>Welcome to the Sky Health Check project</h1>              <!-- Site title shown on every page -->
+    <nav>
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>              <!-- Link back to home view -->
+        <li><a href="{% url 'login' %}">Login</a></li>            <!-- Built-in Django login page -->
+        <li><a href="{% url 'register' %}">Register</a></li>      <!-- User signup page -->
+        <!-- <<< ADD THIS LINE >>> -->
+        <li><a href="{% url 'voting:summary' %}">Team Summary</a></li>  <!-- Link to the team leader summary -->
+      </ul>
+    </nav>
+  </header>
+  {% endblock %}
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+  <main>
+    {% block content %}{% endblock %}                             <!-- Main page content goes here -->
+  </main>
 
-    <footer>
-        <p>&copy; Sky Health Check 2025 </p>
-    </footer>
+  {% block footer %}                                              <!-- Optional footer, overrideable -->
+  <footer>
+    <p>&copy; Sky Health Check </p>                          
+  </footer>
+  {% endblock %}
 
-    <script src="{% static 'js/script.js' %}"></script>
+  <!-- Site-wide scripts -->
+  <script src="{% static 'js/script.js' %}"></script>             <!-- main JavaScript file -->
 
+  {% block extra_js %}{% endblock %}                              <!-- Hook for page-specific scripts -->
 </body>
 </html>

@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'users',
     'results',
     'voting',
+   
+    
 ]
+
+LOGIN_REDIRECT_URL = '/voting/summary/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
