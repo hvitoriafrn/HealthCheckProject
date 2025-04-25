@@ -1,19 +1,15 @@
 {% load static %} 
 
-<!-- importing the CSS file  -->
-<head>
-    <!-- Include the external CSS file -->
-    <link rel="stylesheet" href="{% static 'success.css' %}">
-</head>
-<body>
+    <head>
+        <!-- Include the external CSS file -->
+        <link rel="stylesheet" href="{% static 'logout_success.css' %}">
+    </head>
 
+<body>
     <div class="container">
-        
-            <h1> <img src="{% static 'images/success.svg' %}" alt="checkmark" class="img">
-                Success!</h1>
+        <h2> See you soon!</h2>
         <div class="subtext">
-            <b>Your account has been registered successfully!</b>
-            <br>Your account is now ready and you can log into the system
+            <b>Your account has been logged out successfully!</b>
         </div>
         
          <!-- button for back to the home page -->
@@ -29,4 +25,3 @@
     </div>
 
 </body>
-</html>

@@ -46,12 +46,12 @@ class CustomUserManager(BaseUserManager):
         #returns the super user and also gives some values in case this is not filled out
         return self.create_user(email= email,
                                 password= password,
-                                userRole= extra_fields.get('userRole', 'admn'),
-                                userFirstName=extra_fields.get('userFirstName', 'Admn'),
+                                userRole= extra_fields.get('userRole', 'admin'),
+                                userFirstName=extra_fields.get('userFirstName', 'Admin'),
                                 userLastName=extra_fields.get('userLastName', 'User'))
         
 #this is the custom user model for the app (page)
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     #each user had a userID assigned to them when they register, like in the logical ERD 
     #so this basically is stating that plus also, auto increments when a user is created
     userID = models.AutoField(primary_key=True)
@@ -80,7 +80,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #defining that 'username' is in fact, email
     USERNAME_FIELD = 'email'
     #specifying the required fields for all, although it's not explicitly said, password and email are also necessary
-    REQUIRED_FIELDS = ['userFirstName','userLastName']
+    REQUIRED_FIELDS = ['userFirstName','userLastName', 'userRole']
 
     #links it to the customer manager model that has been defined above
     objects = CustomUserManager()

@@ -5,7 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.contrib.auth import authenticate
-from .models import CustomUser
+from .models import User
 from django.contrib.auth import logout as auth_logout
 
 
@@ -63,7 +63,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request,user) #logs them in
-            return redirect('home') #takes them to home page
+            return redirect('/results') #takes them to home page
         else:
             return render(request, 'users/login.html', {'form': form})
         
@@ -74,5 +74,7 @@ def login_view(request):
 def logout_view(request):
     #this logs the user out and then redirects them to home page
     auth_logout(request)
-    return redirect('home')
-    
+    return redirect('logout_success')
+
+def logout_success(request):
+    return render(request, 'users/logout_success.html')

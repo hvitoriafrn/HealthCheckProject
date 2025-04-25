@@ -1,22 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import CustomUser
+from .models import User
 
-
-# class UserCreateForm(UserCreationForm) :
-#     def __init__(self, *args, **kwargs):
-#         super(UserCreateForm,self).__init__(*args, **kwargs)
-        
-#         for fieldname in ['username','password1', 'password2']:
-#             self.fields[fieldname].help_text = None
-#             self.fields[fieldname].widget.attrs.update(
-#                 {'class':'form-control'}) 
 
 class UserCreateForm(UserCreationForm):
 
     class Meta:
         #creating a custom model because django's uses username, not email :(
-        model = CustomUser
+        model = User
     #fields where the user will input their details
         fields = [
             'userFirstName',
@@ -55,7 +46,7 @@ class UserCreateForm(UserCreationForm):
         #to acces the data after it's been validated
         cleaned = self.cleaned_data
         #creates a new user instance using the model (logicalERD style)
-        user = CustomUser.objects.create_user(
+        user = User.objects.create_user(
             email=cleaned['email'],
             password=cleaned['password1'], 
             userRole=cleaned['userRole'],
