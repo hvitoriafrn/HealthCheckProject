@@ -1,5 +1,6 @@
 {% load static %}
 <!-- Navbar-->
+ 
 <div class="navbar">
     <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="sky-logo">
     
@@ -39,11 +40,10 @@
             </li>
         </ul>
     </nav>
+    <div class="sign-out-navbar">
+        <a href="/users/logout.html" class="sign-out-link">
+     <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
+        </a>
+    </div>
 </div>
 
-<!-- Sign Out button outside the navbar -->
-<div class="sign-out">
-    <a href="/users/logout.html" class="sign-out-link">
-        <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
-    </a>
-</div>

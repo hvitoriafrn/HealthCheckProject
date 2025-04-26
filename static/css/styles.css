@@ -30,6 +30,7 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    
 }
 
 .navbar {
@@ -104,12 +105,11 @@ nav ul li img.icon {
     height: 60px;
 }
 
-/* Sign Out Button - positioned in top right corner */
-.sign-out {
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    z-index: 1001;
+.sign-out-navbar {
+    position: fixed; /* Fix it to the viewport */
+    top: 60px;      
+    right: 20px;     
+    z-index: 1001; /* Ensures it's above other elements */
 }
 
 .sign-out-link {
@@ -118,12 +118,14 @@ nav ul li img.icon {
     text-decoration: none;
     color: #000;
     font-weight: bold;
+    gap: 5px;
 }
 
-.sign-out-icon {
-    margin-right: 5px;
-    font-size: 18px;
+.sign-out-link img.icon {
+    width: 24px;
+    height: 24px;
 }
+
 
 /* Footer styles */
 footer {
@@ -160,5 +162,3 @@ footer {
 .footer-links a:first-child {
     margin-left: 0;
 }
-
-
