@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Voting Dashboard{% endblock %}
 {% load static %}
+{% load voting_extras %}
 {% block style_sheet %}<link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}">{% endblock %} 
 {% block content %}
     <section class="main-layout-voting">
@@ -23,9 +24,11 @@
 
                             <section class="trafficlight-container">
                                 <div class="hint hint-green">{{question.question_hint_green}}</div>
-                                <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green" required>
-                                <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber" required>
-                                <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red" required>
+                                {% with vote=votes_dict|get_item:question.pk %}
+                                <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green" {% if vote.choice == "green" %}checked{% endif %}>
+                                <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber" {% if vote.choice == "amber" %}checked{% endif %}>
+                                <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red" {% if vote.choice == "red" %}checked{% endif %}>
+                                {% endwith %}
                                 <div class="hint hint-red">{{question.question_hint_red}}</div>
                             </section>
 
@@ -36,7 +39,7 @@
                                     <textarea name="{{question.pk}}-comment" 
                                     id="{{question.pk}}-comment" 
                                     class="comment-field" 
-                                    placeholder="If there's anything else you'd like to add"></textarea>
+                                    placeholder="If there's anything else you'd like to add">{{ vote.comment }}</textarea>
                                     <label for="{{question.pk}}-comment" class="comment-label-bottom comment-label">Any optional comments you'd like to share </label>              
                                 </div>                                
                                 <div class="comment-spacing"></div>
@@ -48,8 +51,10 @@
                                 {% else %}
                                     <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previos Question</div>
                                 {% endif %}
-                                <div class="button-secondary" onclick="saveProgress()">Save Progress</div>
-                                <div class="button-primary" onclick="nextQuestion(`{{forloop.counter}}`)">Next Question</div>
+                                    <button class="button-secondary" type="submit" name="action" value="save">
+                                        Save Progress
+                                    </button>
+                                    <div class="button-primary" onclick="nextQuestion(`{{forloop.counter}}`)">Next Question</div>
                             </nav>
                             
                         </div>             
@@ -64,8 +69,12 @@
                         </section>
                         <nav class="voting-card-nav">
                             <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
-                            <div class="button-secondary" onclick="saveProgress()">Save Progress</div>
-                            <input class="button-primary" type="submit" value="Submit answers">
+                            <button type="submit" name="action" value="save" class="button-secondary">
+                                Save Progress
+                              </button>
+                              <button type="submit" name="action" value="submit" class="button-primary">
+                                Submit answers
+                              </button>
                         </nav>
                     
                     </div>

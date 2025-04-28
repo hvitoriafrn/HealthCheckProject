@@ -87,6 +87,3 @@ function previousQuestion(activeQuestion){
 
 }
 
-function saveProgress(){
-    window.alert("Sorry! this feature has not been developed yet, work in progress");
-}

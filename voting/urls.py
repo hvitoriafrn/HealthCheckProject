@@ -6,3 +6,4 @@ urlpatterns = [
     path('<int:session_id>', views.session, name='session'),
 
 ]
+  
