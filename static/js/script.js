@@ -87,3 +87,7 @@ function previousQuestion(activeQuestion){
 
 }
 
+function saveProgress(){
+    window.alert("Progress for this session has been saved! You can now click the exit button without loosing any data");
+}
+

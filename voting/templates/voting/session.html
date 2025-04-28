@@ -51,7 +51,7 @@
                                 {% else %}
                                     <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previos Question</div>
                                 {% endif %}
-                                    <button class="button-secondary" type="submit" name="action" value="save">
+                                    <button onclick="saveProgress()" class="button-secondary" type="submit" name="action" value="save" >
                                         Save Progress
                                     </button>
                                     <div class="button-primary" onclick="nextQuestion(`{{forloop.counter}}`)">Next Question</div>
@@ -69,7 +69,7 @@
                         </section>
                         <nav class="voting-card-nav">
                             <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
-                            <button type="submit" name="action" value="save" class="button-secondary">
+                            <button onclick="saveProgress()" type="submit" name="action" value="save" class="button-secondary" >
                                 Save Progress
                               </button>
                               <button type="submit" name="action" value="submit" class="button-primary">
