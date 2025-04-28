@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-# Create your models here.
-
+#Create your models here.
 
 #Custom user manager to handle the users that register and the super user (django admin)
 class CustomUserManager(BaseUserManager):
