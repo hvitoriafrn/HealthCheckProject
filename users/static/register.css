@@ -51,6 +51,7 @@
         width: 100%;
         box-sizing: border-box;
         background-color: #f2f2f2;
+        text-align: left;
     }
     /* styling the error for the input fields */
     input.touched.invalid,

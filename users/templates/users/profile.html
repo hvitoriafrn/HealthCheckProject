@@ -20,12 +20,12 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <button class="logout-btn" onclick="window.location.href='{% url 'login' %}'">
+        <button class="logout-btn" onclick="window.location.href='{% url 'logout' %}'">
             <img src="{% static 'images/sign-out-option.png' %}" alt="Log Out" class="logout-icon">
         </button>
         
         <div class="profile-section">
-            <h1>Your Dashboard</h1>
+            <h1>Your Dashboard</h1>  
             <h2>Manage your profile settings here</h2>
 
             <form method="post" novalidate id="profile-form">

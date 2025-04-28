@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views  # Django's built-in authent
 
 urlpatterns = [
     path('', views.home, name='home'),  # Home page
-    path('profile/', views.profile, name='profile'),  # User profile
+    path('profile/', views.profile_view, name='profile'),  # User profile
     path('register/', views.register, name='register'),  # User registration
     path('login/', views.login_view, name='login'),  # Login page
     path('logout/', views.logout_view, name='logout'),
@@ -17,4 +17,5 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='users/resetPassword/reset_complete.html'),name='password_reset_complete'),
     #path to the view summary
     path('team_summary/', views.team_summary_view, name='team_summary'),
+    path("update-profile/", views.update_profile, name="update_profile"),
 ]

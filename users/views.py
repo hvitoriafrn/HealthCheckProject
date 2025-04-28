@@ -1,30 +1,22 @@
-
-from django.shortcuts import render
-from django.shortcuts import redirect
-from .forms import UserCreateForm
+from django.shortcuts import render, redirect
 from django.db import IntegrityError
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .models import User
-from django.contrib.auth import logout as auth_logout
+from django.contrib import messages
+from .forms import UserCreateForm, UserProfileUpdateForm 
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
 def home(request):
     return render(request, 'users/home.html')
-    
-def profile(request):
-    if request.user.is_authenticated:
-        return render(request, 'users/profile.html')
-    else: 
-        return redirect('/login/')
-
+ 
 def success(request):
         return render(request, 'users/success.html')
-
 
 def register(request):
     if request.user.is_authenticated:
@@ -42,10 +34,12 @@ def register(request):
         try: 
             #save to the databse
             user = form.save()
+
             #log the user once registered! (this line will be removed because we don't want this to happen)
             #login(request,user) 
-            #save the session (keeps them logged in)
-            user.save()
+            
+            #user.save()
+            
             #will redirect the user to their profile page 
             return redirect('success') #This will probably be changed to the dashboard or summary page
         
@@ -111,4 +105,78 @@ def team_summary_view(request):
 
 
     return render(request, 'users/team_summary.html', {"voting_data": voting_data})
+
+   
+@login_required
+def profile_view(request):
+    user = request.user
+    profile_form = UserProfileUpdateForm(
+        request.POST or None,
+        instance=user,
+        initial={
+            'userFirstName': user.userFirstName,
+            'userLastName': user.userLastName,
+            'email': user.email,
+            'userRole': user.userRole
+        }
+    )
+    password_form = PasswordChangeForm(user)
+
+    if request.method == 'POST':
+        if 'update_profile' in request.POST:
+            profile_form = UserProfileUpdateForm(
+                request.POST,
+                instance=user,
+                initial={
+                    'userFirstName': user.userFirstName,
+                    'userLastName': user.userLastName,
+                    'email': user.email,
+                    'userRole': user.userTeam
+                }
+            )
+            if profile_form.is_valid():
+                profile_form.save()
+                messages.success(request, "Profile updated successfully.")
+                return redirect('profile')
+        
+        elif 'change_password' in request.POST:
+            password_form = PasswordChangeForm(user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Password updated successfully.')
+                return redirect('profile')
+            else:
+                messages.error(request, 'Please correct the error below.')
+
+    team_choices = [('team1', 'Team 1'), ('team2', 'Team 2'), ('team3', 'Team 3')]
+
+    return render(request, 'users/profile.html', {
+        'user': user,
+        'team_choices': team_choices,
+        'profile_form': profile_form,
+        'password_form': password_form,
+    })
+
+@csrf_exempt
+def update_profile(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        field = data.get("field")
+        value = data.get("value")
+
+        # Update the logged-in user's profile
+        user = request.user
+        if field == "name":
+            user.userFirstName = value
+        elif field == "surname":
+            user.userLastName = value
+        elif field == "email":
+            user.email = value
+        elif field == "team":
+            user.userTeam = value 
+        user.save()
+
+        return JsonResponse({"success": True})
+    return JsonResponse({"success": False}, status=400)
 

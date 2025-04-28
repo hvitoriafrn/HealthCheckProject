@@ -2,10 +2,9 @@
     /* changing the font to Roboto by google fonts for all text on the website. CDN required in html files*/
     font-family: "Roboto", sans-serif;
 }
-
+/* removed the align center because it was messing up with the register page */
 body{
-    background-color: rgb(220, 144, 255);
-    text-align: center;
+    background-color: rgb(255, 255, 255);
 }
 .logoutWrapper{
     position: fixed;
