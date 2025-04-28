@@ -3,6 +3,10 @@
     font-family: "Roboto", sans-serif;
 }
 
+body{
+    background-color: rgb(220, 144, 255);
+    text-align: center;
+}
 .logoutWrapper{
     position: fixed;
     top: 20px;

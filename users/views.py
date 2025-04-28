@@ -1,12 +1,14 @@
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .forms import UserCreateForm
 from django.db import IntegrityError
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from .models import User
 from django.contrib.auth import logout as auth_logout
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -18,19 +20,16 @@ def profile(request):
     if request.user.is_authenticated:
         return render(request, 'users/profile.html')
     else: 
-         return redirect('/login')
+        return redirect('/login/')
 
 def success(request):
-    if request.user.is_authenticated:
         return render(request, 'users/success.html')
-    else: 
-         return redirect('/login')
 
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect('/voting')
-    
+        return redirect('/profile')
+
     #showing the form for the user when the load the register page
     if request.method == 'GET':
         return render(request, 'users/register.html', 
@@ -74,7 +73,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request,user) #logs them in
-            return redirect('/results') #takes them to home page
+            return redirect('/results/') #takes them to home page
         else:
             return render(request, 'users/login.html', {'form': form})
         
@@ -89,3 +88,27 @@ def logout_view(request):
 
 def logout_success(request):
     return render(request, 'users/logout_success.html')
+
+@login_required
+def team_summary_view(request):
+    # Placeholder data for voting summary
+    session = request.GET.get('session', 'session1')  # Default to session1
+    voting_data = [
+        {"question": "Delivering Value", "current_vote": "green", "trend": "arrow-up"},
+        {"question": "Easy to Release", "current_vote": "amber", "trend": "arrow-down"},
+        {"question": "Learning", "current_vote": "green", "trend": "rectangle"},
+        {"question": "Pawns or Players", "current_vote": "red", "trend": "arrow-down"},
+        {"question": "Teamwork", "current_vote": "green", "trend": "arrow-up"},
+        {"question": "Health of Codebase", "current_vote": "amber", "trend": "rectangle"},
+        {"question": "Mission", "current_vote": "green", "trend": "arrow-up"},
+        {"question": "Speed", "current_vote": "red", "trend": "arrow-down"},
+        {"question": "Suitable Process", "current_vote": "amber", "trend": "arrow-up"},
+        {"question": "Support", "current_vote": "green", "trend": "rectangle"},
+    ]
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return JsonResponse({"voting_data": voting_data})
+
+
+    return render(request, 'users/team_summary.html', {"voting_data": voting_data})
+

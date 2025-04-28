@@ -73,6 +73,12 @@
         display: none;
     }
 
+    .error2 {
+        color:  rgb(255, 0, 0);
+        font-size: x-small;
+        display: block;
+    }
+
     /* styling for the register button at the bottom of the form */
     button {
         padding: 11px;

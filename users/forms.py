@@ -1,8 +1,45 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
+from django.core.exceptions import ValidationError
 
+class UserProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['userFirstName', 'userLastName', 'email', 'teamID', 'userRole']
+        labels = {
+            'userFirstName': 'First name',
+            'userLastName': 'Last name',
+            'email': 'Email address',
+            'teamID': 'teamID',
+            'userRole': 'Role'
+        }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['userRole'].widget.attrs['disabled'] = True
+
+    def save(self, commit=True):
+        # Get the existing user instance
+        user = self.instance
+        
+        # Update fields
+        user.userFirstName = self.cleaned_data['userFirstName']
+        user.userLastName = self.cleaned_data['userLastName']
+        user.email = self.cleaned_data['email']
+        user.teamID = self.cleaned_data['teamID']
+        
+        # For disabled fields, use initial values
+        user.userRole = self.initial.get('userRole') 
+        
+        if commit:
+            user.save()
+        return user
+
+#user creation 
 class UserCreateForm(UserCreationForm):
 
     class Meta:
@@ -41,6 +78,13 @@ class UserCreateForm(UserCreationForm):
         for fieldname in ['password1','password2']:
               self.fields[fieldname].help_text = None
         
+    #check if the email exists already in the databse
+    def checkEmail(self):
+            email = self.cleaned_data.get('email')
+            if User.objects.filter(email=email).exists():
+                raise ValidationError("Email address is already registered")
+            return email
+
     #defining the save method
     def save(self, commit=True):
         #to acces the data after it's been validated
@@ -53,10 +97,11 @@ class UserCreateForm(UserCreationForm):
             userFirstName =cleaned['userFirstName'],
             userLastName=cleaned['userLastName'],
         )
-
+    
         #if commit is true (basically if it's submitted), save the user    
         if commit:
             user.save()
 
         #returns the new user that was just created
         return user
+    

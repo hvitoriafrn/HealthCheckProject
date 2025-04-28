@@ -2,6 +2,11 @@
 {% load static %} 
 {% block content %}
  
+<head>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+
 <div class="logoutWrapper">
         <!-- logout button -->
         <a href="{% url 'logout' %}" class="logout">
@@ -21,6 +26,10 @@
 
             {% if user.is_authenticated %}
             <p>You are logged in as {{ user.userFirstName }}</p>
+
+            <a href="{% url 'profile' %}"><button>Check your profile
+            </button></a>
+           
             {% else %}
             <p>You are not logged in.</p>
             {% endif %}

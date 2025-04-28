@@ -1,12 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 
 #Create your models here.
 
 #Custom user manager to handle the users that register and the super user (django admin)
 class CustomUserManager(BaseUserManager):
     #creates a regular user
-    def create_user (self, email, password, userRole, userFirstName, userLastName):
+    def create_user (self, email, password, userRole, userFirstName, userLastName,**extra_fields):
         #error in case a user doesn't enter an email
         if not email:
             raise ValueError("Email is required")
@@ -17,8 +17,11 @@ class CustomUserManager(BaseUserManager):
                           userRole=userRole,
                           userFirstName= userFirstName,
                           userLastName = userLastName,
-                          is_staff=False,
-                          is_active=True)
+                          is_staff=extra_fields.get('is_staff',False),
+                          is_superuser=extra_fields.get('is_superuser', False),
+                           is_active=extra_fields.get('is_active', True),
+                          **extra_fields
+        )
         #with this, we use django to hash the password securely
         user.set_password(password)
         user.save(using=self._db) #saving the user
@@ -37,7 +40,8 @@ class CustomUserManager(BaseUserManager):
                                 password= password,
                                 userRole= extra_fields.get('userRole', 'admin'),
                                 userFirstName=extra_fields.get('userFirstName', 'Admin'),
-                                userLastName=extra_fields.get('userLastName', 'User'))
+                                userLastName=extra_fields.get('userLastName', 'User'),
+                                **extra_fields)
         
 #this is the custom user model for the app (page)
 class User(AbstractBaseUser, PermissionsMixin):
@@ -59,13 +63,27 @@ class User(AbstractBaseUser, PermissionsMixin):
             ('senior_manager', 'Senior Manager')
         ],
         blank=True, 
-        null=True)
+        null=True
+        )
     
+    #linking the team table with teamID as fk 
+    teamID = models.ForeignKey('voting.Team', on_delete=models.SET_NULL, null=True, blank=True)
+
     #added this or i would not be able to access django admin 
     #is set to false because only our team will have this as 'true'
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-        
+    
+    groups = models.ManyToManyField(
+        Group,
+        related_name="customuser_groups",
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="customuser_permissions",
+        blank=True
+    )    
     #defining that 'username' is in fact, email
     USERNAME_FIELD = 'email'
     #specifying the required fields for all, although it's not explicitly said, password and email are also necessary
