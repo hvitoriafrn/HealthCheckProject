@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 
+
 # Health Cards, chose to call the model 'Question' as is's shorter
 class Question(models.Model):
     question_content = models.TextField() # the actual question displayed in the heading of the card
@@ -18,6 +19,7 @@ class Question(models.Model):
 class Session(models.Model):
     title = models.CharField(max_length=255, blank=True, default='') # (optional) user can give each session a title to make them easier to distinguish in the admin view
     created_at = models.DateTimeField(auto_now=True, editable=True)
+
     users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="voting_sessions") # which users were assigned the session [MIGHT DELETE THAT LATER]
     questions_included = models.ManyToManyField(Question, related_name="voting_sessions")
     submitted_by = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="submitted_sessions", blank=True) # will store users who submitted the session already
@@ -28,6 +30,7 @@ class Session(models.Model):
     def is_completed_by_user(self, user):
         # will check if a given user has already completed the session
         # will either retirn True or False
+
         return self.submitted_by.filter(userID=user.userID).exists()
 
 #will store the user's response to a question
@@ -44,4 +47,5 @@ class Vote(models.Model):
         unique_together = ('user', 'session', 'question') # idk if that's still needed, I kept it to be safe 
 
     def __str__(self):
+
         return f"Vote ID:{self.pk} - {self.user.email} - {self.session.title} - {self.question.question_content}"

@@ -11,6 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- if there is any particlar stylesheet that is specific to your view, you can use this block to include it -->
+    {% block style_sheet %}{% endblock%}
 </head>
 <body>
     <!-- I removed the basic nav with links to home, login and register as I don't think they're needed in the 'base.html' file-->
@@ -23,7 +25,7 @@
     <footer>
         <p>&copy; Sky Health Check 2025</p>
     </footer>
-
+    
     <script src="{% static 'js/script.js' %}"></script>
     
 </body>

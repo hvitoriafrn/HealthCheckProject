@@ -17,12 +17,15 @@ def session(request, session_id):
     session = get_object_or_404(Session, pk=session_id)
     questions = session.questions_included.all()
 
-    # troubleshooting - if user already submitted this session
+    # If user already fully submitted this session, show a message
     if session.is_completed_by_user(request.user):
         return render(request, 'voting/already_submitted.html', {'session': session})
 
-    # if the form was submitted
     if request.method == 'POST':
+        action = request.POST.get('action')  # either 'save' or 'submit'
+
+        # Save or update votes for every question present
+
         for question in questions:
             choice = request.POST.get(f"{question.pk}-colour")
             comment = request.POST.get(f"{question.pk}-comment", '').strip()
@@ -32,21 +35,26 @@ def session(request, session_id):
                     user=request.user,
                     session=session,
                     question=question,
-                    defaults={
-                        'choice': choice,
-                        'comment': comment
-                    }
+
+                    defaults={'choice': choice, 'comment': comment}
                 )
 
-        # Mark session as submitted and go back to the dashborad 
-        session.submitted_by.add(request.user)
-        return redirect('/voting/') 
-            
-    # if the form was not submitted and we need to render questions 
+        if action == 'submit':
+            # Final submission: mark as completed
+            session.submitted_by.add(request.user)
+            return redirect('voting:dashboard')
+
+        # action == 'save' (or anything else): just re-load this session page
+        return redirect('voting:session', session_id=session.id)
+
+    # GET request: render session with any previously saved votes
+    user_votes = Vote.objects.filter(user=request.user, session=session)
+    votes_dict = {v.question_id: v for v in user_votes}
+
     context = {
         'session': session,
         'questions': questions,
-        'questions_qty':len(questions),
+        'questions_qty': questions.count(),
+        'votes_dict': votes_dict,
     }
-
     return render(request, 'voting/session.html', context)

@@ -70,6 +70,10 @@ a, a:visited{
     font-weight: bolder;
     color: #8C8C8C;
 }
+.voting-card-body header h3::before{
+    content: "🌄";
+}
+
 
 .progress-bar{
     -webkit-appearance: none;
@@ -108,13 +112,14 @@ progress.progress-bar::-webkit-progress-value{
     border: none;
     border-radius: 50%;
 }
-.trafficlight-container input[type="radio"].green{
+.trafficlight-container input[type="radio"].green, .summary-box .circle-green{
     background-color: #63A103;
 }
-.trafficlight-container input[type="radio"].amber{
+.trafficlight-container input[type="radio"].amber, .summary-box .circle-amber{
     background-color: #F59A23;
 }
-.trafficlight-container input[type="radio"].red{
+.trafficlight-container input[type="radio"].red, .summary-box .circle-red{
+
     background-color: #D9001B;
 }
 .trafficlight-container .hint, .comment-container .comment-spacing {
@@ -177,7 +182,8 @@ progress.progress-bar::-webkit-progress-value{
     border-top-width: 1px;
 }
 
-.voting-card-nav div, .voting-card-nav input{
+
+.voting-card-nav div, .voting-card-nav input, .voting-card-nav button{
     display: inline-block;
     text-align: center;
     width: 140px;
@@ -201,14 +207,62 @@ progress.progress-bar::-webkit-progress-value{
 .voting-card-nav .button-primary{
     background-color: #169BD5;
     color: #FFFFFF;
-    border: none;
+    border-width: 1px;
+    border-color: #169BD5;
+
 }
 
 /* everything related to voting card containing summary */
 #voting-card-body-2137 .content-summary-container{
-    height: 276px;
+    min-height: 276px;
     display: grid;
     grid-template-columns: auto auto auto;
+}
+
+.summary-box{
+    background-color: #F2F2F2;
+    border: none;
+    width: 92%;
+    max-width: 20vw;
+    margin-left: auto;
+    margin-right: auto;
+    height: 60px;
+    padding: 1px 5px;
+}
+
+.summary-box .summary-question-title, .summary-box .summary-traffic-light, .summary-box .summary-comment{
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    line-height: 20px;
+    height: 20px;
+    font-size: smaller;
+}
+.summary-box .summary-comment{
+    font-size: x-small;
+    line-height: 1.5ch;
+    overflow: auto;
+}
+
+.summary-box .circle{
+    display: inline-block;
+    padding: 0;
+    margin-top: 2;
+    width: 30px;
+    height: 10px;
+    border-width: 0;
+    border-radius: 20px;
+}
+
+.summary-box .pending-alert::before{
+    content: "  !!!";
+}
+.summary-box .pending-alert::after{
+    content: "!!!";
+}
+.summary-box .pending-alert{
+    font-weight: bolder;
+    font-size: x-large;
 }
 
 /* Not required by CW: simple responsive design makes the GUI of the voting cards less glitch-y and easier to read when viewd on a smaller screen */
