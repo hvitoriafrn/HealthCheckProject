@@ -1,19 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-
 # Create your models here.
 
-# class User(models.User):
-#     userID = models.IntegerField
-#     userLastName = models.CharField(max_length=50)
-#     userFirstName = models.CharField(max_length=50)
-#     userPassword = user.set_password(password)
-#     userRole =
-#     userEmail = models.EmailField(max_length=254, **options)
-#     #userRegID =
-    
-    
+
 #Custom user manager to handle the users that register and the super user (django admin)
 class CustomUserManager(BaseUserManager):
     #creates a regular user

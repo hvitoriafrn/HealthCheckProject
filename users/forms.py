@@ -8,7 +8,7 @@ class UserCreateForm(UserCreationForm):
     class Meta:
         #creating a custom model because django's uses username, not email :(
         model = User
-    #fields where the user will input their details
+        #fields where the user will input their details
         fields = [
             'userFirstName',
             'userLastName',
@@ -17,7 +17,7 @@ class UserCreateForm(UserCreationForm):
             'password1',
             'password2'
         ]
-#labels because the fields were showing all messed up!!!!!!
+        #labels because the fields were showing all messed up!!!!!!
         labels = {
             'userFirstName': 'First name',
             'userLastName': 'Last name',
