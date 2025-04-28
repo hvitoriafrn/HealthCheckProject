@@ -161,6 +161,8 @@
             {% csrf_token %}
             
             <!-- shows errors (non field ones) -->
+            <input type="text" name="username" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
             {% if form.non_field_errors %}
                 <div class="alert alert-danger" role="alert">
                     {{ form.non_field_errors }}

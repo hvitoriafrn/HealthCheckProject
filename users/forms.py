@@ -1,63 +1,81 @@
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import CustomUser
 
-
-class UserCreateForm(UserCreationForm):
-
+class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
-        #creating a custom model because django's uses username, not email :(
         model = CustomUser
-    #fields where the user will input their details
-        fields = [
-            'userFirstName',
-            'userLastName',
-            'email',
-            'userRole',
-            'password1',
-            'password2'
-        ]
-#labels because the fields were showing all messed up!!!!!!
+        fields = ['userFirstName', 'userLastName', 'email', 'userTeam', 'userRole']
         labels = {
             'userFirstName': 'First name',
             'userLastName': 'Last name',
             'email': 'Email address',
-            'userRole': 'Role',
-            'password1': 'Password',
-            'password2': 'Confirm password',
+            'userTeam': 'Team',
+            'userRole': 'Role'
         }
 
-    #constructor for the user creation
     def __init__(self, *args, **kwargs):
-        super(UserCreateForm, self).__init__(*args, **kwargs)
-
-        #loops thorugh the fields and adds bootstrap class for the style
+        super().__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control'})  
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['userRole'].widget.attrs['disabled'] = True
 
-        #removes the default text from the password input fields 
-        #to add our own errors according to our prototype
-        for fieldname in ['password1','password2']:
-              self.fields[fieldname].help_text = None
-        
-    #defining the save method
     def save(self, commit=True):
-        #to acces the data after it's been validated
-        cleaned = self.cleaned_data
-        #creates a new user instance using the model (logicalERD style)
-        print()
-        user = CustomUser.objects.create_user(
-            email=cleaned['email'],
-            password=cleaned['password1'], 
-            role=cleaned['userRole'],
-            userFirstName =cleaned['userFirstName'],
-            userLastName=cleaned['userLastName'],
-        )
-
-        #if commit is true (basically if it's submitted), save the user    
+        # Get the existing user instance
+        user = self.instance
+        
+        # Update fields
+        user.userFirstName = self.cleaned_data['userFirstName']
+        user.userLastName = self.cleaned_data['userLastName']
+        user.email = self.cleaned_data['email']
+        user.userTeam = self.cleaned_data['userTeam']
+        
+        # For disabled fields, use initial values
+        user.userRole = self.initial.get('userRole') 
+        
         if commit:
             user.save()
+        return user
 
-        #returns the new user that was just created
+class UserCreateForm(forms.ModelForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = CustomUser
+        fields = ['userFirstName', 'userLastName', 'email', 'userTeam', 'userRole']
+        labels = {
+            'userFirstName': 'First name',
+            'userLastName': 'Last name',
+            'email': 'Email address',
+            'userTeam': 'Team',
+            'userRole': 'Role'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return cleaned_data
+
+    def save(self, commit=True):
+        cleaned = self.cleaned_data
+        user = CustomUser.objects.create_user(
+            email=cleaned['email'],
+            password=cleaned['password1'],
+            role=cleaned['userRole'],
+            userFirstName=cleaned['userFirstName'],
+            userLastName=cleaned['userLastName'],
+            userTeam=cleaned.get('userTeam')
+        )
+        if commit:
+            user.save()
         return user

@@ -15,76 +15,121 @@
         </div>
         <button class="nav-button active-nav">Profile Settings</button>
         <button class="nav-button">Voting Sessions</button>
-        <button class="nav-button">View Team Summary</button>
+        <button class="nav-button" onclick="window.location.href='{% url 'team_summary' %}'">View Team Summary</button>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <button class="logout-btn" onclick="window.location.href='{% url 'login' %}'">Sign Out</button>
+        <button class="logout-btn" onclick="window.location.href='{% url 'login' %}'">
+            <img src="{% static 'images/sign-out-option.png' %}" alt="Log Out" class="logout-icon">
+        </button>
         
-        <!-- Profile Settings -->
         <div class="profile-section">
             <h1>Your Dashboard</h1>
             <h2>Manage your profile settings here</h2>
-            
-            <!-- Name and Surname Fields -->
-            <div class="field-group row">
-                <div class="field-item">
-                    <label>Name</label>
-                    <input type="text" id="name" placeholder="{{ user.userFirstName }}" readonly>
-                    <button class="edit-btn" onclick="toggleEdit('name')">Edit</button>
-                </div>
-                <div class="field-item">
-                    <label>Surname</label>
-                    <input type="text" id="surname" placeholder="{{ user.userLastName }}" readonly>
-                    <button class="edit-btn" onclick="toggleEdit('surname')">Edit</button>
-                </div>
-            </div>
 
-            <!-- Email and Password Fields -->
-            <div class="field-group row">
-                <div class="field-item">
-                    <label>Email address</label>
-                    <input type="email" id="email" placeholder="{{ user.email }}" readonly>
-                    <button class="edit-btn" onclick="toggleEdit('email')">Edit</button>
-                </div>
-                <div class="field-item">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="********" readonly>
-                    <button class="edit-btn" onclick="toggleEdit('password')">Edit</button>
-                </div>
-            </div>
+            <form method="post" novalidate id="profile-form">
+                {% csrf_token %}
 
-            <!-- Team Selection -->
-            <div class="field-group">
-                <label>Select your team</label>
-                <select>
-                    <option>Team Alfa</option>
-                    <option>Team Beta</option>
-                    <option>Team Gamma</option>
-                </select>
-                <button class="edit-btn">Update Your Team</button>
-            </div>
+
+                <!-- Buttons for Name and Surname -->
+                <div class="field-group row">
+                    <div class="field-item">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="{{ user.userFirstName }}" readonly>
+                        <div class = "button-container">
+                        <button type="button" class="edit-btn" onclick="toggleEdit('name')">Edit</button>
+                        <button type="button" class="cancel-btn" style="display: none;" onclick="cancelEdit('name')">Cancel</button>
+                        <button type="button" class="save-btn" style="display: none;" onclick="saveField('name')">Double Click to Save</button>
+
+                        </div>
+                    </div>
+
+                    <div class="field-item">
+                        <label for="surname">Surname</label>
+                        <input type="text" id="surname" name="surname" placeholder="{{ user.userLastName }}" readonly>
+                        <div class="button-container">
+                        <button type="button" class="edit-btn" onclick="toggleEdit('surname')">Edit</button>
+                        <button type="button" class="cancel-btn" style="display: none;" onclick="cancelEdit('surname')">Cancel</button>
+                        <button type="button" class="save-btn" style="display: none;" onclick="saveField('surname')">Double Click to Save</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="field-group row">
+                    <div class="field-item">
+                        <label for="email">Email</label>
+                        <div class="input-container">
+                            <input type="email" id="email" name="email" placeholder="{{ user.email }}" readonly>
+                            <div class = "button-container">
+                            <button type="button" class="edit-btn" onclick="toggleEdit('email')">Edit</button>
+                            <button type="button" class="cancel-btn" style="display: none;" onclick="cancelEdit('email')">Cancel</button>
+                            <button type="button" class="save-btn" style="display: none;" onclick="saveField('email')">Double Click to Save</button>
+
+                            </div>
+                        </div>
+                    </div>
+                        <!-- Team Dropdown -->
+                    <div class="field-item">
+                        <label for="team">Team</label>
+                         <select id="team" name="team" disabled>
+                            {% for team_value, team_name in team_choices %}
+                        <option value="{{ team_value }}" {% if user.userRole == team_value %}selected{% endif %}>
+                            {{ team_name }}
+                        </option>
+                        {% endfor %}
+                        </select>
+                        <div class = "button-container">
+                        <button type="button" class="edit-btn" onclick="toggleEdit('team')">Edit</button>
+                        <button type="button" class="cancel-btn" style="display: none;" onclick="cancelEdit('team')">Cancel</button>
+                        <button type="button" class="save-btn" style="display: none;" onclick="saveField('team')">Double Click to Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Password Update Form -->
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                <h2>Change Password</h2>
+                <div class="field-group row">
+                    <div class="field-item">
+                        <label for="id_old_password">Old Password</label>
+                        {{ password_form.old_password }}
+                    </div>
+                    <div class="field-item">
+                        <label for="id_new_password1">New Password</label>
+                        {{ password_form.new_password1 }}
+                    </div>
+                    <div class="field-item">
+                        <label for="id_new_password2">Confirm New Password</label>
+                        {{ password_form.new_password2 }}
+                    </div>
+                </div>
+                <button type="submit" name="change_password" class="edit-btn">Update Password</button>
+            </form>
         </div>
     </div>
 
-<!-- Footer Section -->
-  <footer>
-    <div class="footer-container">
-        <!-- Logo on the left -->
-        <div class="footer-logo">
-          <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+            </div>
+            <div class="footer-links">
+                <a href="/help/">Help</a>
+                <a href="/accessibility/">Accessibility</a>
+                <a href="/privacy/">Privacy & terms of use</a>
+                <a href="/contact/">Contact us</a>
+                <a href="/legal/">Legal</a>
+            </div>
         </div>
-        <!-- Footer links on the right -->
-        <div class="footer-links">
-            <a href="/help/">Help</a>
-            <a href="/accessibility/">Accessibility</a>
-            <a href="/privacy/">Privacy & terms of use</a>
-            <a href="/contact/">Contact us</a>
-            <a href="/legal/">Legal</a>
-        </div>
-    </div>
-  </footer>
+    </footer>
 
     <script src="{% static 'js/script.js' %}"></script>
 </body>
