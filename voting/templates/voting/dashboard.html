@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Voting Dashboard{% endblock %}
+{% load static %}
+{% block style_sheet %} <link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}"> {% endblock %}
+{% block content %}
+    <section class="main-layout-voting">
+        <nav class="navigation-menu">
+            <span>Navigtion bar will be here</span>
+        </nav>
+        <section class="dashboard-content">
+            <h1>Hello, {{request.user.username}}</h1>
+            {% if pending_sessions %}
+                <p>Here are voting sessions available to you:</p>
+                {% for session in pending_sessions %}
+                    <a href="{% url 'voting:session' session.id %}"><button class="dashboard-session-btn">ID: {{session.pk}} -- {{session.title}}</button></a>
+                {% endfor %}
+            {% else %}
+                <h3>You do not have any sessions pending</h3>
+
+            {% endif %}
+        </section>
+    </section>
+
+{% endblock %}
