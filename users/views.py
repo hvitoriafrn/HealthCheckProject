@@ -9,21 +9,28 @@ from .models import User
 from django.contrib.auth import logout as auth_logout
 
 
-
 # Create your views here.
 
 def home(request):
     return render(request, 'users/home.html')
-
+    
 def profile(request):
-    return render(request, 'users/profile.html')
+    if request.user.is_authenticated:
+        return render(request, 'users/profile.html')
+    else: 
+         return redirect('/login')
 
 def success(request):
-    return render(request, 'users/success.html')
+    if request.user.is_authenticated:
+        return render(request, 'users/success.html')
+    else: 
+         return redirect('/login')
 
-#User = get_user_model()
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('/voting')
+    
     #showing the form for the user when the load the register page
     if request.method == 'GET':
         return render(request, 'users/register.html', 
@@ -37,7 +44,7 @@ def register(request):
             #save to the databse
             user = form.save()
             #log the user once registered! (this line will be removed because we don't want this to happen)
-            #login(request,user)
+            #login(request,user) 
             #save the session (keeps them logged in)
             user.save()
             #will redirect the user to their profile page 
@@ -55,6 +62,10 @@ def register(request):
 
 #login! 
 def login_view(request):
+    #added this so that the user cannot get to the login page if they're already logged in.
+    if request.user.is_authenticated:
+        return redirect('/voting')
+
     if request.method == "POST":
         #renders the login form when the user visits the following page (login)
         form = AuthenticationForm(request, data=request.POST)

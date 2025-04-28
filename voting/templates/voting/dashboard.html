@@ -3,12 +3,14 @@
 {% load static %}
 {% block style_sheet %} <link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}"> {% endblock %}
 {% block content %}
+
     <section class="main-layout-voting">
         <nav class="navigation-menu">
             <span>Navigtion bar will be here</span>
         </nav>
         <section class="dashboard-content">
-            <h1>Hello, {{request.user.username}}</h1>
+            <!-- changed from username to userFirstName -->
+            <h1>Hello, {{request.user.userFirstName}}</h1>
             {% if pending_sessions %}
                 <p>Here are voting sessions available to you:</p>
                 {% for session in pending_sessions %}

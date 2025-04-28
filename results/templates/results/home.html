@@ -2,54 +2,14 @@
 {% load static %} 
 {% block content %}
  
-<html>
-    <style>
-        .logout{
-            align-items: center;
-        }
-
-        /*the code below is Maryam's implementation of logo, copied it to match with the style of home page*/
-        /* Logo styling */
-        .logo {
-            margin-left: 50px; /* changed the margin to match prototype */
-            width: 150px;   /* changed it to match prototype size */
-            height: auto;   /* Keeps the aspect ratio */
-            transition: transform 0.3s; /* For hover effect */
-        }
-        /* taken from the home page code by Maryam */
-        .logo:hover {
-            transform: scale(1.05); /* Slight zoom on hover */
-        }
-
-        body{
-            margin-left: 50px;
-        }
-
-        .main{
-            margin-left: auto;
-            margin-right: auto;
-            align-items: center;
-            text-align: center;
-        }
-
-        .logout{
-            margin-top: 20px;
-            margin-left: 70%;
-        }
-
-     
-    </style>
-
-<header>
-    <div class="logout">
+<div class="logoutWrapper">
         <!-- logout button -->
-        <a href="{% url 'logout' %}">
+        <a href="{% url 'logout' %}" class="logout">
             <img src="{% static 'images/logout.svg' %}" alt="Logout button" class="logout">
+            <span>Sign Out</span>
         </a>
-    </div>
-    <!-- Sky Logo -->
-    <img src="{% static 'images/skyLogo.png' %}" alt="Sky Logo" class="logo">
-    
+</div>    
+
 </header>
 
     <body>
@@ -60,7 +20,7 @@
             <h2>this is your dashboard!!!!</h2>
 
             {% if user.is_authenticated %}
-            <p>You are logged in as {{ user.email }}</p>
+            <p>You are logged in as {{ user.userFirstName }}</p>
             {% else %}
             <p>You are not logged in.</p>
             {% endif %}

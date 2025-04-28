@@ -1,9 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
 def results_home(request):
-    return render(request, 'results/home.html')
+    if request.user.is_authenticated:
+        return render(request, 'results/home.html')
+    else:
+        return redirect('login')
 
 def summary(request):
-    return render(request, 'results/summary.html')
+    if request.user.is_authenticated:
+        return render(request, 'results/summary.html')
+    else:
+        return redirect('login')
