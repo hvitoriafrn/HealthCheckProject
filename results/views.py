@@ -8,8 +8,8 @@ def results_home(request):
     else:
         return redirect('login')
 
-def summary(request):
-    if request.user.is_authenticated:
-        return render(request, 'results/summary.html')
-    else:
-        return redirect('login')
+# def summary(request):
+#     if request.user.is_authenticated:
+#         return render(request, 'results/summary.html')
+#     else:
+#         return redirect('login')

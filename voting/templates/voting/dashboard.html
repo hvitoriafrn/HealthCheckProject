@@ -4,9 +4,7 @@
 {% block style_sheet %} <link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}"> {% endblock %}
 {% block content %}
     <section class="main-layout-voting">
-        <nav class="navigation-menu">
-            <span>Navigtion bar will be here</span>
-        </nav>
+     
         <section class="dashboard-content">
             <!-- changed from username to userFirstName -->
             <h1>Hello, {{request.user.userFirstName}}</h1>

@@ -1,9 +1,6 @@
 {% extends 'base.html' %} 
 {% load static %}
 
-<!-- hides the shared header so this page stands on its own 
- withought my home page-->
-{% block header %}{% endblock %}
 
 <!-- pull in this page’s CSS file only for this page-->
 {% block extra_css %}
@@ -170,7 +167,5 @@
     });
   </script>
 {% endblock %}
-<!-- clears out the deafault footer from base.html so nothing overrides -->
-{% block footer %}{% endblock %}  
 
 

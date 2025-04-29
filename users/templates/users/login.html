@@ -1,8 +1,12 @@
-{% load static %} 
-    <head>
-        <link rel="stylesheet" href="{% static 'login.css' %}">
-    </head>
+{% extends 'base.html' %}
 
+{% load static %} 
+<head>
+{% block style_sheet %}
+        <link rel="stylesheet" href="{% static 'login.css' %}">
+{% endblock %}
+</head>
+{% block content%}
         <!--base login page-->
     <div class="container">
         <h2> Log into your account</h2>
@@ -58,8 +62,13 @@
             
                 <!-- sign in button-->
                 <button name="button" type="submit"> Sign in </button>
-
             </form>
+
         </div>
     </div>    
+    {% endblock %}
+
+    {% block footer%}
+    {% endblock %}
+
 

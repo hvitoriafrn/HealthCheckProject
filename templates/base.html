@@ -1,9 +1,6 @@
 {% load static %}
-<!-- 
-<head>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-</head> -->
 
+<head>
 </div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +11,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <!-- if there is any particlar stylesheet that is specific to your view, you can use this block to include it -->
-    {% block style_sheet %}{% endblock%}
-
-    <!-- I removed the basic nav with links to home, login and register as I don't think they're needed in the 'base.html' file-->
-
-
-    <!-- Footer Section -->
-  
-
-
-
-    <script src="{% static 'js/script.js' %}"></script>
-    
-
-{% block content %}
-{% endblock %}
+    {% block style_sheet %}{% endblock %}
+</head>
+<body>
+    <div class="page-container">
+        <!-- added this line because the navbar kept displaying on the register page-->
+        {% if user.is_authenticated and request.path != '/register/' %}
+        <header>
+            {% include 'navbar.html' %}
+        </header>
+        {% endif %}
+        
+        <main>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
+    </div>
+</body>
+</html>

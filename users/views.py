@@ -18,6 +18,11 @@ def home(request):
 def success(request):
         return render(request, 'users/success.html')
 
+def success(request):
+    return render(request, 'users/success.html')
+
+#User = get_user_model()
+
 def register(request):
     if request.user.is_authenticated:
         return redirect('/profile')
@@ -67,7 +72,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request,user) #logs them in
-            return redirect('/results/') #takes them to home page
+            return redirect('/voting/') #takes them to home page
         else:
             return render(request, 'users/login.html', {'form': form})
         
