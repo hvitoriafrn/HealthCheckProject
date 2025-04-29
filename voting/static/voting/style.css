@@ -1,20 +1,3 @@
-
-/* simple layout for the voting app */
-.main-layout-voting{
-    display: grid;
-    grid-template-columns: 30% auto; /* 30% screen width for the nav bar, rest for the voting cards */
-
-}
-
-/* temporary placeholder for the nav menu*/
-.navigation-menu{
-    background-color: beige;
-    display: block;
-    width: 100%;
-    height: 80vh;
-    text-align: center;
-}
-
 .navigation-menu span{
     margin-top: 39vh;
     display: inline-block;
@@ -48,7 +31,6 @@
     background-color: #F2F2F2;
 }
     
-
 a, a:visited{
     text-decoration: none;
     color: #ffffff;
@@ -65,21 +47,19 @@ a, a:visited{
 }
 
 /* everything related to the header of the voting card */
-.voting-card-body header h3{
+.voting-card-body div h3{
     margin-left: 1em;
     font-size: 24px;
     font-weight: bolder;
     color: #8C8C8C;
 }
-.voting-card-body header h3::before{
+.voting-card-body div h3::before{
     content: "🌄";
 }
-
 
 .progress-bar{
     -webkit-appearance: none;
     appearance: none;
- 
     width: 100%;
     height: 13px;
     margin-top: -1em;

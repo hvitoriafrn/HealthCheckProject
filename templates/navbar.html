@@ -23,7 +23,7 @@
         
             <!-- Highlights the current page (voting session) in the navbar -->
             <li class="{% if request.path == '/voting/choose-session/' %}active-page{% endif %}">
-                <a href="{% url 'dashboard' %}">
+                <a href="{% url 'voting:dashboard' %}">
                     <img src="{% static 'images/voting.png' %}" alt="Voting Icon" class="icon">
                     Voting Sessions
                 </a>

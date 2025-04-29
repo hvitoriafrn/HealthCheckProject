@@ -1,39 +1,31 @@
 {% extends 'base.html' %}
 {% block title %} Voting Dashboard{% endblock %}
 {% load static %}
-
 {% load voting_extras %}
 {% block style_sheet %}<link rel="stylesheet" type="text/css" href="{% static 'voting/style.css'%}">{% endblock %} 
 {% block content %}
     <section class="main-layout-voting">
-        <nav class="navigation-menu">
-            <span>Navigtion bar will be here</span>
-        </nav>
         <section class="dashboard-content">
             <h1>Hello, {{request.user.userFirstName}}</h1>
                 <button class="dashboard-session-btn">ID: {{session.pk}} -- {{session.title}}</button>
 
-
                 <form method="POST" action="#">
                     {%csrf_token%}
                     {% for question in questions %}
-
                         <div class="voting-card-body" id="voting-card-body-{{ forloop.counter }}" data-pk="{{question.pk}}">
-                            <header>
+                            <div> <!-- formerly this div was a header but this caused positioning conflicts with the navbar
+                                and the easiest solution was to change it from header to div -->
                                 <h3 id="header-question-content-{{question.pk}}">Q{{forloop.counter}}: {{question.question_content}}</h3>
-
                                 <progress class="progress-bar" value="{{ forloop.counter }}" max="{{questions_qty|add:1}}"></progress>
-                            </header>
+                            </div>
 
                             <section class="trafficlight-container">
                                 <div class="hint hint-green">{{question.question_hint_green}}</div>
-
                                 {% with vote=votes_dict|get_item:question.pk %}
                                 <input type="radio" name="{{question.pk}}-colour" value="green" id="{{question.pk}}-green" class="green" {% if vote.choice == "green" %}checked{% endif %}>
                                 <input type="radio" name="{{question.pk}}-colour" value="amber" id="{{question.pk}}-amber" class="amber" {% if vote.choice == "amber" %}checked{% endif %}>
                                 <input type="radio" name="{{question.pk}}-colour" value="red" id="{{question.pk}}-red" class="red" {% if vote.choice == "red" %}checked{% endif %}>
                                 {% endwith %}
-
                                 <div class="hint hint-red">{{question.question_hint_red}}</div>
                             </section>
 
@@ -44,9 +36,7 @@
                                     <textarea name="{{question.pk}}-comment" 
                                     id="{{question.pk}}-comment" 
                                     class="comment-field" 
-
                                     placeholder="If there's anything else you'd like to add">{{ vote.comment }}</textarea>
-
                                     <label for="{{question.pk}}-comment" class="comment-label-bottom comment-label">Any optional comments you'd like to share </label>              
                                 </div>                                
                                 <div class="comment-spacing"></div>
@@ -58,19 +48,16 @@
                                 {% else %}
                                     <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previos Question</div>
                                 {% endif %}
-
-                                    <button class="button-secondary" type="submit" name="action" value="save">
+                                    <button onclick="saveProgress()" class="button-secondary" type="submit" name="action" value="save" >
                                         Save Progress
                                     </button>
                                     <div class="button-primary" onclick="nextQuestion(`{{forloop.counter}}`)">Next Question</div>
-
                             </nav>
                             
                         </div>             
                     {% endfor %}
                     <div class="voting-card-body voting-card-summary" id="voting-card-body-2137" data-questions-qty="{{questions_qty}}">
                         <header>
-
                             <h3>Please double check all of your answers before submitting</h3>
                             <progress class="progress-bar" value="{{questions_qty|add:1}}" max="{{questions_qty|add:1}}"></progress>
                         </header>
@@ -79,7 +66,7 @@
                         </section>
                         <nav class="voting-card-nav">
                             <div class="button-secondary" onclick="previousQuestion(2137)">Previos Question</div>
-                            <button type="submit" name="action" value="save" class="button-secondary">
+                            <button onclick="saveProgress()" type="submit" name="action" value="save" class="button-secondary" >
                                 Save Progress
                               </button>
                               <button type="submit" name="action" value="submit" class="button-primary">
@@ -91,5 +78,6 @@
                 </form>
         </section>
     </section>
+    <script src="{% static 'js/script.js' %}"></script>
     <script>document.addEventListener("DOMContentLoaded", function () {navInit();});</script>
 {% endblock %}

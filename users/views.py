@@ -62,7 +62,7 @@ def register(request):
 def login_view(request):
     #added this so that the user cannot get to the login page if they're already logged in.
     if request.user.is_authenticated:
-        return redirect('/voting')
+        return redirect('/voting/')
 
     if request.method == "POST":
         #renders the login form when the user visits the following page (login)
