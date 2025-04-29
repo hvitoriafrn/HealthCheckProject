@@ -5,22 +5,26 @@ from django.contrib.auth.models import Group
 from .models import Session, Vote
 
 @login_required
-def dashboard(request):
+def dashboard_view (request): # Changed from dashboard to dashboard_view to avoid confusion with the session view
     # Shows the list of sessions the user can still vote on
     pending_sessions = (
         Session.objects
-               .filter(users=request.user)              # sessions you’re part of
-               .exclude(submitted_by=request.user)      # but haven’t submitted yet
+        # sessions you’re part of
+               .filter(users=request.user)  
+               # but haven’t finished yet
+               .exclude(submitted_by=request.user)  
     )
     return render(request, 'voting/dashboard.html', {
-        'pending_sessions': pending_sessions,           # pass them to the template
+        # send that list to the template
+        'pending_sessions': pending_sessions,  
     })
 
 @login_required
 def session(request, session_id):
     # Load the session you clicked on
     session = get_object_or_404(Session, pk=session_id)
-    questions = session.questions_included.all()        # all of the questions in that session
+    # get all of the questions in that session
+    questions = session.questions_included.all()        
 
     # If you’ve already voted, show a “you already did this” page
     if session.is_completed_by_user(request.user):
@@ -28,7 +32,7 @@ def session(request, session_id):
             'session': session
         })
 
-    # If you just hit “submit”…
+    # If you just hit “submit” for the form
     if request.method == 'POST':
         for question in questions:
             # grab your colour choice and any comment
@@ -44,9 +48,10 @@ def session(request, session_id):
                 )
         # mark that you have completed this session
         session.submitted_by.add(request.user)
-        return redirect('voting:dashboard')             # then go back to the dashboard
+        # then have them go back to the dashboard
+        return redirect('voting:dashboard')             
 
-    # Otherwise just show the voting form
+    # Otherwise with teh GET request, just show them the voting form
     return render(request, 'voting/session.html', {
         'session':   session,
         'questions': questions,
@@ -56,7 +61,8 @@ def session(request, session_id):
 def team_summary(request):
     # 1) grab all sessions, newest first
     sessions = Session.objects.order_by('-created_at')
-    # 2) see if the user has picked one from the dropdown; otherwise default to the very latest
+    # 2) see if the user has picked a session from the dropdown; 
+    # otherwise pick the latest one
     sid = request.GET.get('session')
     current = get_object_or_404(Session, pk=sid) if sid else sessions.first()
 
@@ -68,24 +74,42 @@ def team_summary(request):
         if idx + 1 < len(all_s):
             prev = all_s[idx+1]
 
-    # 4) did they check “show trends”? (on = True, off = False)
+    # 4) did they check “show trends” (on = True, off = False)
     show_trend = request.GET.get('show_trend') == 'on'
 
-    # 5) define the three teams we care about
-    group_names = ["Your Team", "Team Beta", "Team Gamma"]
-    groups      = [Group.objects.get(name=n) for n in group_names]
+     # Check if the user is an engineer
+    is_engineer = request.user.groups.filter(name="Engineer").exists()
+     
+       # If the user is an engineer, limit the data to "Your Team"
+    if is_engineer:
+        group_names = ["Your Team"]
+    else:
+        
+    # 5) definiing the 3 teams
+       group_names = ["Your Team", "Team Beta", "Team Gamma"]
+        
+       
+       # get the group objects for those names
+       groups = [Group.objects.get(name=n) for n in group_names]
+
+       
 
     # 6) get all the questions for the selected session
+    
     questions   = current.questions_included.all()
 
-    # 7) The helper function: for any (session, question, group) find the majority colour + arrow
+    # 7) The helper function: for any (session, question, group) 
+    # find the majority colour + arrow
     def majority_for(sess, question, group):
         qs = (Vote.objects
                  .filter(session=sess, question=question, user__groups=group)
                  .values('choice')
                  .annotate(cnt=Count('id')))
-        d = {d['choice']: d['cnt'] for d in qs}         # make {'green': 5, 'amber': 3, …}
+        # build a dictionary, make {'green': 5, 'amber': 3, …}
+        d = {d['choice']: d['cnt'] for d in qs}    
+        # pick teh colour with the highest count, otherwise as default set it to amber
         best = max(d, key=lambda k: d.get(k, 0), default='amber')
+        # choose the arrow symbol for that colour
         arrow = {'green':'▲', 'amber':'▬', 'red':'▼'}[best]
         return best, arrow
 
@@ -98,12 +122,13 @@ def team_summary(request):
             if show_trend and prev:
                 prev_c, prev_a = majority_for(prev,    q, grp)
             else:
-                prev_c, prev_a = cur_c, ''           # if no trend, same colour + no arrow
+                # if there's no trend, show the same colour + no arrow
+                prev_c, prev_a = cur_c, ''           
             cells.append({'cur': (cur_c,  cur_a), 'prev': (prev_c, prev_a)})
         rows.append({'team': name, 'cells': cells})
 
     # ─── PIE CHART DATA ──────────────────────────────────────────────
-    # count up all votes this session, by choice
+    # count up all votes in this session, by colour
     raw = (Vote.objects
              .filter(session=current)
              .values('choice')
@@ -124,9 +149,10 @@ def team_summary(request):
     for sess in recent:
         total = Vote.objects.filter(session=sess).count() or 1
         green = Vote.objects.filter(session=sess, choice='green').count()
-        line_data.append(round(green * 100 / total, 0))  # percent of green votes
+        # percentage of green votes
+        line_data.append(round(green * 100 / total, 0))  
 
-    # 9) finally, hand all that data off to the template
+    # 9) finally, hand all that data off to the vote_summary template
     return render(request, 'voting/vote_summary.html', {
         'sessions':        sessions,
         'current_session': current,

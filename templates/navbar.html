@@ -1,5 +1,5 @@
 {% load static %}
-<!-- Navbar-->
+<!--Navbar-->
  
 <div class="navbar">
     <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="sky-logo">
@@ -22,18 +22,19 @@
             {% if user.userRole == 'engineer' or user.userRole == 'leader' %}
         
             <!-- Highlights the current page (voting session) in the navbar -->
-            <li class="{% if request.path == '/voting/choose-session/' %}active-page{% endif %}">
-                <a href="{% url 'choose_session' %}">
+            <li class="{% if request.path == '/voting/' %}active-page{% endif %}">
+                <!--changed choose_session as no longer in use -->
+                <a href="{% url 'voting:dashboard' %}">
                     <img src="{% static 'images/voting.png' %}" alt="Voting Icon" class="icon">
                     Voting Sessions
                 </a>
             </li>
             {% endif %}
-            
+             
             <!-- View Summary -->
              <!-- Highlights the current page (vote summary) in the navbar -->
-            <li class="{% if request.path == '/voting/vote-summary/' %}active-page{% endif %}">
-                <a href="{% url 'vote_summary' %}">
+            <li class="{% if request.path == '/voting/summary/' %}active-page{% endif %}">
+                <a href="{% url 'voting:summary' %}">
                     <img src="{% static 'images/summary.png' %}" alt="Summary Icon" class="icon">
                     View Summary
                 </a>
@@ -41,9 +42,8 @@
         </ul>
     </nav>
     <div class="sign-out-navbar">
-        <a href="/users/logout.html" class="sign-out-link">
+        <a href="/users/logout/" class="sign-out-link">
      <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
         </a>
     </div>
-</div>
-
+</div> 
