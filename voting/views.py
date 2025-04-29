@@ -187,7 +187,7 @@ def vote_summary(request):
 
 # Dashboard view to pass the user's role to the template
 def dashboard_view(request):
-    role = request.user.role  # Assuming `role` is a field on the user model or profile
+    role = request.user.userRole  # Assuming `role` is a field on the user model or profile
     context = {
         'role': role,
     }
