@@ -16,7 +16,16 @@
   <!-- main heading -->
   <h1>Your Dashboard</h1>
   <!-- short description -->
+   <!-- Change text based on user role-->
+  {% if is_engineer %}
+    <p>View how your team voted here</p>
+    {% else %}
   <p>View how teams in your department voted here</p>
+  {% endif %}
+
+  
+
+
 
   <!-- ─── Controls: toggle switch + session dropdown ─── -->
   <form method="get" class="controls-bar">
@@ -71,9 +80,11 @@
       {% endfor %}
 
       <!-- team name at end of row -->
+      {% if not is_engineer %}
       <div class="team-col">{{ row.team }}</div>
-    {% endfor %}
-  </div>
+    {% endif %}
+    {% endfor%}
+    
 
   <!-- ─── Charts row: only display when trends are on ─── -->
   {% if show_trend %}
@@ -87,7 +98,8 @@
         <canvas id="lineChart"></canvas>
       </div>
     </div>
-  {% endif %}
+ {% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
@@ -148,6 +160,8 @@
       }
     });
   </script>
+  
 {% endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+{% endblock %}

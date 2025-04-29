@@ -77,20 +77,21 @@ def team_summary(request):
     # 4) did they check “show trends” (on = True, off = False)
     show_trend = request.GET.get('show_trend') == 'on'
 
-     # Check if the user is an engineer
-    is_engineer = request.user.groups.filter(name="Engineer").exists()
-     
-       # If the user is an engineer, limit the data to "Your Team"
+     # Check if the user is an engineer based on their role
+    is_engineer = getattr(request.user, 'userRole', '').lower() == 'engineer'
+    
+
+         # If the user is an engineer, limit the data to "Your Team"
     if is_engineer:
+       
         group_names = ["Your Team"]
     else:
         
-    # 5) definiing the 3 teams
-       group_names = ["Your Team", "Team Beta", "Team Gamma"]
+        # 5) definiing the 3 teams
+        group_names = ["Your Team", "Team Beta", "Team Gamma"]
         
-       
-       # get the group objects for those names
-       groups = [Group.objects.get(name=n) for n in group_names]
+    # get the group objects for those names
+    groups = [Group.objects.get(name=n) for n in group_names]
 
        
 
@@ -164,4 +165,5 @@ def team_summary(request):
         'pie_labels':   pie_labels,
         'line_labels': line_labels,
         'line_data':   line_data,
+        'is_engineer':     is_engineer,
     })
