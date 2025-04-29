@@ -1,82 +1,79 @@
-/* ======================
-   Site-wide/global styles
-   ====================== */
+/* CSS styles for teh team-leader summary*/
 
-/* Remove bullets and default padding/margins from all nav lists */
+/* Remove bullets and any default padding/margins from all  the 
+nav lists */
 nav ul {
     list-style: none;  /* no bullets */
     margin: 0;         /* no outer space */
     padding: 0;        /* no inner space */
   }
   
-  /* Make each nav item line-up horizontally and space them nicely */
+  /* put the nav items in a row with a small gap */
   nav li {
     display: inline-block;  /* sit side by side */
     margin-right: 1rem;     /* a little gap to the right */
   }
   
-  /* Style all links in the nav so they look plain and dark */
+  /* Make all of the nav links look plain and dark */
   nav a {
     color: #000;            /* black text */
     text-decoration: none;  /* no underline */
   }
   
   
-  /* ======================
-     Dashboard “Your Dashboard” controls
-     ====================== */
+  /*  The “Your Dashboard” controls*/
   
-  /* Container for the toggle switch + session dropdown */
+  /* This is for the toggle and which session you choose */
   .controls-bar {
-    display: flex;          /* lay out children in a row */
-    align-items: center;    /* vertically center items */
-    gap: 0.1rem;            /* tiny gap between children */
-    margin-bottom: 1.5rem;  /* space below the controls */
+    display: flex;          /* line them up in one row */
+    align-items: center;    /* vertically center everything */
+    gap: 0.1rem;            /* tiny gap between everything */
+    margin-bottom: 1.5rem;  /* space under the controls */
   }
   
-  /* Box around the toggle label and switch itself */
+  /* Box around the toggle label and switch  */
   .toggle-container {
     display: flex;          
     align-items: center;    
     gap: 0.5rem;            /* space between label and switch */
     border: 1px solid #ccc; /* light grey border */
-    padding: 0.25em 0.5em;   /* small inner padding */
+    padding: 0.25em 0.5em;   /* small padding inside */
     border-radius: 4px;     /* rounded corners */
-    max-width: 260px;        /* don’t let it stretch too wide */
-    margin-right: 2rem;      /* gap to next control */
+    max-width: 260px;        /* I didn't want it to stretch too wide */
+    margin-right: 2rem;      /* space to the next control */
   }
   
-  /* Styling the text that explains the toggle switch */
+  /* text explaining what the switch is */
   .toggle-label {
-    font-size: 0.95rem;  /* just under 1rem */
+    font-size: 0.95rem;  /* under 1rem */
     line-height: 1.2;    /* a bit of spacing between lines */
     color: #333;         /* dark grey text */
   }
   
-  /* Base wrapper for the actual switch control */
+  /* wrapper for the switch (the track and slider */
   .switch {
-    position: relative;  /* needed for absolute positioning of the slider */
-    width: 44px;         /* width of the switch track */
-    height: 24px;        /* height of the switch track */
+    position: relative;  /* needed to move the slider */
+    width: 44px;         /* track width */
+    height: 24px;        /* track height */
   }
   
-  /* Hide the native checkbox, we’ll use our custom slider */
+  /* Hides the checkbox as I want to use the slider I made */
   .switch input {
-    opacity: 0;          /* invisible */
+    opacity: 0;     /* make it invisible */
     width: 0;
     height: 0;
   }
   
-  /* The grey “track” behind the toggle knob */
+  /* The grey “track” behind the toggle  */
   .slider {
     position: absolute; 
     inset: 0;             /* fill the .switch area */
-    background: #ccc;     /* grey background */
+    background: #ccc;     /* grey */
     border-radius: 24px;  /* rounded ends */
-    transition: background 0.2s; /* animate color change */
+    transition: background 0.2s; /* the color change */
   }
   
-  /* The white circular knob inside the slider */
+  /* The white part inside the slider */
   .slider:before {
     content: "";
     position: absolute;
@@ -84,40 +81,38 @@ nav ul {
     width: 18px; height: 18px;
     background: #fff;         /* white knob */
     border-radius: 50%;       /* perfect circle */
-    transition: transform 0.2s; /* animate sliding movement */
+    transition: transform 0.2s; /* the sliding movement */
   }
   
-  /* When the box is checked, turn the background green */
+  /* When the box is turned on, make it green */
   .switch input:checked + .slider {
     background: #63A103;    /* green track */
   }
   
-  /* And move the knob to the right */
+  /* slide the toggle part to the right */
   .switch input:checked + .slider:before {
     transform: translateX(20px);  
   }
   
-  /* Style the session-picker dropdown to match the design */
+  /* Style the session dropdown to match the switch */
   .controls-bar select {
-    padding: .4em .8em;     /* inner padding for click area */
-    font-size: .95rem;      /* match toggle font size */
-    background: #f1f1f1;    /* very light grey fill */
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.15); /* subtle inner shadow */
+    padding: .4em .8em;     /* inner padding */
+    font-size: .95rem;      /* same text size */
+    background: #f1f1f1;    /* very light grey  */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.15); /* light inner shadow */
     border: 1px solid #999; /* darker grey border */
-    border-radius: 4px;     /* small rounding */
+    border-radius: 4px;     
     transition: box-shadow .2s, border-color .2s; /* smooth focus effect */
   }
   
-  /* Highlight the dropdown on focus with a green glow */
+  /* Highlight the dropdown to a green glow when it's clicked */
   .controls-bar select:focus {
     border-color: #63A103;     
     box-shadow: 0 0 0 2px rgba(99,161,3,.3);
   }
   
   
-  /* ======================
-     Question-titles row
-     ====================== */
+  /* Question row */
   
   /* Grid container for the question headings + the empty team header */
   .labels-row {
@@ -125,11 +120,11 @@ nav ul {
     /* ten columns for questions, each 80px wide, then one auto column */
     grid-template-columns: repeat(10, 80px) auto;
     column-gap: 1rem;        /* space between columns */
-    align-items: center;     /* vertically center heading text */
+    align-items: center;     /* center teh text veritically */
     margin-bottom: .5rem;    /* space below the titles */
   }
   
-  /* Each individual question label cell styling */
+  /* styling for each individual question */
   .labels-row .label-cell {
     text-align: center;      /* center the text */
     font-size: .9rem;        /* a bit smaller text */
@@ -143,50 +138,46 @@ nav ul {
   }
   
   
-  /* ======================
-     Results grid (circles + team names)
-     ====================== */
+  /* Results grid (circles + team names) */
   
-  /* Main grid for rows of circles and the rightmost team names */
+  /* the grid for teh circles & team names on teh right column */
   .summary-grid {
     display: grid;
     grid-template-columns: repeat(10, 80px) auto; /* same columns as above */
-    column-gap: 1rem;       /* horizontal gutter */
-    row-gap: .5rem;         /* vertical gutter between circle rows */
-    align-items: center;    /* center circles vertically */
+    column-gap: 1rem;       /* horizontal gap */
+    row-gap: .5rem;         /* vertical gap between circles */
+    align-items: center;    /* center the circles vertically */
   }
   
-  /* Each “cell” that holds two (stacked) circles */
+  /* Each “cell” that holds the 3 stacked circles */
   .summary-grid > .cell {
     display: flex;          
     flex-direction: column; /* stack circles vertically */
-    align-items: center;    /* center horizontally */
-    width: 80px;            /* match the grid column width */
+    align-items: center;    /* center them */
+    width: 80px;            /* match the column width */
   }
   
-  /* The team-names column on the right */
+  /* The team-names at teh end of teh row on teh right */
   .summary-grid > .team-col {
     padding-left: 0.5rem;   /* small space from the circles */
-    text-align: left;       /* left-align the team names */
-    font-size: .9rem;       /* same size as question labels */
+    text-align: left;       /* lalighn the team names left */
+    font-size: .9rem;       /* same size as the question labels */
   }
   
   
-  /* ======================
-     Trend circles
-     ====================== */
+  /* Trend circles */
   
-  /* Base style for each coloured circle */
+  /* Base style for each of the coloured circle */
   .trend-circle {
     display: inline-flex;   
     align-items: center;    
-    justify-content: center;/* center the arrow/text */
+    justify-content: center; /* center the arrow/text */
     width: 2em;             
     height: 2em;            
-    border-radius: 50%;     /* perfect circle */
+    border-radius: 50%;     /* make it a perfect circle */
     color: #fff;            /* white text/arrow */
     font-size: 1.2em;       
-    line-height: 1;         /* ensure arrow is vertically centered */
+    line-height: 1;         /* keep teh arrows centered */
   }
   
   /* Green = good */
@@ -199,11 +190,9 @@ nav ul {
   .trend-circle.red   { background: #D9001B }
   
   
-  /* ======================
-     Charts row (at bottom)
-     ====================== */
+  /* Charts row (at bottom) */
   
-  /* Wrapper for both charts side by side */
+  /* put both the charts side by side */
   .charts {
     display: flex;              
     gap: 6rem;                  /* space between pie & line chart */
@@ -211,33 +200,32 @@ nav ul {
     margin-top: 5rem;           /* space above the charts */
   }
   
-  /* Each chart’s individual container */
+  /* Each chart’s box */
   .chart-wrapper {
-    flex: 1;                    /* grow equally */
-    max-width: 400px;           /* don’t exceed this width */
+    flex: 1;              /* grow equally */
+    max-width: 400px;     /* don’t exceed this width */
   }
   
   /* Make just the pie chart smaller than the line chart */
   .chart-wrapper:first-child {
-    max-width: 250px;           /* set pie’s max width */
+    max-width: 250px;      /* setting the pie’s max width */
   }
   
-  /* Ensure the pie canvas fills its wrapper nicely */
+  /* make the pie chart fit nicely in it's box */
   .chart-wrapper:first-child canvas {
     width: 100% !important;     /* override default sizing */
     height: auto  !important;   /* maintain aspect ratio */
   }
   
   
-  /* ======================
-     Footer (bottom of page)
-     ====================== */
+  /* Footer (bottom of page) */
   
   /* Simple footer styling */
   footer {
-    margin-top: 2rem;           /* space above the footer */
-    text-align: center;         /* center the text */
-    font-size: .8rem;           /* smaller font */
-    color: #555;                /* mid-grey text */
+    margin-top: 2rem;    /* space above the footer */
+    text-align: center;  /* center the text */
+    font-size: .8rem;    /* smaller font */
+    color: #555;       /* grey text */
   }
+  
   

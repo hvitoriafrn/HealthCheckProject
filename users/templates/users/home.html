@@ -21,7 +21,7 @@
      /* Container for header content (logo and text) */
     .header-content {
       display: flex;
-      flex-direction: column; /* Stack items vertically */
+      flex-direction: column; /* Stack the items vertically */
       align-items: flex-start;  /* Keeps items to the left */
     }
 
@@ -32,14 +32,15 @@
       transition: transform 0.3s; /* For hover effect */
     }
     .logo:hover {
-      transform: scale(1.05); /* Slight zoom on hover */
+      transform: scale(1.05); /* Slight zoom when you hover
+                                over the logo */
     }
 
-    /* Styling for text under the logo */
+    /* Styling for the text under the logo */
     .header-text h2 {
       font-size: 1.5rem; /* Smaller font size since we're using h2 */
       margin: 10px 0 5px 0; /* Top, right, bottom, left margins */
-      margin-left: 60px; /* Indent text to align with design */
+      margin-left: 60px; /* Indent text to line up under the logo */
       
     }
     .header-text p { 
@@ -68,8 +69,8 @@
     .btn-demo {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
-      background-color: #2c71fd; /* Blue button */
-      color: #fff; /* White text */
+      background-color: #2c71fd; /* Sets the button to blue */
+      color: #fff; /* White text inside the button */
       border: none;
       cursor: pointer;
       border-radius: 4px;
@@ -84,13 +85,13 @@
     font-size: 1rem;
     background: transparent;        /* no fill */
     border: 2px solid #ccc;       /* light grey border */
-    color: #333;                  /* dark text */
+    color: #333;    /* dark text for the register button */
     border-radius: 4px;
     cursor: pointer;
     transition: background 0.3s;
 }
 .btn-outline:hover {
-  background: #f0f0f0;            /* subtle grey on hover */
+  background: #f0f0f0; /* subtle grey on hover for both buttons */
 }
 
     .hero-buttons {
@@ -100,17 +101,17 @@
 }
 
     footer {
-      text-align: center; /* Center text in footer */
+      text-align: center; /* Center the text in the footer */
       padding: 10px;
       background: #fff; /* White background */
       border-top: 1px solid #ccc; /* Light top border */
       margin-top: 40px; /* Space above the footer */
     }
 
-    /* Footer container holds logo and links side by side */
+    /* Footer container that holds the logo and links side by side */
     .footer-container {
   display: flex;
-  justify-content: space-between; /* Logo left, links right */
+  justify-content: space-between; /* Logo left, and the links right */
   align-items: center;
   padding: 10px 20px;  /* Adds space around the content */
 }
@@ -161,11 +162,11 @@
   </header>
 
   <!-- Main Content -->
-  <main>
-    <section class="hero">
-        <div class="hero-buttons">
+  <main>  <!-- everything that isn't in the header/ footer is wrapped in here -->
+    <section class="hero">  <!-- The .hero centers the text & gives it padding -->
+        <div class="hero-buttons">  <!-- A container for the login and register -->
           <button class="btn-demo" onclick="window.location.href='/users/login/'">
-            Log in
+            Log in  <!-- when clicked, it sends teh user to the login page -->
           </button>
           <button class="btn-outline" onclick="window.location.href='/users/register/'">
             Register
