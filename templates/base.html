@@ -1,50 +1,60 @@
-{# /YOUR_PROJECT_ROOT/templates/base.html #}
-{% load static %}  {# Load Django’s “static” tag so we can refer to CSS/JS files #}
+<!-- loads djangos static file so we can use CSS and JS -->
+{% load static %}  
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">                                         <!-- Character encoding -->
-  <meta name="viewport" content="width=device-width,initial-scale=1">  <!-- Mobile‐friendly settings -->
+  <!-- defines the text encoding so our characters show correctly -->
+  <meta charset="UTF-8">  
+  <!-- Makes the page fit phones/tablets and our screens -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">  
   <title>
-    {% block title %}Sky Health Check{% endblock %}               <!-- Page title, overrideable per page -->
+    <!-- the browser tab title -->
+    {% block title %}Sky Health Check{% endblock %}               
   </title>
 
-  <!-- global/site-wide styles -->
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">   <!-- main stylesheet -->
+  <!-- link to the global stylesheet -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">   
 
-  <!-- per-page extra styles -->
-  {% block extra_css %}{% endblock %}                             <!-- Hook to add more CSS on individual pages -->
+  <!-- a placeholder to add more CSS on individual pages -->
+  {% block extra_css %}{% endblock %}                             
 </head>
 <body>
 
-  {% block header %}                                              <!-- Default header/navigation bar -->
+  <!-- placeholder for the header/navigation bar -->
+  {% block header %}                                              
   <header>
-    <h1>Welcome to the Sky Health Check project</h1>              <!-- Site title shown on every page -->
+    <!-- main heading shown on all the pages -->
+    <h1>Welcome to the Sky Health Check project</h1>              
     <nav>
       <ul>
-        <li><a href="{% url 'home' %}">Home</a></li>              <!-- Link back to home view -->
-        <li><a href="{% url 'login' %}">Login</a></li>            <!-- Built-in Django login page -->
-        <li><a href="{% url 'register' %}">Register</a></li>      <!-- User signup page -->
-        <!-- <<< ADD THIS LINE >>> -->
-        <li><a href="{% url 'voting:summary' %}">Team Summary</a></li>  <!-- Link to the team leader summary -->
+        <!-- go to the home-page -->
+        <li><a href="{% url 'home' %}">Home</a></li>  
+        <!-- open the log-in form -->            
+        <li><a href="{% url 'login' %}">Login</a></li>  
+        <!-- open the registration form -->          
+        <li><a href="{% url 'register' %}">Register</a></li>      
+        <!-- open team summary -->
+        <li><a href="{% url 'voting:summary' %}">Team Summary</a></li>  
       </ul>
     </nav>
   </header>
   {% endblock %}
 
   <main>
-    {% block content %}{% endblock %}                             <!-- Main page content goes here -->
+    <!-- Main content area for each page-->
+    {% block content %}{% endblock %}                             
   </main>
-
-  {% block footer %}                                              <!-- Optional footer, overrideable -->
+<!-- the placeholder for the footer -->
+  {% block footer %}                                              
   <footer>
-    <p>&copy; Sky Health Check </p>                          
+    <p>&copy; Sky </p>                          
   </footer>
   {% endblock %}
 
-  <!-- Site-wide scripts -->
-  <script src="{% static 'js/script.js' %}"></script>             <!-- main JavaScript file -->
+ <!-- main JavaScript file -->
+  <script src="{% static 'js/script.js' %}"></script>   
 
-  {% block extra_js %}{% endblock %}                              <!-- Hook for page-specific scripts -->
+<!-- placeholder for page-specific Javascripts -->
+  {% block extra_js %}{% endblock %}                              
 </body>
 </html>
