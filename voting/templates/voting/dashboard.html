@@ -9,6 +9,8 @@
         </nav>
         <section class="dashboard-content">
             <h1>Hello, {{request.user.username}}</h1>
+            <!-- changed from username to userFirstName -->
+            <h1>Hello, {{request.user.userFirstName}}</h1>
             {% if pending_sessions %}
                 <p>Here are voting sessions available to you:</p>
                 {% for session in pending_sessions %}
