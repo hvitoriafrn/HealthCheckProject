@@ -6,43 +6,55 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 #Custom user manager to handle the users that register and the super user (django admin)
 class CustomUserManager(BaseUserManager):
     #creates a regular user
-    def create_user (self, email, password, userRole, userFirstName, userLastName,**extra_fields):
+    def create_user (self, email, password=None ,**extra_fields):
         #error in case a user doesn't enter an email
         if not email:
             raise ValueError("Email is required")
         
+        extra_fields.get('is_staff',False),
+        extra_fields.get('is_superuser', False),
+        extra_fields.get('is_active', True)
+
+
         email = self.normalize_email(email)
-        #necessary fields for a user instance, this is what every user needs
-        user = self.model(email=email, 
-                          userRole=userRole,
-                          userFirstName= userFirstName,
-                          userLastName = userLastName,
-                          is_staff=extra_fields.get('is_staff',False),
-                          is_superuser=extra_fields.get('is_superuser', False),
-                           is_active=extra_fields.get('is_active', True),
-                          **extra_fields
-        )
+        user = self.model(email=email, **extra_fields)
         #with this, we use django to hash the password securely
         user.set_password(password)
         user.save(using=self._db) #saving the user
         return user 
     
+        #necessary fields for a user instance, this is what every user needs
+        # user = self.model(email=email, 
+        #                   userRole=userRole,
+        #                   userFirstName= userFirstName,
+        #                   userLastName = userLastName,
+        #                   is_staff=extra_fields.get('is_staff',False),
+        #                   is_superuser=extra_fields.get('is_superuser', False),
+        #                   is_active=extra_fields.get('is_active', True),
+        #                   **extra_fields
+        # )
+
+    
     #Similarly, method to create a super user, although this is only through terminal at the moment 
     #(probably will keep it this way)
     def create_superuser(self, email, password=None, **extra_fields):
         #this is to ensure the super user has the necessary permisions
-        extra_fields.setdefault('is_staff', True) #access to admin panel
+        extra_fields.setdefault('is_staff', True) 
         extra_fields.setdefault('is_superuser', True) #explicitly saying they're super users so they can do everything
-        extra_fields.setdefault('is_active', True) #account needs to be active, so this is true
+        extra_fields.setdefault('is_active', True) 
+        extra_fields.setdefault('userRole', 'admin')
+        extra_fields.setdefault('userFirstName', 'Admin')
+        extra_fields.setdefault('userLastName', 'User')
 
-        #returns the super user and also gives some values in case this is not filled out
-        return self.create_user(email= email,
-                                password= password,
-                                userRole= extra_fields.get('userRole', 'admin'),
-                                userFirstName=extra_fields.get('userFirstName', 'Admin'),
-                                userLastName=extra_fields.get('userLastName', 'User'),
-                                **extra_fields)
+        # #returns the super user and also gives some values in case this is not filled out
+        # return self.create_user(email = email,
+        #                         password = password,
+        #                         userFirstName='Admin',
+        #                         userLastName='User',
+        #                         **extra_fields)
         
+        return self.create_user(email=email, password=password, **extra_fields)
+    
 #this is the custom user model for the app (page)
 class User(AbstractBaseUser, PermissionsMixin):
     #each user had a userID assigned to them when they register, like in the logical ERD 

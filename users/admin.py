@@ -23,19 +23,30 @@ class CustomUserAdmin(UserAdmin):
  # fieldsets will define which fields show on the edit user page inside admin
 
     fieldsets = (
-     ('Login Credentials', {
-         'fields': ('email', 'password') 
-     }),
-     ('Personal Info', {
-        'fields': ('userFirstName', 'userLastName', 'userRole')
-      }),
-      ('Permissions', {
-        'fields': (
+        ('Login Credentials', { 'fields': ('email', 'password')  }),
+        ('Personal Info', { 'fields': ('userFirstName', 'userLastName', 'userRole') }),
+        ('Permissions', {'fields': (
             'is_active', 'is_staff', 'is_superuser',
-            'groups', 'user_permissions'
+            'groups', 'user_permissions') }),
         )
-       
-       }),
+
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': (
+                'email',
+                'userFirstName',
+                'userLastName',
+                'userRole',
+                'password1',
+                'password2',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+                'groups',
+                'user_permissions'), 
+        }),
     )
+
     search_fields = ('email','userRole','team')
  
