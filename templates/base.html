@@ -1,7 +1,10 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+<!-- 
 <head>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head> -->
+
+</div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Django App{% endblock %}</title>
@@ -15,17 +18,21 @@
     {% block style_sheet %}{% endblock%}
 </head>
 <body>
+
     <!-- I removed the basic nav with links to home, login and register as I don't think they're needed in the 'base.html' file-->
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
 
     <footer>
         <p>&copy; Sky Health Check 2025 </p>
     </footer>
     
-    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Footer Section -->
+  
 
-</body>
-</html>
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    
+
+{% block content %}
+{% endblock %}

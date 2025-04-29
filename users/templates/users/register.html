@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %} 
+
+<!-- importing the CSS file  -->
+<head>
+    <!-- Include the external CSS file -->
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+   <body>
+    <!-- Start of the registration page -->
+        <div class="container"> 
+            <h2 class="card-title">Register your account</h2>
+            <div class="subtextBlack">Welcome to the team!</div> 
+            <div class="subtext">Already have an account? 
+            <!-- linking to the login page -->
+        <a href="{% url 'login' %}" name="link">Log in</a> </div>
+    
+        <!-- here is where the form starts -->
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+        
+            <form method="POST">
+                    {% csrf_token %}
+                <div>
+                    <!-- label for 'First name' form-->
+                    <label for="{{ form.userFirstName.id_for_label }}">First name</label>
+                    {{ form.userFirstName }}
+                    <div class="error-message">Please enter your first name</div>
+                </div>
+
+                <!-- label for 'Surname' form-->
+                <div>
+                    <label for="{{ form.userLastName.id_for_label }}">Surname</label>
+                    {{ form.userLastName }}
+                    <div class="error-message">Please enter your surname</div>
+                </div>
+
+                <!-- label for Email address form-->
+                <div>        
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="error2">
+                        {{ form.email.errors.0 }}
+                    </div>
+                    {% else %}
+                    <div class="error-message">Please enter a valid email</div> 
+                    {% endif %}
+                </div>
+
+                <div>
+                    <!-- label for Role-->
+                    <label for="{{ form.userRole.id_for_label }}">Role</label>
+                    {{ form.userRole }}
+                </div>
+
+
+                <!-- label for password-->
+                <div>
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+                <!-- label for confirm your password -->
+                <div>
+                <label for="{{ form.password2.id_for_label }}">Confirm password</label>
+                    {{ form.password2 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+                <!-- button for register -->
+                <button name="button" type="submit">
+                    Register</button>
+            
+                <!-- text underneath the register button (terms and conditions)-->
+                <div class="terms"> By clicking the 'Register' button, 
+                    you are creating an account, and you agree to the Terms of Use</div>
+            </form>
+        </div>
+
+    <!-- to display a general error message -->
+        {% if error %}
+        <div class="alert-danger mt3" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+    
+    </div>
+    
+    <script src="{% static 'register.js' %}"></script>
+</body>
+
+{% endblock %}

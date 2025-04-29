@@ -120,6 +120,7 @@ progress.progress-bar::-webkit-progress-value{
     background-color: #F59A23;
 }
 .trafficlight-container input[type="radio"].red, .summary-box .circle-red{
+
     background-color: #D9001B;
 }
 .trafficlight-container .hint, .comment-container .comment-spacing {
@@ -182,6 +183,7 @@ progress.progress-bar::-webkit-progress-value{
     border-top-width: 1px;
 }
 
+
 .voting-card-nav div, .voting-card-nav input, .voting-card-nav button{
     display: inline-block;
     text-align: center;
@@ -208,6 +210,7 @@ progress.progress-bar::-webkit-progress-value{
     color: #FFFFFF;
     border-width: 1px;
     border-color: #169BD5;
+
 }
 
 /* everything related to voting card containing summary */

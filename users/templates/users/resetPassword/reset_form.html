@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+{% block content %}
+
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'reset_password.css' %}">
+</head>
+
+<body>
+        <!--base login page-->
+        <div class="container">
+            <h2> Forgot your password?</h2>
+            <div class="subtextBlack">Do not worry, enter your email to get a password reset link! </div>
+            <div class="subtext">Don't have an account?
+        <!-- linking to the login page -->
+            <a href="{% url 'register' %}" name="link">Register</a> </div>
+       
+        <!-- error message -->
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger mt-3"
+            role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+
+    
+        <!--loading the reset password form -->
+            <form method="POST">
+                {% csrf_token %}
+                
+                <!-- shows errors (non field ones) -->
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+            
+            <!-- loads the form (ask for email input) -->
+                {{ form.as_p }}
+            
+                <!-- white button to take the user back to home page -->
+                <button class="whiteButton">
+                <a href="{% url 'home' %}" class="link2">
+                    Take me back to the home page</a>
+                </button>
+
+                <!-- sign in button-->
+                <button name="button" type="submit" class="button"> Send reset link </button>
+
+            </form>
+        </div>
+    </div>    
+</body>
+
+{% endblock %}
