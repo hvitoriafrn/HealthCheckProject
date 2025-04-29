@@ -23,18 +23,6 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db) #saving the user
         return user 
     
-        #necessary fields for a user instance, this is what every user needs
-        # user = self.model(email=email, 
-        #                   userRole=userRole,
-        #                   userFirstName= userFirstName,
-        #                   userLastName = userLastName,
-        #                   is_staff=extra_fields.get('is_staff',False),
-        #                   is_superuser=extra_fields.get('is_superuser', False),
-        #                   is_active=extra_fields.get('is_active', True),
-        #                   **extra_fields
-        # )
-
-    
     #Similarly, method to create a super user, although this is only through terminal at the moment 
     #(probably will keep it this way)
     def create_superuser(self, email, password=None, **extra_fields):
@@ -46,12 +34,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('userFirstName', 'Admin')
         extra_fields.setdefault('userLastName', 'User')
 
-        # #returns the super user and also gives some values in case this is not filled out
-        # return self.create_user(email = email,
-        #                         password = password,
-        #                         userFirstName='Admin',
-        #                         userLastName='User',
-        #                         **extra_fields)
         
         return self.create_user(email=email, password=password, **extra_fields)
     

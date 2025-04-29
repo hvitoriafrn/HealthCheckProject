@@ -3,7 +3,7 @@
 
 
 <!-- pull in this page’s CSS file only for this page-->
-{% block extra_css %}
+{% block style_sheet %}
   <link rel="stylesheet" href="{% static 'voting/teamleader.css' %}"> 
 {% endblock %}
 
@@ -86,6 +86,7 @@
     {% endfor %}
   </div>
 
+  {% if user.userRole == 'leader' or user.userRole == 'dept_leader' or user.userRole == 'senior_manager'%}
   <!-- ─── Charts row: only display when trends are on ─── -->
   {% if show_trend %}
     <div class="charts">
@@ -93,11 +94,15 @@
       <div class="chart-wrapper">
         <canvas id="pieChart"></canvas>
       </div>
+    
+  {% if user.userRole == 'senior_manager'%}
       <!-- line chart position -->
       <div class="chart-wrapper">
         <canvas id="lineChart"></canvas>
       </div>
+      {% endif %}
     </div>
+    {% endif %}
   {% endif %}
 {% endblock %}
 

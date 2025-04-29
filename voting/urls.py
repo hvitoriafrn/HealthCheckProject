@@ -16,6 +16,6 @@ urlpatterns = [
         #path('results/', views.view_results, name='view_results'),  # View results page  
         # path('choose-session/', views.choose_session, name='choose_session'),  # Voting sessions
     # path('summary/', views.vote_summary, name='summary'),  # View summary  
-    path('dashboard/', views.dashboard_view, name='dashboard'),  # Dashboard view
+    # path('dashboard/', views.dashboard_view, name='dashboard'),  # Dashboard view
 ]
 
