@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     'users',
     'results',
     'voting',
+   
+    
 ]
+
+LOGIN_REDIRECT_URL = '/voting/summary/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -149,3 +153,4 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 APPEND_SLASH = True
+LOGIN_URL = '/login/'
