@@ -107,12 +107,12 @@ nav ul li img.icon {
 
 .sign-out-navbar {
     position: fixed; /* Fix it to the viewport */
-    top: 60px;      
+    top: 20px;      
     right: 20px;     
     z-index: 1001; /* Ensures it's above other elements */
 }
 
-.sign-out-link {
+/* .sign-out-link {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -125,7 +125,30 @@ nav ul li img.icon {
     width: 24px;
     height: 24px;
 }
+ */
 
+/* Logout Button */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;    
+    border: none;
+    padding: 0; 
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    opacity: 0.8;
+}
+
+.logout-icon {
+    width: 50px; 
+    height: 50px;
+    object-fit: contain; 
+    background-color: transparent;
+    
+}
 
 /* Footer styles */
 footer {

@@ -11,21 +11,17 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 # Create your views here.
-
 def home(request):
     return render(request, 'users/home.html')
  
 def success(request):
         return render(request, 'users/success.html')
 
-def success(request):
-    return render(request, 'users/success.html')
-
-#User = get_user_model()
 
 def register(request):
+    #if the user is already logged in and they click this button, it will take them to the profile page.
     if request.user.is_authenticated:
-        return redirect('/profile')
+        return redirect('profile')
 
     #showing the form for the user when the load the register page
     if request.method == 'GET':
@@ -39,11 +35,6 @@ def register(request):
         try: 
             #save to the databse
             user = form.save()
-
-            #log the user once registered! (this line will be removed because we don't want this to happen)
-            #login(request,user) 
-            
-            #user.save()
             
             #will redirect the user to their profile page 
             return redirect('success') #This will probably be changed to the dashboard or summary page
@@ -58,7 +49,7 @@ def register(request):
                        {'form': form})
 
 
-#login! 
+#login view
 def login_view(request):
     #added this so that the user cannot get to the login page if they're already logged in.
     if request.user.is_authenticated:

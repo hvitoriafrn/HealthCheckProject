@@ -43,9 +43,12 @@
         </ul>
     </nav>
     <div class="sign-out-navbar">
-        <a href="{% url 'logout' %}" class="sign-out-link">
+        <!-- <a href="{% url 'logout' %}" class="sign-out-link">
      <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
-        </a>
+        </a> -->
+        <a href="{% url 'logout' %}" class="sign-out-link"><button class="logout-btn">
+            <img src="{% static 'images/sign-out-option.png' %}" alt="Log Out" class="logout-icon"> Sign out
+        </button></a>
     </div>
     {% endif %}
 </div>

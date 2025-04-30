@@ -189,10 +189,3 @@ def team_summary(request):
 def vote_summary(request):
     return render(request, 'voting/vote_summary.html')  #renders the vote summary page
 
-# # Dashboard view to pass the user's role to the template
-# def dashboard_view(request):
-#     role = request.user.userRole  # Assuming `role` is a field on the user model or profile
-#     context = {
-#         'role': role,
-#     }
-#     return render(request, 'voting/dashboard.html', {'pending_sessions': pending_sessions})
