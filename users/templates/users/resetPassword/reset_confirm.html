@@ -2,13 +2,13 @@
 {% block content %}
 
 {% load static %}
-    <head>
-        <link rel="stylesheet" href="{% static 'reset_password.css' %}">
-    </head>
+{% block style_sheet %}
+<link rel="stylesheet" href="{% static 'reset_password.css' %}">
+{% endblock %}
 
 
         <!--base login page-->
-        <div class="container">
+        <div class="container-after-form-is-submited">
             <h2> Set your new password </h2>
     
             {% if validlink %}
@@ -31,7 +31,7 @@
                     {% endif %}
 
          <!-- reset password button-->
-         <button name="button" type="submit"> Reset password </button>
+         <button name="button" type="submit" id="reset-password-button"> Reset password </button>
             </form>
 
             {% else %}

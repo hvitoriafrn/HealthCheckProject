@@ -2,20 +2,20 @@
 {% block content %}
 
 {% load static %}
-<head>
+{% block style_sheet %}
 <link rel="stylesheet" href="{% static 'reset_password.css' %}">
-</head>
+{% endblock %}
 
-    <body>
+    
         <!--container for the text-->
-        <div class="container">
+        <div class="container-after-form-is-submited">
                 <h2> Check your inbox!</h2>
             <div class="subtextDone">If your account exists, we've sent you a password reset link!
                 Didn't receive it? Try checking your spam folder or <a href="{% url 'reset_password' %}" class="tryDone"> try again</a>
             </div>
              <!-- take me home button -->
                 <a href="{% url 'home' %}"><button class="button">Take me back to the home page</button></a>
-        </div> 
+      
     </body>
 {% endblock %}
 

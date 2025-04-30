@@ -27,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),  # Default route -> users app
     path('voting/', include('voting.urls')),  # Voting pages
-    path('results/', include('results.urls')),  # Results pages
     path('success/', views.success, name='success') , # 
    
 ]
@@ -36,3 +35,4 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+ 

@@ -42,10 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'results',
     'voting',
-   
-    
 ]
 
 LOGIN_REDIRECT_URL = '/voting/summary/'

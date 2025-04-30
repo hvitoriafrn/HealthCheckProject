@@ -4,7 +4,7 @@
 </div>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Django App{% endblock %}</title>
+    <title>{% block title %}Sky Health Check{% endblock %}</title>
 
     <!--The following 3 lines are CDNs from Google for the Roboto Font that will be used in the project-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +16,11 @@
 <body>
     <div class="page-container">
         <!-- added this line because the navbar kept displaying on the register page-->
-        {% if user.is_authenticated and request.path != '/register/' %}
+        
         <header>
             {% include 'navbar.html' %}
         </header>
-        {% endif %}
+       
         
         <main>
             <div class="content">

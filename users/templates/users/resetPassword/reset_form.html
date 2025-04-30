@@ -2,18 +2,18 @@
 {% block content %}
 
 {% load static %}
-<head>
+{% block style_sheet %}
 <link rel="stylesheet" href="{% static 'reset_password.css' %}">
-</head>
+{% endblock %}
 
-<body>
+
         <!--base login page-->
-        <div class="container">
+        <div class="container-for-reset">
             <h2> Forgot your password?</h2>
             <div class="subtextBlack">Do not worry, enter your email to get a password reset link! </div>
             <div class="subtext">Don't have an account?
         <!-- linking to the login page -->
-            <a href="{% url 'register' %}" name="link">Register</a> </div>
+            <a href="{% url 'register' %}" name="link" id="register-link">Register</a> </div>
        
         <!-- error message -->
         <div class="card-body">
@@ -41,16 +41,16 @@
             
                 <!-- white button to take the user back to home page -->
                 <button class="whiteButton">
-                <a href="{% url 'home' %}" class="link2">
+                <a href="{% url 'home' %}" class="link-back-to-home">
                     Take me back to the home page</a>
                 </button>
 
                 <!-- sign in button-->
-                <button name="button" type="submit" class="button"> Send reset link </button>
+                <button name="button" type="submit" class="reset-link-button"> Send reset link </button>
 
             </form>
         </div>
     </div>    
-</body>
+
 
 {% endblock %}

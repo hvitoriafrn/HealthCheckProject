@@ -2,14 +2,16 @@
 <!-- Navbar-->
  
 <div class="navbar">
-    <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="sky-logo">
-    
+    <!-- added an achor to make the link clickable -->
+    <a href="{% url 'home' %}">
+        <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="sky-logo">
+    </a>
     <nav>
         <ul>
             <!-- Profile Settings -->
             
         <!-- Highlights the current page (profile) in the navbar -->
-
+        {% if user.is_authenticated and request.path != '/register/' %}
             <li class="{% if request.path == '/profile/' %}active-page{% endif %}">
                 <a href="{% url 'profile' %}">
                     <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="icon">
@@ -45,5 +47,6 @@
      <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
         </a>
     </div>
+    {% endif %}
 </div>
 
