@@ -1,3 +1,5 @@
+<!-- template created by Pawel Krezel (W1837610) -->
+
 {% extends 'base.html' %}
 {% block title %} Voting Dashboard{% endblock %}
 {% load static %}
@@ -6,7 +8,7 @@
     <section class="main-layout-voting">
      
         <section class="dashboard-content">
-            <!-- changed from username to userFirstName -->
+            <!-- changed from username to userFirstName by Vitoria -->
             <h1>Hello, {{request.user.userFirstName}}</h1>
             {% if pending_sessions %}
                 <p>Here are voting sessions available to you:</p>

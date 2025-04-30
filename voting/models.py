@@ -1,3 +1,5 @@
+# models for Question, Session, Vote, Department created by Pawel Krezel (student no W1837610)
+
 from django.db import models
 from django.contrib.auth.models import User, Group
 from django.conf import settings

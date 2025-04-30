@@ -1,3 +1,6 @@
+# Dashboard and Session view created by Pawel Krezel (student no W1837610)
+# team_summary and vote_summary created by Maryam Chaudhry (student no W1916669)
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -71,7 +74,8 @@ def session(request, session_id):
      # Otherwise with teh GET request, just show them the voting form
     return render(request, 'voting/session.html', context)
 
-
+# Team summary created by Maryam Chaudhry (student no W1916669)
+# with small changes implemented by Pawel Krezel (student no W1837610) later on 
 @login_required
 def team_summary(request):
     # 1) grab all sessions, newest first
