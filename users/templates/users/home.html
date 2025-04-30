@@ -168,12 +168,12 @@
   </header>
 
   <!-- Main Content -->
-  <main>
-    <section class="hero">
-        <div class="hero-buttons">
+  <main> <!-- everything that isn't in the header/ footer is wrapped in here -->
+    <section class="hero"> <!-- The .hero centers the text & gives it padding -->
+        <div class="hero-buttons"> <!-- A container for the login and register -->
           <!-- changed to anchor because the links weren't working -->
           <a href="{% url 'login' %}" class="btn-demo">
-            Log in
+            Log in <!-- when clicked, it sends teh user to the login page -->
           </button></a>
           <a href="{% url 'register' %}" class="btn-outline">
             Register
