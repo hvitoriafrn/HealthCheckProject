@@ -48,7 +48,7 @@
                                 {% if forloop.counter == 1 %}
                                     <div class="button-secondary" onclick="exit( `{% url 'voting:dashboard' %}` )">Exit</div>
                                 {% else %}
-                                    <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previos Question</div>
+                                    <div class="button-secondary" onclick="previousQuestion(`{{forloop.counter}}`)">Previous Question</div>
                                 {% endif %}
                                     <button onclick="saveProgress()" class="button-secondary" type="submit" name="action" value="save" >
                                         Save Progress
