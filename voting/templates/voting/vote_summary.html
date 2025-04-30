@@ -1,13 +1,10 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
-
-<!-- pull in this page’s CSS file only for this page-->
 {% block style_sheet %}
-  <link rel="stylesheet" href="{% static 'voting/teamleader.css' %}"> 
+  <link rel="stylesheet" href="{% static 'voting/teamleader.css' %}">
 {% endblock %}
 
-<!-- text shown in the browser tab -->
 {% block title %}Your Dashboard{% endblock %}
 
 {% block content %}
@@ -18,123 +15,108 @@
 
   <!-- ─── Controls: toggle switch + session dropdown ─── -->
   <form method="get" class="controls-bar">
-    <!-- This is a container that groups the switch & label in a box -->
     <div class="toggle-container">
-      <!-- label for the switch -->
       <div class="toggle-label">
         Display trends<br>against the session before
       </div>
-      <!-- this wraps the checkbox so we can style it as a sliding switch  -->
-      <label class="switch"> 
-        <!-- checkbox (the on/off box) that auto-submits when it's toggled -->
+      <label class="switch">
         <input
-          type="checkbox"  
-          name="show_trend" 
+          type="checkbox"
+          name="show_trend"
           {% if show_trend %}checked{% endif %}
           onchange="this.form.submit()"
         >
-        <!-- This is the switch we can see that CSS turned into a 
-         smooth switch -->
-        <span class="slider"></span> 
+        <span class="slider"></span>
       </label>
     </div>
 
-    <!-- dropdown to pick which session to view -->
     <select name="session" onchange="this.form.submit()">
-        <!-- loops through the sessions the user wants to view
-         by setting the sessions ID -->
       {% for s in sessions %}
-      <!-- the if part highlughts the session you're looking at -->
         <option value="{{ s.pk }}" {% if s == current_session %}selected{% endif %}>
-            <!-- set's teh formatting of how teh date will appear -->
           {{ s.title }} ({{ s.created_at|date:"j M Y" }})
         </option>
       {% endfor %}
     </select>
   </form>
 
-  <!-- ─── Question titles row ─── -->
-   <!-- This .label row is a CSS grid container -->
-  <div class="labels-row">
-    <!-- loops thorugh all the questions -->
-    {% for q in questions %}
-      <div class="label-cell">{{ q.question_content }}</div>
-    {% endfor %}
-    <!-- leaves a blank cell on teh right so the team names line up
-     underneath it neatly -->
-    <div class="label-cell team-col-header"></div>
-  </div>
+  <!-- looping through departments -->
+  {% for department, team_names in departments_with_names %}
+    <div class="department-container" id="{{department}}">
+      <h2>{{ department.name }}</h2>
 
-  <!-- ─── Voting circles grid: one row per team ─── -->
-  <div class="summary-grid">
-    {% for row in rows %}
-    <!-- each of teh cells hold 2 parts; the cell.cur & cell.prev
-     which is for the colour and arrow -->
-      {% for cell in row.cells %}
-        <!-- one question’s circles (current + optional previous) -->
-        <div class="cell">
-            <!-- colours the circles -->
-          <span class="trend-circle {{ cell.cur.0 }}">
-            <!-- only show arrow symbol when trends are on -->
-            {% if show_trend %}{{ cell.cur.1 }}{% endif %}
-          </span>
-        </div>
-      {% endfor %}
-
-      <!-- team name at end of row -->
-      <div class="team-col">{{ row.team }}</div>
-    {% endfor %}
-  </div>
-
-  {% if user.userRole == 'leader' or user.userRole == 'dept_leader' or user.userRole == 'senior_manager'%}
-  <!-- ─── Charts row: only display when trends are on ─── -->
-  {% if show_trend %}
-    <div class="charts">
-      <!-- pie chart position -->
-      <div class="chart-wrapper">
-        <canvas id="pieChart"></canvas>
+      <!--  Question titles row  -->
+      <div class="labels-row">
+        {% for q in questions %}
+          <div class="label-cell">{{ q.question_content }}</div>
+        {% endfor %}
+        <div class="label-cell team-col-header"></div>
       </div>
-    
-  {% if user.userRole == 'senior_manager'%}
-      <!-- line chart position -->
-      <div class="chart-wrapper">
-        <canvas id="lineChart"></canvas>
-      </div>
-      {% endif %}
+  
+      <!--  Voting circles grid: one row per team -->
+      <div class="summary-grid">
+        {% for row in rows %}
+          {% if row.team in team_names %}
+            {% comment %} Each row corresponds to a team {% endcomment %}
+            {% for cell in row.cells %}
+              {% comment %} Each cell is a question's vote color {% endcomment %}
+              <div class="cell">
+                <span class="trend-circle {{ cell.cur.0 }}">
+                  {% if show_trend %}{{ cell.cur.1 }}{% endif %}
+                </span>
+              </div>
+            {% endfor %}
+            <div class="team-col">{{ row.team }}</div>
+          {% endif %}
+        {% endfor %}
+      </div> 
     </div>
+
+  {% endfor %}
+
+  {% if user.userRole == 'leader' or user.userRole == 'dept_leader' or user.userRole == 'senior_manager' %}
+
+    {% if show_trend %}
+      <div class="charts">
+        <!-- pie chart position -->
+        <div class="chart-wrapper">
+          <canvas id="pieChart"></canvas>
+        </div>
+
+        {% if user.userRole == 'senior_manager' %}
+          <!-- line chart position -->
+          <div class="chart-wrapper">
+            <canvas id="lineChart"></canvas>
+          </div>
+        {% endif %}
+      </div>
     {% endif %}
   {% endif %}
 {% endblock %}
 
 {% block extra_js %}
-  <!-- load Chart.js library which will paint the pie in 
-   the pie chart and the line in the line graph-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- load the plugin that draws labels inside pie slices -->
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <script>
     // ── PIE CHART SETUP ──
-    new Chart( //creates a pie chart in the team summary page
+    new Chart(
       document.getElementById('pieChart'),
       {
         type: 'pie',
-        data: { //the pie labels & data come straight from my view
-          labels: {{ pie_labels|safe }},   //slice names in pie chart
+        data: {
+          labels: {{ pie_labels|safe }},
           datasets: [{
-            data:            {{ pie_data|safe }},  //numbers in each pie slice
+            data: {{ pie_data|safe }},
             backgroundColor: ['#63A103','#F59A23','#D9001B']
           }]
         },
         options: {
           responsive: true,
           plugins: {
-            legend: { display: false },   //hide the legend box
-            datalabels: {                 //show % inside the pie slices
+            legend: { display: false },
+            datalabels: {
               color: '#fff',
               font: { weight: 'bold', size: 14 },
-              //this checks the percentage and then shows it inside the pie chart
               formatter: (value, ctx) => {
-                //calculates & then returns the value as a percentage
                 const data = ctx.chart.data.datasets[0].data;
                 const sum  = data.reduce((a, b) => a + b, 0);
                 return Math.round((value * 100) / sum) + '%';
@@ -142,35 +124,34 @@
             }
           }
         },
-        plugins: [ ChartDataLabels ]   // turns the plugins on
+        plugins: [ ChartDataLabels ]
       }
     );
 
     // ── LINE CHART SETUP ──
-    new Chart(document.getElementById('lineChart'), {
-      type: 'line',
-      data: {
-        //dates to go at the bottom x-axis
-        labels: {{ line_labels|safe }}, 
-        datasets: [{
-          data:  {{ line_data|safe }},  
-          //This removes the shading under the line
-          fill:   false,   
-          borderWidth: 2,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        //hide the legend box
-        plugins: { legend: { display: false } }, 
-        scales: {
-            //make the y-axis go from 0-100
-          y: { beginAtZero: true, max: 100 } 
+    {% if user.userRole == 'senior_manager' %}
+    new Chart(
+      document.getElementById('lineChart'),
+      {
+        type: 'line',
+        data: {
+          labels: {{ line_labels|safe }},
+          datasets: [{
+            data: {{ line_data|safe }},
+            fill: false,
+            borderWidth: 2,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, max: 100 }
+          }
         }
       }
-    });
+    );
+    {% endif %}
   </script>
 {% endblock %}
-
-
