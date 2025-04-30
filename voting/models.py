@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.conf import settings
-
-
 
 # Health Cards, chose to call the model 'Question' as is's shorter
 class Question(models.Model):
@@ -50,11 +48,22 @@ class Vote(models.Model):
 
         return f"Vote ID:{self.pk} - {self.user.email} - {self.session.title} - {self.question.question_content}"
 
-#creating  team model
+#Department model needed for the senior manager
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+    teams = models.ManyToManyField(Group) 
+
+    def __str__(self):
+        return self.name
+
+
+#creating team model
 class Team(models.Model):
     teamID = models.AutoField(primary_key=True)
     teamName = models.CharField(max_length=100)
     teamCapacity = models.IntegerField(default=10)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.teamName
+
