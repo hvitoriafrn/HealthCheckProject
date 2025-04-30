@@ -1,4 +1,5 @@
 # models for Question, Session, Vote, Department created by Pawel Krezel (student no W1837610)
+# Team Model created by H Vitoria Almeida Franca, w1938811
 
 from django.db import models
 from django.contrib.auth.models import User, Group

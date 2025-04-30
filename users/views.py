@@ -1,3 +1,5 @@
+# created by H Vitoria Almeida Franca, w1938811
+
 from django.shortcuts import render, redirect
 from django.db import IntegrityError
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -9,6 +11,8 @@ from .forms import UserCreateForm, UserProfileUpdateForm
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+
+#This was created by H Vitoria Almeida Franca, w1938811
 
 # Create your views here.
 def home(request):
@@ -79,6 +83,8 @@ def logout_view(request):
 def logout_success(request):
     return render(request, 'users/logout_success.html')
 
+
+# This was created by: Faaizah Ahmed, w1974473 // although it was not implemented 
 @login_required
 def team_summary_view(request):
     # Placeholder data for voting summary
@@ -102,7 +108,7 @@ def team_summary_view(request):
 
     return render(request, 'users/team_summary.html', {"voting_data": voting_data})
 
-   
+# This part was created by: Faaizah Ahmed, w1974473 
 @login_required
 def profile_view(request):
     user = request.user

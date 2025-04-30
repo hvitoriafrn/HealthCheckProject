@@ -1,7 +1,8 @@
+/* This was created by H Vitoria Almeida Franca, w1938811 */
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-}
+
+/* minimal styling for the success page */
+
 /* container */
 .container {
     margin-top: 200px;
@@ -12,7 +13,7 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-
+/* grey text */
 .subtext{
     color: gray;
     font-size: small;
@@ -21,7 +22,7 @@ body {
     margin-right: 5px;
     margin-bottom: 10px;
 }
-
+/* button */
 button{
     padding: 9px;
     font-size: 13px;
@@ -35,7 +36,7 @@ button{
     width: 147px;
     font-weight: bold;
 }
-
+/* blue button */
 .buttonBlue{
     padding: 10px;
     font-size: 13px;
@@ -48,17 +49,17 @@ button{
     width: 147px;
     font-weight: bold;
 }
-
+/* removing the underscore for anchor */
 a {
 text-decoration: none;
 }
-
+/* styling the image */
 .img{
     margin-top: 1px;
     width: 40px;
     height: auto;
 }
-
+/* h1 */
 h1{
     text-align: center;
 }

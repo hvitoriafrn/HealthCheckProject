@@ -1,10 +1,15 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+{% extends "base.html" %}
+
 {% load static %} 
 
-    <head>
+<!-- importing the CSS file  -->
+{% block style_sheet %}
         <!-- Include the external CSS file -->
         <link rel="stylesheet" href="{% static 'logout_success.css' %}">
-    </head>
+    {% endblock %}
 
+ {% block content%}
 <body>
     <div class="container">
         <h2> See you soon!</h2>
@@ -23,5 +28,6 @@
         </a>
 
     </div>
-
+   
 </body>
+{% endblock %}

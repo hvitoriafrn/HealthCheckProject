@@ -1,6 +1,5 @@
 <!-- This page was created by: Faaizah Ahmed, w1974473 -->
 
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +16,8 @@
             <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="sky-logo">
         </div>
         <button class="nav-button active-nav">Profile Settings</button>
-        <button class="nav-button">Voting Sessions</button>
-        <button class="nav-button" onclick="window.location.href='{% url 'team_summary' %}'">View Team Summary</button>
+        <button class="nav-button"onclick="window.location.href='{% url 'voting:dashboard' %}'">Voting Sessions</button> 
+        <button class="nav-button" onclick="window.location.href='{% url 'voting:summary' %}'">View Team Summary</button>
     </div>
 
     <!-- Main Content -->

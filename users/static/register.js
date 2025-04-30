@@ -1,3 +1,5 @@
+// This was created by H Vitoria Almeida Franca, w1938811
+
 // Javascript for the 'register' page
 
 
@@ -64,6 +66,7 @@
             const value1 =password1.value;
             const value2 =password2.value;
 
+            // adds the 'touched' for styling
             password2.classList.add("touched");
 
             if (value1 && value2 && value1 !==value2) {
