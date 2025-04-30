@@ -2,7 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.contrib.auth.models import Group
-from .models import Session, Vote
+from .models import Session, Vote, Department
+from users.models import User
+
 
 
 @login_required
@@ -106,7 +108,8 @@ def team_summary(request):
     # 4) did they check “show trends” (on = True, off = False)
     show_trend = request.GET.get('show_trend') == 'on'
 
-    # 5) change made - code now fetches the team names 
+    # 5) change made - code now fetches the team names automatically
+
     group_names = []
     for team in Group.objects.all():
         group_names.append(team.name)
@@ -171,6 +174,12 @@ def team_summary(request):
         # percentage of green votes
         line_data.append(round(green * 100 / total, 0))  
 
+    # build a list of departments with team names
+    departments_with_names = []
+    for dept in Department.objects.all():
+        names = list(dept.teams.values_list('name', flat=True))
+        departments_with_names.append((dept, names))
+
     # 9) finally, hand all that data off to the vote_summary template
     return render(request, 'voting/vote_summary.html', {
         'sessions':        sessions,
@@ -178,7 +187,7 @@ def team_summary(request):
         'show_trend':      show_trend,
         'questions':       questions,
         'rows':            rows,
-
+        'departments_with_names': departments_with_names,
         'pie_data':     pie_data,
         'pie_labels':   pie_labels,
         'line_labels': line_labels,
@@ -188,4 +197,3 @@ def team_summary(request):
 
 def vote_summary(request):
     return render(request, 'voting/vote_summary.html')  #renders the vote summary page
-
