@@ -106,9 +106,13 @@ def team_summary(request):
     # 4) did they check “show trends” (on = True, off = False)
     show_trend = request.GET.get('show_trend') == 'on'
 
-    # 5) definiing the 3 teams 
-    group_names = ["Your Team", "Team Beta", "Team Gamma"]
-    groups      = [Group.objects.get(name=n) for n in group_names]
+    # 5) change made - code now fetches the team names 
+    group_names = []
+    for team in Group.objects.all():
+        group_names.append(team.name)
+    groups = [Group.objects.get(name=n) for n in group_names]
+
+
 
     # 6) get all the questions for the selected session
     questions   = current.questions_included.all()
