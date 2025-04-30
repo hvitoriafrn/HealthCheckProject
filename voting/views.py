@@ -19,22 +19,27 @@ def dashboard(request):
 
 @login_required
 def session(request, session_id):
+    # Load the session you clicked on
     session = get_object_or_404(Session, pk=session_id)
+    # get all of the questions in that session
     questions = session.questions_included.all()
 
-    # If user already fully submitted this session, show a message
+    # If you’ve already voted, show a “you already did this” page
     if session.is_completed_by_user(request.user):
         return render(request, 'voting/already_submitted.html', {'session': session})
 
+    # If you just hit “submit” for the form
     if request.method == 'POST':
         action = request.POST.get('action')  # either 'save' or 'submit'
 
         # Save or update votes for every question present
 
         for question in questions:
+            # grab your colour choice and any comment
             choice = request.POST.get(f"{question.pk}-colour")
             comment = request.POST.get(f"{question.pk}-comment", '').strip()
 
+            # if it’s a valid choice, save or update your vote
             if choice in Vote.vote_options:
                 Vote.objects.update_or_create(
                     user=request.user,
@@ -45,8 +50,9 @@ def session(request, session_id):
                 )
 
         if action == 'submit':
-            # Final submission: mark as completed
+            # mark that you have completed this session
             session.submitted_by.add(request.user)
+            # then have them go back to the dashboard
             return redirect('voting:dashboard')
 
         # action == 'save' (or anything else): just re-load this session page
@@ -62,6 +68,7 @@ def session(request, session_id):
         'questions_qty': questions.count(),
         'votes_dict': votes_dict,
     }
+     # Otherwise with teh GET request, just show them the voting form
     return render(request, 'voting/session.html', context)
 
 
@@ -108,7 +115,8 @@ def team_summary(request):
     # 4) did they check “show trends” (on = True, off = False)
     show_trend = request.GET.get('show_trend') == 'on'
 
-    # 5) change made - code now fetches the team names automatically
+    # 5) defining the 3 teams 
+    # change made - code now fetches the team names automatically
 
     group_names = []
     for team in Group.objects.all():
