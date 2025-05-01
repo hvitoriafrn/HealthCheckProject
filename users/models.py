@@ -1,3 +1,5 @@
+# This page was created and worked on by H Vitoria Almeida Franca, w1938811
+#In collaboration with Pawel Krezel (student no W1837610)
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
 

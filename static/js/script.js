@@ -1,3 +1,5 @@
+// This page created by Pawel Krezel (W1837610) 
+
 
 function exit(url){
     window.location.replace(url);

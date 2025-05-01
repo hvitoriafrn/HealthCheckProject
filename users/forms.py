@@ -1,8 +1,10 @@
+#This page was created by H Vitoria Almeida Franca, w1938811
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
 
+#This section was created by Faaizah Ahmed, w1974473
 class UserProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User
@@ -39,7 +41,7 @@ class UserProfileUpdateForm(forms.ModelForm):
             user.save()
         return user
 
-#user creation 
+#user creation was handled and created by H Vitoria Almeida Franca, w1938811
 class UserCreateForm(UserCreationForm):
 
     class Meta:

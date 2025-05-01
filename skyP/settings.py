@@ -133,6 +133,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+#The below settings.py was added by H Vitoria Almeida Franca, w1938811
 AUTH_USER_MODEL = 'users.User'
 
 #Email configuration, this will enable password reset!
