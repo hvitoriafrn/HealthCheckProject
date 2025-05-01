@@ -1,0 +1,189 @@
+/* this page was created by Yasmin Balogun, w1985103 */
+
+/*stylesheet for nav + footer */
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative; /* For absolute positioning of sign-out */
+}
+
+main {
+    flex: 1;
+    margin-left: 250px; /* Match navbar width */
+    padding: 20px;
+}
+
+.content {
+    min-height: calc(100vh - 150px); /* Adjusts based on footer height */
+    padding: 20px;
+}
+
+/* Navbar styles */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    
+}
+
+.navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ccc; /* Border only on the right side */
+    position: relative;
+   
+}
+
+.sky-logo {
+    width: 120px;
+    margin: 10px;
+    margin-right: auto; /* Push the logo to the left */
+    margin-left: 60px; /* Added some left margin for spacing */
+}
+
+nav {
+    margin-top: 50px;
+    margin-left: auto; /* Pushes the nav to the left */
+    margin-right: 50px; /* Added some right margin for spacing */
+    width: fit-content; /* Adjusts width to fit content */
+}
+
+
+nav ul {
+    list-style-type: none !important; 
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+nav ul li {
+    margin: 20px 0 !important; 
+    border: 2px solid #000 !important;
+    border-radius: 5px !important;
+    text-align: center !important;
+    padding: 30px !important;
+    width: 100px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+nav ul li:hover {
+    background-color: #f0f0f0 !important;
+}
+
+nav ul li:active {
+    background-color: #3498db !important;
+    color: #fff !important;
+}
+
+nav ul li.active-page {
+    background-color: #3498db !important;
+    color: #fff !important;
+    border-color: #3498db !important;
+}
+
+nav ul li a {
+    color: #000 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+nav ul li img.icon {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.sign-out-navbar {
+    position: fixed; /* Fix it to the viewport */
+    top: 20px;      
+    right: 20px;     
+    z-index: 1001; /* Ensures it's above other elements */
+}
+
+/* .sign-out-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    gap: 5px;
+}
+
+.sign-out-link img.icon {
+    width: 24px;
+    height: 24px;
+}
+ */
+
+/* Logout Button */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;    
+    border: none;
+    padding: 0; 
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    opacity: 0.8;
+}
+
+.logout-icon {
+    width: 50px; 
+    height: 50px;
+    object-fit: contain; 
+    background-color: transparent;
+    
+}
+
+/* Footer styles */
+footer {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    margin-top: auto; /* Push to bottom */
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    margin-left: 250px; /* Match navbar width */
+}
+
+.footer-logo .logo {
+    width: 80px;
+    height: auto;
+}
+
+.footer-links {
+    text-align: right;
+}
+
+.footer-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.footer-links a:first-child {
+    margin-left: 0;
+}

@@ -1,0 +1,8 @@
+<!-- template created by Pawel Krezel (W1837610) -->
+
+{% extends 'base.html' %}
+{% block content %}
+  <h2>You've already submitted this session.</h2>
+  <p>Session: {{ session.title }}</p>
+  <a href="{% url 'voting:dashboard' %}">Go back to dashboard</a>
+{% endblock %}

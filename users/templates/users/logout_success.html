@@ -1,0 +1,33 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+{% extends "base.html" %}
+
+{% load static %} 
+
+<!-- importing the CSS file  -->
+{% block style_sheet %}
+        <!-- Include the external CSS file -->
+        <link rel="stylesheet" href="{% static 'logout_success.css' %}">
+    {% endblock %}
+
+ {% block content%}
+<body>
+    <div class="container">
+        <h2> See you soon!</h2>
+        <div class="subtext">
+            <b>Your account has been logged out successfully!</b>
+        </div>
+        
+         <!-- button for back to the home page -->
+          <a href="{% url 'home' %}">
+         <button name="button" type="submit" class="button">Back to Home Page</button>
+         </a>
+
+         <!-- button for login -->
+          <a href="{% url 'login' %}">
+         <button name="buttonBlue" type="submit" class="buttonBlue">Login</button>
+        </a>
+
+    </div>
+   
+</body>
+{% endblock %}

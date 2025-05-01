@@ -1,0 +1,57 @@
+<!-- this page was created by Yasmin Balogun, w1985103 -->
+
+{% load static %}
+<!-- Navbar-->
+ 
+<div class="navbar">
+    <!-- added an achor to make the link clickable -->
+    <a href="{% url 'home' %}">
+        <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="sky-logo">
+    </a>
+    <nav>
+        <ul>
+            <!-- Profile Settings -->
+            
+        <!-- Highlights the current page (profile) in the navbar -->
+        {% if user.is_authenticated and request.path != '/register/' %}
+            <li class="{% if request.path == '/profile/' %}active-page{% endif %}">
+                <a href="{% url 'profile' %}">
+                    <img src="{% static 'images/profile.png' %}" alt="Profile Icon" class="icon">
+                    Profile Settings
+                </a>
+            </li>
+            
+            <!-- Voting Sessions -->
+            <!-- voting session only shows if the user is an engineer or leader -->
+            {% if user.userRole == 'engineer' or user.userRole == 'leader' %}
+        
+            <!-- Highlights the current page (voting session) in the navbar -->
+            <li class="{% if request.path == '/voting/choose-session/' %}active-page{% endif %}">
+                <a href="{% url 'voting:dashboard' %}">
+                    <img src="{% static 'images/voting.png' %}" alt="Voting Icon" class="icon">
+                    Voting Sessions
+                </a>
+            </li>
+            {% endif %}
+            
+            <!-- View Summary -->
+             <!-- Highlights the current page (vote summary) in the navbar -->
+            <li class="{% if request.path == '/voting/vote-summary/' %}active-page{% endif %}">
+                <a href="{% url 'voting:summary' %}">
+                    <img src="{% static 'images/summary.png' %}" alt="Summary Icon" class="icon">
+                    View Summary
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="sign-out-navbar">
+        <!-- <a href="{% url 'logout' %}" class="sign-out-link">
+     <img src="{% static 'images/sign-out.png' %}" alt="Sign Out Icon" class="icon"> Sign Out
+        </a> -->
+        <a href="{% url 'logout' %}" class="sign-out-link"><button class="logout-btn">
+            <img src="{% static 'images/sign-out-option.png' %}" alt="Log Out" class="logout-icon"> Sign out
+        </button></a>
+    </div>
+    {% endif %}
+</div>
+

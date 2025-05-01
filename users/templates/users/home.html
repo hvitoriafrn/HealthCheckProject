@@ -1,0 +1,207 @@
+<!-- Vote_Summary page created by Maryam Chaudhry, w1916669 -->
+
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sky Squad Project Health Check Software</title>
+  
+  <!-- for some reason my pull didn't correctly work, I copied Maryam's code manually -->
+  <style>
+    /* Basic styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif; /* Use Arial font */
+      background-color: #fff; /* Set background to white */
+    }
+    header {
+      padding: 10px 20px; /* Space inside the header */
+      background: #fff; /* White background for header */
+    }
+
+     /* Container for header content (logo and text) */
+    .header-content {
+      display: flex;
+      flex-direction: column; /* Stack the items vertically */
+      align-items: flex-start;  /* Keeps items to the left */
+    }
+
+     /* Logo styling */
+    .logo {
+      width: 180px;   /* Makes the logo bigger */
+      height: auto;   /* Keeps the aspect ratio */
+      transition: transform 0.3s; /* For hover effect */
+      margin-left: 4%;
+      margin-bottom: 5px;
+    }
+    .logo:hover {
+      transform: scale(1.05); /* Slight zoom when you hover
+                                over the logo */
+    }
+
+    /* Styling for the text under the logo */
+    .header-text h2 {
+      font-size: 1.5rem; /* Smaller font size since we're using h2 */
+      margin: 10px 0 5px 0; /* Top, right, bottom, left margins */
+      margin-left: 60px; /* Indent text to line up under the logo */
+      
+    }
+    .header-text p { 
+      margin: 0; /* Remove default paragraph margin */
+      font-size: 1rem; /* Sets font size for paragraphs */
+      line-height: 1.4; /* Sets line spacing */
+      margin-left: 60px; /* Indent to align with header text */
+    }
+    .hero {
+      text-align: center; /* Center the content inside hero */
+      padding: 60px 20px; /* Space around hero content */
+      background-color: #fff; /* White background for hero */
+    }
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem; /* Space below heading */
+      
+    }
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 600px; /* Maximum width to read it easily */
+      margin: 0 auto 1.5rem auto; /* Center and space out paragraph */
+      line-height: 1.5;
+    }
+
+    .btn-demo {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #2c71fd; /* Sets the button to blue */
+      color: #fff; /* White text inside the button */
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: opacity 0.3s; /* Smooth hover effect */
+      text-decoration: none; /* added this to remove the text underline because of the anchor*/
+    }
+    .btn-demo:hover {
+      opacity: 0.8; /* Slight fade on hover */
+    }
+
+  .btn-outline {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background: transparent;        /* no fill */
+    border: 2px solid #ccc;       /* light grey border */
+    color: #333;    /* dark text for the register button */
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-decoration: none; /* added this to remove the text underline because of the anchor*/
+}
+.btn-outline:hover {
+  background: #f0f0f0; /* subtle grey on hover for both buttons */
+}
+
+    .hero-buttons {
+  display: flex;
+  justify-content: center; /* Centers buttons */
+  gap: 10px; /* Adds space between buttons */
+}
+
+    footer {
+      text-align: center; /* Center the text in the footer */
+      padding: 10px;
+      background: #fff; /* White background */
+      border-top: 1px solid #ccc; /* Light top border */
+      margin-top: 40px; /* Space above the footer */
+    }
+
+    /* Footer container that holds the logo and links side by side */
+    .footer-container {
+  display: flex;
+  justify-content: space-between; /* Logo left, and the links right */
+  align-items: center;
+  padding: 10px 20px;  /* Adds space around the content */
+}
+
+/* Footer logo sizing */
+.footer-logo .logo {
+  width: 100px;  /* To adjust size */
+  height: auto;
+  margin-left: 43%;
+}
+
+/* Footer links styling */
+.footer-links {
+  text-align: right;
+  padding-right: 20px;  /* Extra space from the right edge */
+}
+
+.footer-links a {
+  margin-left: 20px;  /* Adds space between each link */
+  text-decoration: none;
+  color: #000;
+}
+
+.footer-links a:first-child {
+  margin-left: 0;  /* No left margin for the first link */
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-content">
+      
+      <!-- Sky Logo -->
+      <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="logo">
+
+      <!-- Text underneath the logo -->
+      <div class="header-text">
+        <p>Sky Squad Project Health Check Software</p> <br>
+        <h2>
+            Keep track of your team's attitude towards <br>
+            current affairs of their projects. <br><br></h2>
+        <p>Review the health status of your projects and see <br>
+          which areas need extra attention.
+    </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main> <!-- everything that isn't in the header/ footer is wrapped in here -->
+    <section class="hero"> <!-- The .hero centers the text & gives it padding -->
+        <div class="hero-buttons"> <!-- A container for the login and register -->
+          <!-- changed to anchor because the links weren't working -->
+          <a href="{% url 'login' %}" class="btn-demo">
+            Log in <!-- when clicked, it sends teh user to the login page -->
+          </button></a>
+          <a href="{% url 'register' %}" class="btn-outline">
+            Register
+          </button></a> 
+        </div>
+      </section>
+      
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+        <!-- Logo on the left -->
+        <div class="footer-logo">
+          <img src="{% static 'images/skylogo.png' %}" alt="Sky Logo" class="logo">
+        </div>
+        <!-- Footer links on the right -->
+    <div class="footer-links">
+      <a href="https://www.sky.com/help/home" target="_blank" rel="noopener">Help</a>
+      <a href="https://www.sky.com/help/home/accessibility-information" target="_blank" rel="noopener">Accessibility</a>
+      <a href="https://www.sky.com/help/articles/privacy-hub-home" target="_blank" rel="noopener">Privacy & terms of use</a>
+      <a href="https://www.sky.com/help/articles/contacting-sky" target="_blank" rel="noopener">Contact us</a>
+      <a href="https://skyforbusiness.sky.com/sb/portal/business/uk/terms_and_conditions/terms_and_conditions" target="_blank" rel="noopener">Legal</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

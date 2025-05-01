@@ -1,0 +1,75 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+
+{% extends 'base.html' %}
+
+{% load static %} 
+
+{% block style_sheet %}
+        <link rel="stylesheet" href="{% static 'registerlogin.css' %}">
+{% endblock %}
+
+{% block content%}
+<div class="account-body">
+        <!--base login page-->
+    <div class="container-for-login">
+        <h2> Log into your account</h2>
+            <div class="subtextBlack">Welcome back! </div>
+            <div class="subtext">Don't have an account?
+        <!-- linking to the login page -->
+            <a href="{% url 'register' %}" name="link" id="register-link">Register</a>
+            </div>
+       
+        <!-- error message -->
+        <div class="card-body">
+            {% if error %}
+            <div class="alert alert-danger mt-3"
+                role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <!--loading the login form I created -->
+            <form method="POST" novalidate class="login-form">
+                {% csrf_token %}
+                
+                <!-- shows errors (non field ones) -->
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                <!-- Email field (it's called username) -->
+                <label for="{{ form.username.id_for_label }}" class="login-label">Email</label>
+                {{ form.username }} <!-- this renders the form!-->
+                {% for error in form.username.errors %}
+                    <div class="error-message-login">{{ error }}</div>
+                {% endfor %}
+
+                <!-- Password field -->
+                <label for="{{ form.password.id_for_label }}" class="login-label">Password</label>
+                {{ form.password }}
+                {% for error in form.password.errors %}
+                    <div class="error-message-login">{{ error }}</div>
+                {% endfor %}
+
+                <!-- option div, encases where remember me and forgot password are -->
+                <div class="options" id="for-login">
+                    <label class="checkbox-label">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">Remember me </label>
+                    <a href="{% url 'reset_password' %}" class="forgot-password-link">Forgot your password?</a>
+                </div>
+
+            
+                <!-- sign in button-->
+                <button name="button" type="submit" class="login-signin-button"> Sign in </button>
+            </form>
+
+        </div>
+    </div>    
+</div>
+    {% endblock %}
+
+
+
+

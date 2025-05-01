@@ -1,0 +1,100 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+
+{% extends "base.html" %}
+{% block content %}
+{% load static %} 
+
+<!-- importing the CSS file  -->
+{% block style_sheet %}
+    <!-- Include the external CSS file -->
+    <link rel="stylesheet" href="{% static 'registerlogin.css' %}">
+{% endblock %}
+   <body>
+    <!-- Start of the registration page -->
+        <div class="container" id="register-account-container"> 
+            <h2>Register your account</h2>
+            <div class="subtextBlack">Welcome to the team!</div> 
+            <div class="subtext">Already have an account? 
+            <!-- linking to the login page -->
+        <a href="{% url 'login' %}" name="link" class="log-in-link" id="link">Log in</a> </div>
+    
+        <!-- here is where the form starts -->
+            {% if form.non_field_errors %}
+                <div class="error-message">
+                {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+        
+            <form method="POST" class="register-form">
+                    {% csrf_token %}
+                <div>
+                    <!-- label for 'First name' form-->
+                    <label for="{{ form.userFirstName.id_for_label }}" id="input-register-label">First name</label>
+                    {{ form.userFirstName }} <!-- this renders the form-->
+                    <div class="error-message">Please enter your first name</div> <!-- custom error message-->
+                </div>
+
+                <!-- label for 'Surname' form-->
+                <div>
+                    <label for="{{ form.userLastName.id_for_label }}" id="input-register-label">Surname</label>
+                    {{ form.userLastName }}
+                    <div class="error-message">Please enter your surname</div>
+                </div>
+
+                <!-- label for Email address form-->
+                <div>        
+                    <label for="{{ form.email.id_for_label }}" id="input-register-label">Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="existing-email-error" id="existing-email-error">
+                        {{ form.email.errors.0 }}
+                    </div>
+                    {% else %}
+                    <div class="error-message">Please enter a valid email</div> 
+                    {% endif %}
+                </div>
+
+                <div>
+                    <!-- label for Role-->
+                    <label for="{{ form.userRole.id_for_label }}" id="input-register-label">Role</label>
+                    {{ form.userRole }}
+                </div>
+
+
+                <!-- label for password-->
+                <div>
+                <label for="{{ form.password1.id_for_label }}" id="input-register-label">Password</label>
+                    {{ form.password1 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+                <!-- label for confirm your password -->
+                <div>
+                <label for="{{ form.password2.id_for_label }}" id="input-register-label">Confirm password</label>
+                    {{ form.password2 }}
+                    <div class="error-message">{{ error }}</div>
+                </div>
+
+                <!-- button for register -->
+                <button name="button" type="submit" id="register-button">
+                    Register</button>
+            
+                <!-- text underneath the register button (terms and conditions)-->
+                <div class="terms-for-registration"> By clicking the 'Register' button, 
+                    you are creating an account, and you agree to the Terms of Use</div>
+            </form>
+        </div>
+
+    <!-- to display a general error message -->
+        {% if error %}
+        <div class="alert-danger mt3" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+    
+    </div>
+    
+    <script src="{% static 'register.js' %}"></script>
+</body>
+
+{% endblock %}

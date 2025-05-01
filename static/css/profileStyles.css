@@ -1,0 +1,512 @@
+/* This page was created by: Faaizah Ahmed, w1974473 */
+
+/* Ensure the body and html take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Left Panel */
+.left-panel {
+    width: 200px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    border-right: 1px solid #ddd;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo-container .sky-logo {
+    height: 50px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.nav-button.active-nav {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.nav-button:hover {
+    background-color: #e6e6e6;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1; /* Push the footer to the bottom */
+    margin: 20px; /* Add some spacing */
+    margin-left: 280px; /* Adjust for the left panel width */
+    padding: 20px;
+    position: relative;
+}
+
+/* Logout Button */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;    
+    border: none;
+    padding: 0; 
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    opacity: 0.8;
+}
+
+.logout-icon {
+    width: 50px; 
+    height: 50px;
+    object-fit: contain; 
+    background-color: transparent;
+    
+}
+
+/* Profile Section */
+.profile-section {
+    margin-top: 20px;
+}
+
+.profile-section h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.profile-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.field-group {
+    margin-bottom: 30px; /* Add margin between input fields */
+}
+
+.field-group.row {
+    display: flex;
+    justify-content: space-between; /* Align fields horizontally */
+    gap: 20px; /* Add spacing between fields */
+    margin-bottom: 20px; /* Add spacing below the row */
+}
+
+.field-item {
+    flex: 1; /* Allow fields to take equal space */
+    margin-bottom: 10px; /* Reduce spacing between fields */
+}
+
+.field-item input {
+    width: 100%; /* Ensure input fields take full width */
+    padding: 5px;
+    border: 1px solid black; /* Default border color */
+    border-radius: 5px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.field-item select {
+    width: 100%;
+    max-width: 300px; /* Match the size of input fields */
+    padding: 5px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    height: 40px; /* Match the height of input fields */
+    box-sizing: border-box;
+    background-color: white;
+    cursor: not-allowed; /* Indicate the dropdown is disabled */
+}
+
+.field-item button {
+    margin-top: 10px; /* Add spacing above buttons */
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.field-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column; /* Stack input and buttons vertically */
+    gap: 5px; /* Reduce spacing between input and buttons */
+    position: relative;
+}
+
+input {
+    width: 100%;
+    flex: 0.5; 
+    padding: 5px;
+    border: 1px solid blue; /* Default border color */
+    border-radius: 5px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+/* Ensure all input fields have the same size */
+input[type="text"], input[type="email"] {
+    width: 100%; /* Ensure consistent width */
+    max-width: 500px; /* Set a maximum width */
+    padding: 5px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Add spacing between buttons */
+    margin-top: 10px; /* Add spacing above the buttons */
+}
+
+.button-container button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.edit-btn, .cancel-btn, .save-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.cancel-btn {
+    background-color: #ccc; /* Gray background for cancel button */
+    color: black;
+    display: none; /* Initially hidden */
+}
+
+.cancel-btn:hover {
+    background-color: #999; /* Darker gray on hover */
+}
+
+.save-btn {
+    background-color: #28a745;
+    color: white;
+    display: none; /* Initially hidden */
+}
+
+.save-btn:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+footer {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px; /* Add space above the footer */
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.footer-logo .logo {
+    width: 100px;
+    height: auto;
+}
+
+.footer-links {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.footer-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+.footer-links a:first-child {
+    margin-left: 0;
+}
+
+/* Voting Summary Table */
+.voting-summary table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.voting-summary th, .voting-summary td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.voting-summary th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.voting-summary .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+/* Colors for circles */
+.circle.green {
+    background-color: #28a745;
+}
+
+.circle.amber {
+    background-color: #ffc107;
+}
+
+.circle.red {
+    background-color: #dc3545;
+}
+
+/* Arrow Up */
+.circle.arrow-up::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* Arrow Down */
+.circle.arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid white;
+    border-top: 2px solid white;
+    transform: translateX(-50%) rotate(45deg);
+}
+
+/* Rectangle */
+.circle.rectangle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 4px;
+    background-color: white;
+}
+
+/* Voting Summary */
+.voting-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between rows */
+    margin-top: 20px;
+}
+
+.questions-row {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 10 equal columns */
+    gap: 10px; /* Space between columns */
+    text-align: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+
+.circles-row {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* 10 equal columns */
+    gap: 10px; /* Space between columns */
+    text-align: center;
+}
+
+.circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: bold;
+}
+
+/* Colors for circles */
+.circle.green {
+    background-color: #28a745;
+}
+
+.circle.amber {
+    background-color: #ffc107;
+}
+
+.circle.red {
+    background-color: #dc3545;
+}
+
+/* Arrow Up */
+.circle.arrow-up::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid white;
+    border-bottom: 2px solid white;
+    transform: rotate(45deg);
+}
+
+/* Arrow Down */
+.circle.arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid white;
+    border-top: 2px solid white;
+    transform: rotate(45deg);
+}
+
+/* Rectangle (No Change) */
+.circle.rectangle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 5px;
+    background-color: white;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between switch and dropdown */
+    margin-bottom: 20px; /* Space below the controls */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-size: 1rem;
+    color: #333;
+    cursor: pointer;
+}
+
+#session-dropdown {
+    padding: 5px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.trend-column {
+    display: table-cell; /* Ensure trends column is visible */
+}

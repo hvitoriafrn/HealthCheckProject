@@ -1,0 +1,117 @@
+<!-- This page was created by: Faaizah Ahmed, w1974473  -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Summary</title>
+    <link rel="stylesheet" href="{% static 'css/profileStyles.css' %}">
+</head>
+<body>
+    <!-- Left Panel -->
+    <div class="left-panel">
+        <div class="logo-container">
+            <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="sky-logo">
+        </div>
+        <button class="nav-button" onclick="window.location.href='{% url 'profile' %}'">Profile Settings</button>
+        <button class="nav-button">Voting Sessions</button>
+        <button class="nav-button active-nav">View Team Summary</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <button class="logout-btn" onclick="window.location.href='{% url 'login' %}'">
+            <img src="{% static 'images/sign-out-option.png' %}" alt="Log Out" class="logout-icon">
+        </button>
+        
+        <div class="team-summary-section">
+            <h1>Team Summary</h1>
+            <h2>Overview of your team's performance</h2>
+
+            <!-- Toggle and Dropdown Menu -->
+            <div class="controls">
+                <!-- Switch Button for Display Trends -->
+                <label class="switch">
+                    <input type="checkbox" id="display-trends-toggle" onchange="toggleTrends(this.checked)">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label">Display Trends</span>
+
+                <!-- Dropdown Menu for Session Selection -->
+                <select id="session-dropdown" onchange="changeSession()">
+                    <option value="session1">Session 1</option>
+                    <option value="session2">Session 2</option>
+                    <option value="session3">Session 3</option>
+                </select>
+            </div>
+
+            {% comment %} <!-- Voting Summary Table -->
+            <div class="voting-summary">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Current Vote</th>
+                            <th class="trend-column">Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vote in voting_data %}
+                        <tr>
+                            <td>{{ vote.question }}</td>
+                            <td><div class="circle {{ vote.current_vote }}"></div></td>
+                            <td class="trend-column"><div class="circle {{ vote.current_vote }} {{ vote.trend }}"></div></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> {% endcomment %}
+
+            <!-- New Voting Summary -->
+            <div class="voting-summary">
+                <!-- Questions Row -->
+                {% comment %} <div class="questions-row">
+                    <div class="question">Delivering Value</div>
+                    <div class="question">Easy to Release</div>
+                    <div class="question">Learning</div>
+                    <div class="question">Pawns or Players</div>
+                    <div class="question">Teamwork</div>
+                    <div class="question">Health of Codebase</div>
+                    <div class="question">Mission</div>
+                    <div class="question">Speed</div>
+                    <div class="question">Suitable Process</div>
+                    <div class="question">Support</div>
+                </div> {% endcomment %}
+
+                <!-- Circles Row -->
+                    {% for vote in voting_data %}
+                    <div class="trend-container">
+                    <p>{{vote.question}}</p>
+                    <div class="circle-container">
+                        <div class="circle {{ vote.current_vote }} {{ vote.trend }}"></div>
+                    </div>
+                    </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="{% static 'images/skylogo.jpeg' %}" alt="Sky Logo" class="logo">
+            </div>
+            <div class="footer-links">
+                <a href="/help/">Help</a>
+                <a href="/accessibility/">Accessibility</a>
+                <a href="/privacy/">Privacy & terms of use</a>
+                <a href="/contact/">Contact us</a>
+                <a href="/legal/">Legal</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

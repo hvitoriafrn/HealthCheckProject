@@ -1,0 +1,33 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+
+{% load static %} 
+
+<!-- importing the CSS file  -->
+<head>
+    <!-- Include the external CSS file -->
+    <link rel="stylesheet" href="{% static 'success.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <!-- checkmark image -->
+            <h1> <img src="{% static 'images/success.svg' %}" alt="checkmark" class="img">
+                Success!</h1>
+        <div class="subtext">
+            <b>Your account has been registered successfully!</b>
+            <br>Your account is now ready and you can log into the system
+        </div>
+        
+         <!-- button for back to the home page -->
+          <a href="{% url 'home' %}">
+         <button name="button" type="submit" class="button">Back to Home Page</button>
+         </a>
+
+         <!-- button for login -->
+          <a href="{% url 'login' %}">
+         <button name="buttonBlue" type="submit" class="buttonBlue">Login</button>
+        </a>
+
+    </div>
+
+</body>

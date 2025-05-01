@@ -1,0 +1,65 @@
+/* This was created by H Vitoria Almeida Franca, w1938811 */
+
+
+/* minimal styling for the success page */
+
+/* container */
+.container {
+    margin-top: 200px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 1px 3px 10px 0px #888888;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* grey text */
+.subtext{
+    color: gray;
+    font-size: small;
+    text-align: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+/* button */
+button{
+    padding: 9px;
+    font-size: 13px;
+    background-color: #ffffff;
+    color: rgb(48, 48, 48);
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    border: black;
+    border-style: solid;
+    width: 147px;
+    font-weight: bold;
+}
+/* blue button */
+.buttonBlue{
+    padding: 10px;
+    font-size: 13px;
+    background-color: #038be0;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 147px;
+    font-weight: bold;
+}
+/* removing the underscore for anchor */
+a {
+text-decoration: none;
+}
+/* styling the image */
+.img{
+    margin-top: 1px;
+    width: 40px;
+    height: auto;
+}
+/* h1 */
+h1{
+    text-align: center;
+}

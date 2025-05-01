@@ -1,0 +1,45 @@
+<!-- this page was created by Yasmin Balogun, w1985103 -->
+
+{% load static %}
+
+<head>
+</div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sky Health Check{% endblock %}</title>
+
+    <!--The following 3 lines are CDNs from Google for the Roboto Font that will be used in the project-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Commissioner:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- CDNs for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    {% block style_sheet %}{% endblock %}
+</head>
+<body>
+    <div class="page-container">
+        <!-- added this line because the navbar kept displaying on the register page-->
+        
+        <header>
+            {% include 'navbar.html' %}
+        </header>
+       
+        
+        <main>
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+        
+        <footer>
+            {% include 'footer.html' %}
+        </footer>
+    </div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+
+{% extends "base.html" %} 
+{% block content %}
+
+{% load static %}
+{% block style_sheet %}
+<link rel="stylesheet" href="{% static 'reset_password.css' %}">
+{% endblock %}
+
+
+        <!--base login page-->
+        <div class="container-after-form-is-submited">
+            <h2> Set your new password </h2>
+    
+            {% if validlink %}
+            <!--loading the logout form (django's) -->
+            <form method="POST">
+                {% csrf_token %}
+           
+                <!-- this is loading the form to reset the password -->
+                    <div class="requirements">
+                    {{ form.new_password1.help_text|safe }} 
+                    </div>
+                    <label for="id_new_password1"> New password: </label>
+                    {{ form.new_password1 }}
+
+                <!-- confirm your password -->
+                    <label for="id_new_password2"> Confirm password: </label>
+                    {{ form.new_password2 }}
+                    {% if form.new_password2.help_text %}
+                    <div class="error-message">{{ form.new_password2.help_text|safe }} </div>
+                    {% endif %}
+
+         <!-- reset password button-->
+         <button name="button" type="submit" id="reset-password-button"> Reset password </button>
+            </form>
+
+            {% else %}
+            <!-- option div, will show up for the user if the link expired-->
+            <div class="options"> This link is no longer valid. Please request a new one.
+            <a href="{% url 'reset_password' %}" class="tryAgain">Try again</a>
+            </div> 
+            {% endif %}
+
+        </div>
+     </div>    
+    </body>
+</html>
+{% endblock %}

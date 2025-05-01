@@ -1,0 +1,59 @@
+/* This was created by H Vitoria Almeida Franca, w1938811 */
+
+/* minimal styling for logout success */
+body {
+        font-family: "Roboto-Bold", "Roboto Bold", "Roboto", sans-serif;
+    }
+    /* container */
+    .container {
+        margin-top: 100px;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 1px 3px 10px 0px #888888;
+        width: 300px;
+        margin-left: 25%;
+        margin-right: auto;
+    }
+    
+    .subtext{
+        color: gray;
+        font-size: small;
+        text-align: left;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 10px;
+    }
+    
+    button{
+        padding: 9px;
+        font-size: 14px;
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 10px;
+        border: black;
+        border-style: solid;
+        width: 147px;
+    }
+
+    .buttonBlue{
+        padding: 10px;
+        font-size: 14px;
+        background-color: #038be0;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 147px;
+    }
+    h2{
+        text-align: center;
+    }
+
+    a {
+    text-decoration: none;
+    }
+    
+  

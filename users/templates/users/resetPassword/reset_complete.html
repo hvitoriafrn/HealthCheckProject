@@ -1,0 +1,24 @@
+<!-- This was created by H Vitoria Almeida Franca, w1938811 -->
+
+{% extends "base.html" %} 
+{% block content %}
+
+{% load static %}
+{% block style_sheet %}
+<link rel="stylesheet" href="{% static 'reset_password.css' %}">
+{% endblock %}
+
+        <!--page starts-->
+        <div class="container-after-form-is-submited">
+            <h2> <img src="{% static 'images/success.svg' %}" alt="checkmark" class="img">
+            Your password has been reset!</h2>
+
+            <div class="subtextDone">We're happy to have you back!
+                <br>Click the button below to vote log into your account.</a>
+            </div>
+            
+            <!-- button/link to take the user back to home page! -->
+            <a href="{% url 'login' %}"><button class="button">Sign in to your account</button></a>
+        </div>  
+
+{% endblock %}
