@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # This repository is for Software Development Group Project. 🌱
 
 This contains important information regarding our project, please, read it. 
@@ -20,4 +20,4 @@ This branch will be where we merge the changes to keep from breaking any working
 3. If any changes are pushed to Dev by another colleague, do not forget to make a pull request on VS code so you have the latest changes.
 4. When making commits, make sure to add a comment about what it is that you're changing or what you have done.
    
->>>>>>> e9812a621aab1687c9cf5b0c4091ffe081a4da14
+
