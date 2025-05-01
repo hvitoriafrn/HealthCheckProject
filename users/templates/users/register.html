@@ -30,8 +30,8 @@
                 <div>
                     <!-- label for 'First name' form-->
                     <label for="{{ form.userFirstName.id_for_label }}" id="input-register-label">First name</label>
-                    {{ form.userFirstName }}
-                    <div class="error-message">Please enter your first name</div>
+                    {{ form.userFirstName }} <!-- this renders the form-->
+                    <div class="error-message">Please enter your first name</div> <!-- custom error message-->
                 </div>
 
                 <!-- label for 'Surname' form-->

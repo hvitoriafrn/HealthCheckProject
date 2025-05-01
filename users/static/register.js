@@ -68,7 +68,7 @@
 
             // adds the 'touched' for styling
             password2.classList.add("touched");
-
+            //ensure passwords match
             if (value1 && value2 && value1 !==value2) {
                 showError(password2, "Passwords do not match")
             } else if (value2.length > 0) {

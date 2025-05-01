@@ -41,7 +41,7 @@
 
                 <!-- Email field (it's called username) -->
                 <label for="{{ form.username.id_for_label }}" class="login-label">Email</label>
-                {{ form.username }}
+                {{ form.username }} <!-- this renders the form!-->
                 {% for error in form.username.errors %}
                     <div class="error-message-login">{{ error }}</div>
                 {% endfor %}
