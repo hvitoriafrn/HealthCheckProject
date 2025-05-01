@@ -1,3 +1,5 @@
+# this page was created by H Vitoria Almeida Franca, w1938811
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User
@@ -8,7 +10,7 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     model = User
 
-# what columns will be displayed for admin view
+#what columns will be displayed for admin view
     list_display = (
         'email', 
         'userFirstName',
@@ -17,10 +19,10 @@ class CustomUserAdmin(UserAdmin):
         'is_staff',
         'is_superuser')  
 
-# displaying email first on the list
+# displays email first on the list
     ordering = ('email',)
 
- # fieldsets will define which fields show on the edit user page inside admin
+ #fieldsets defines which fields show on the edit user page inside admin
 
     fieldsets = (
         ('Login Credentials', { 'fields': ('email', 'password')  }),
@@ -29,7 +31,8 @@ class CustomUserAdmin(UserAdmin):
             'is_active', 'is_staff', 'is_superuser',
             'groups', 'user_permissions') }),
         )
-
+    
+    #fields when adding a new user through admin
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -47,6 +50,6 @@ class CustomUserAdmin(UserAdmin):
                 'user_permissions'), 
         }),
     )
-
-    search_fields = ('email','userRole','team')
+#allows search functionality
+    search_fields = ('email','userRole','teamID')
  
